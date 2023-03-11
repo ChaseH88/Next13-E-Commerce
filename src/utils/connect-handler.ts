@@ -1,5 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { connect } from "./server";
+import { getCookie } from "cookies-next";
+import { decodeToken } from "./json-web-token";
+import { JwtPayload } from "jsonwebtoken";
+import { User } from "models/user";
 
 type HandlerConfig = {
   method: "GET" | "POST" | "PUT" | "DELETE";
@@ -17,7 +21,25 @@ export const connectHandler =
   async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       if (isProtected) {
-        throw new Error("You must be logged in to continue.");
+        const token = getCookie("token", { req, res });
+        if (!token) {
+          throw new Error("You must be logged in to continue.");
+        }
+        const decoded = decodeToken(token.toString());
+
+        if (!(decoded?.payload as JwtPayload)?.userId) {
+          throw new Error("Invalid token");
+        }
+
+        const user = await User.findById(
+          (decoded?.payload as JwtPayload)?.userId
+        );
+
+        if (!user) {
+          throw new Error("Invalid token");
+        }
+
+        // TODO: when we add roles, we can check them here
       }
 
       if (req.method !== method) {

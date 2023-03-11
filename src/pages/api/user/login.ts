@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import jwt from "jsonwebtoken";
 import { User, UserInterface } from "models/user";
 import { Response } from "types/types";
 import { connectHandler, checkPassword, generateToken } from "utils";
+import { setCookie } from "cookies-next";
 
 const handler = connectHandler(
   {
@@ -33,7 +33,7 @@ const handler = connectHandler(
 
     const token = generateToken({ userId: user._id });
 
-    res.setHeader("Set-Cookie", `token=${token}; path=/; httponly; secure`);
+    setCookie("token", token, { req, res, maxAge: 60 * 6 * 24 });
     return res.status(200).json({ message: "Login successful", data: user });
   }
 );
