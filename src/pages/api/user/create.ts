@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { User, UserInterface } from "models/user";
+import { User } from "models/user";
 import { Response } from "types/types";
+import { UserInterface } from "types/interfaces";
 import { connectHandler, hashPassword, generateToken } from "utils";
 
 const handler = connectHandler(
@@ -32,6 +33,7 @@ const handler = connectHandler(
     });
 
     await user.save();
+    user.password = undefined;
 
     const token = generateToken({ userId: user._id });
 

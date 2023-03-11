@@ -15,7 +15,9 @@ const handler = connectHandler(
   ) => {
     const user = await User.findById((req as any).userId).select("-password");
 
-    return res.status(200).json({ message: "Login successful", data: user });
+    return res
+      .status(200)
+      .json({ message: "User has been found.", data: user });
   }
 );
 

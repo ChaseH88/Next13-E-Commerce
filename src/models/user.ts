@@ -13,6 +13,11 @@ const UserSchema = new Schema<UserInterface>(
       required: true,
       select: false,
     },
+    role: {
+      type: String,
+      enum: ["customer", "manager", "admin"],
+      default: "customer",
+    },
   },
   {
     timestamps: true,

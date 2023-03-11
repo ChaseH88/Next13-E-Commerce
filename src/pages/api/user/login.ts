@@ -33,6 +33,7 @@ const handler = connectHandler(
     }
 
     const token = generateToken({ userId: user._id });
+    user.password = undefined;
 
     setCookie("token", token, { req, res, maxAge: 60 * 6 * 24 });
     return res.status(200).json({ message: "Login successful", data: user });

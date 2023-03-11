@@ -6,3 +6,5 @@ export type Response<T> =
   | {
       error?: string;
     };
+
+export type UserRoles = "customer" | "manager" | "admin";
