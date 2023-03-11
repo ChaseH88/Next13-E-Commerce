@@ -35,6 +35,8 @@ export const connectHandler =
           (decoded?.payload as JwtPayload)?.userId
         );
 
+        (req as any).userId = user._id.toString();
+
         if (!user) {
           throw new Error("Invalid token");
         }

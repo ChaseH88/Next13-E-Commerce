@@ -1,16 +1,21 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import jwt from "jsonwebtoken";
-import { User, UserInterface } from "models/user";
+import { User } from "models/user";
+import { UserInterface } from "types/interfaces";
 import { Response } from "types/types";
-import { connectHandler, checkPassword, generateToken } from "utils";
+import { connectHandler } from "utils";
 
 const handler = connectHandler(
   {
     method: "GET",
     isProtected: true,
   },
-  async (req: NextApiRequest, res: NextApiResponse<Response<any>>) => {
-    return res.status(200).json({ message: "Login successful", data: "" });
+  async (
+    req: NextApiRequest,
+    res: NextApiResponse<Response<UserInterface>>
+  ) => {
+    const user = await User.findById((req as any).userId).select("-password");
+
+    return res.status(200).json({ message: "Login successful", data: user });
   }
 );
 
