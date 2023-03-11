@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 export interface UserInterface {
   id: string;
@@ -16,6 +16,7 @@ const UserSchema = new Schema<UserInterface>(
     password: {
       type: String,
       required: true,
+      select: false,
     },
   },
   {
@@ -23,4 +24,4 @@ const UserSchema = new Schema<UserInterface>(
   }
 );
 
-export const User = model<UserInterface>("User", UserSchema);
+export const User = models.User || model<UserInterface>("User", UserSchema);
