@@ -1,9 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { User, UserInterface } from "../../../models/user";
-import { Response } from "../../../types/types";
-import { connectHandler } from "../../../utils/connect-handler";
-import { hashPassword } from "../../../utils/password";
-import { generateToken } from "../../../utils/json-web-token";
+import { User, UserInterface } from "models/user";
+import { Response } from "types/types";
+import { connectHandler, hashPassword, generateToken } from "utils";
 
 const handler = connectHandler(
   {
