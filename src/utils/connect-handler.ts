@@ -5,9 +5,15 @@ import { connect } from "./server";
  * Connects to the database
  */
 export const connectHandler =
-  (func: (req: NextApiRequest, res: NextApiResponse) => Promise<void>) =>
+  (
+    method: "GET" | "POST",
+    func: (req: NextApiRequest, res: NextApiResponse) => Promise<void>
+  ) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
     try {
+      if (req.method !== method) {
+        throw new Error("Method not allowed");
+      }
       await connect();
       await func(req, res);
     } catch (error: any) {

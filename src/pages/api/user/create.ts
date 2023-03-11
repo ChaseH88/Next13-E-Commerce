@@ -1,24 +1,15 @@
-import { hashPassword } from "../../../utils/password";
 import { NextApiRequest, NextApiResponse } from "next";
 import { User, UserInterface } from "../../../models/user";
-import { connect } from "../../../utils/server";
+import { Response } from "../../../types/types";
 import { connectHandler } from "../../../utils/connect-handler";
-
-export type Response =
-  | {
-      message: string;
-      data: UserInterface;
-    }
-  | {
-      error?: string;
-    };
+import { hashPassword } from "../../../utils/password";
 
 const handler = connectHandler(
-  async (req: NextApiRequest, res: NextApiResponse<Response>) => {
-    if (req.method !== "POST") {
-      throw new Error("Method not allowed");
-    }
-
+  "POST",
+  async (
+    req: NextApiRequest,
+    res: NextApiResponse<Response<UserInterface>>
+  ) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
