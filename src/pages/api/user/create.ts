@@ -15,34 +15,29 @@ export type Response =
 
 const handler = connectHandler(
   async (req: NextApiRequest, res: NextApiResponse<Response>) => {
-    try {
-      if (req.method !== "POST") {
-        throw new Error("Method not allowed");
-      }
-
-      const { email, password } = req.body;
-
-      if (!email || !password) {
-        throw new Error("Please provide an email and password");
-      }
-
-      const hashedPassword = await hashPassword(password);
-
-      const user = new User({
-        email,
-        password: hashedPassword,
-      });
-
-      await user.save();
-
-      res.status(200).json({
-        message: "User created",
-        data: user,
-      });
-    } catch (error: any) {
-      console.log(error);
-      res.status(500).json({ error: error.message });
+    if (req.method !== "POST") {
+      throw new Error("Method not allowed");
     }
+
+    const { email, password } = req.body;
+
+    if (!email || !password) {
+      throw new Error("Please provide an email and password");
+    }
+
+    const hashedPassword = await hashPassword(password);
+
+    const user = new User({
+      email,
+      password: hashedPassword,
+    });
+
+    await user.save();
+
+    res.status(200).json({
+      message: "User created",
+      data: user,
+    });
   }
 );
 
