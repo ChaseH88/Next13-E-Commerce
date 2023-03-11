@@ -5,7 +5,10 @@ import { connectHandler } from "../../../utils/connect-handler";
 import { hashPassword } from "../../../utils/password";
 
 const handler = connectHandler(
-  "POST",
+  {
+    method: "POST",
+    isProtected: false,
+  },
   async (
     req: NextApiRequest,
     res: NextApiResponse<Response<UserInterface>>

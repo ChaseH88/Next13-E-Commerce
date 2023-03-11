@@ -1,16 +1,25 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { connect } from "./server";
 
+type HandlerConfig = {
+  method: "GET" | "POST" | "PUT" | "DELETE";
+  isProtected?: boolean;
+};
+
 /**
- * Connects to the database
+ * Wrapper handler to handle repetitive tasks
  */
 export const connectHandler =
   (
-    method: "GET" | "POST",
+    { method, isProtected = false }: HandlerConfig,
     func: (req: NextApiRequest, res: NextApiResponse) => Promise<void>
   ) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
     try {
+      if (isProtected) {
+        throw new Error("You must be logged in to continue.");
+      }
+
       if (req.method !== method) {
         throw new Error("Method not allowed");
       }
