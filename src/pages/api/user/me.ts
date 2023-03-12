@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiResponse } from "next";
 import { User } from "models/user";
-import { UserInterface } from "types/interfaces";
+import { CustomRequest, UserInterface } from "types/interfaces";
 import { Response } from "types/types";
 import { connectHandler } from "utils";
 
@@ -9,11 +9,8 @@ const handler = connectHandler(
     method: "GET",
     isProtected: true,
   },
-  async (
-    req: NextApiRequest,
-    res: NextApiResponse<Response<UserInterface>>
-  ) => {
-    const user = await User.findById((req as any).userId).select("-password");
+  async (req: CustomRequest, res: NextApiResponse<Response<UserInterface>>) => {
+    const user = await User.findById(req.userId).select("-password");
 
     return res
       .status(200)

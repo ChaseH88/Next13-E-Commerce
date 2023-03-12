@@ -1,5 +1,10 @@
+import { NextApiRequest } from "next";
 import { FitType, SizeType } from "./dynamic";
 import { UserRoles } from "./types";
+
+export interface CustomRequest extends NextApiRequest {
+  userId?: string;
+}
 
 export interface UserInterface {
   id: string;

@@ -4,6 +4,7 @@ import { getCookie } from "cookies-next";
 import { decodeToken } from "./json-web-token";
 import { JwtPayload } from "jsonwebtoken";
 import { User } from "models/user";
+import { CustomRequest } from "types/interfaces";
 
 type HandlerConfig = {
   method: "GET" | "POST" | "PUT" | "DELETE";
@@ -18,7 +19,7 @@ export const connectHandler =
     { method, isProtected = false }: HandlerConfig,
     func: (req: NextApiRequest, res: NextApiResponse) => Promise<void>
   ) =>
-  async (req: NextApiRequest, res: NextApiResponse) => {
+  async (req: CustomRequest, res: NextApiResponse) => {
     try {
       if (isProtected) {
         const token = getCookie("token", { req, res });
@@ -39,7 +40,7 @@ export const connectHandler =
           throw new Error("Invalid token");
         }
 
-        (req as any).userId = user._id.toString();
+        req.userId = user._id.toString();
 
         // TODO: when we add roles, we can check them here
       }
