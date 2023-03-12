@@ -7,13 +7,24 @@ export interface CustomRequest extends NextApiRequest {
 }
 
 export interface UserInterface {
+  _id?: string;
   id: string;
   email: string;
   password: string;
   role: UserRoles;
+  cart?: CartItem[];
+}
+
+export interface CartItem {
+  _id?: string;
+  id: string;
+  productId: string;
+  variantId: string;
+  quantity: number;
 }
 
 export interface ProductInterface {
+  _id?: string;
   id: string;
   name: string;
   description: string;
@@ -25,14 +36,17 @@ export interface ProductInterface {
   isHighlighted: boolean;
   fit: FitType[];
   // images: string[];
-  variants: {
-    id: string;
-    name: string;
-    color: string;
-    size: SizeType;
-    quantity: number;
-    price?: PriceInterface;
-  }[];
+  variants: VariantInterface[];
+}
+
+export interface VariantInterface {
+  _id?: string;
+  id: string;
+  name: string;
+  color: string;
+  size: SizeType;
+  quantity: number;
+  price?: PriceInterface;
 }
 
 export interface PriceInterface {
@@ -44,6 +58,7 @@ export interface PriceInterface {
 }
 
 export interface CategoryInterface {
+  _id?: string;
   id: string;
   name: string;
   description: string;

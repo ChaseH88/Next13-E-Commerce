@@ -10,6 +10,12 @@ import {
 import { defaultUsersFaker, userFaker } from "./user-faker";
 import { categoryFaker } from "./category-faker";
 import { productFaker } from "./product-faker";
+import { shoppingCartFaker } from "./shopping-cart-faker";
+
+const NUMBER_OF_USERS = 3;
+const NUMBER_OF_CATEGORIES = 4;
+const NUMBER_OF_PRODUCTS = 30;
+const NUMBER_OF_SHOPPING_CART_ITEMS = 2;
 
 const seeder = async () => {
   try {
@@ -38,13 +44,13 @@ const seeder = async () => {
     const adminUsers = users.filter((user) => user.role === "admin");
 
     // Create 10 additional users
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < NUMBER_OF_USERS; i++) {
       const user = await userFaker();
       users.push(user);
     }
 
     // Create 4 categories
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < NUMBER_OF_CATEGORIES; i++) {
       const category = await categoryFaker(
         adminUsers[Math.floor(Math.random() * adminUsers.length)].id
       );
@@ -52,7 +58,7 @@ const seeder = async () => {
     }
 
     // Create 30 products
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < NUMBER_OF_PRODUCTS; i++) {
       const product = await productFaker(
         adminUsers[Math.floor(Math.random() * adminUsers.length)].id,
         categories[Math.floor(Math.random() * categories.length)].id
@@ -60,10 +66,57 @@ const seeder = async () => {
       products.push(product);
     }
 
-    // insert all many
+    // Insert all data
     await User.insertMany(users);
     await Category.insertMany(categories);
     await Product.insertMany(products);
+
+    // Create a shopping cart item for a random user
+    const allUsers = await User.find();
+    const allProducts = await Product.find();
+
+    for (const user of allUsers) {
+      for (let i = 0; i < NUMBER_OF_SHOPPING_CART_ITEMS; i++) {
+        const randomProduct =
+          allProducts[Math.floor(Math.random() * allProducts.length)];
+        const cartItem = await shoppingCartFaker(
+          randomProduct.id!,
+          randomProduct.variants[0].id!,
+          1
+        );
+
+        await User.findByIdAndUpdate(
+          user.id,
+          {
+            $push: {
+              cart: cartItem,
+            },
+          },
+          { new: true }
+        );
+      }
+    }
+
+    const randomUser = allUsers[Math.floor(Math.random() * allUsers.length)];
+    const randomProduct = products[Math.floor(Math.random() * products.length)];
+    const cartItem = await shoppingCartFaker(
+      randomProduct.id!,
+      randomProduct.variants[0].id!,
+      1
+    );
+
+    // Find the user in the database and add the cart item to their cart
+    const user = await User.findByIdAndUpdate(
+      randomUser.id,
+      {
+        $push: {
+          cart: cartItem,
+        },
+      },
+      { new: true }
+    );
+
+    console.log(user);
 
     // Close the connection
     await close();

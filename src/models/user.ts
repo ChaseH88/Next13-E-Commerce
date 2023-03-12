@@ -18,6 +18,21 @@ const UserSchema = new Schema<UserInterface>(
       enum: ["customer", "manager", "admin"],
       default: "customer",
     },
+    cart: [
+      {
+        productId: {
+          type: Schema.Types.ObjectId,
+          ref: "Product",
+        },
+        variantId: {
+          type: Schema.Types.ObjectId,
+          ref: "Product.variants",
+        },
+        quantity: {
+          type: Number,
+        },
+      },
+    ],
   },
   {
     timestamps: true,
