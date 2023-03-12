@@ -22,6 +22,13 @@ const seeder = async () => {
     await Category.deleteMany({});
     await Product.deleteMany({});
 
+    if (process.argv.includes("--delete")) {
+      // inset the admin user only
+      await User.insertMany(await defaultUsersFaker());
+      console.log("Database deleted has been deleted and admin user created");
+      return await close();
+    }
+
     // Seed the database
     const users: UserInterface[] = [...(await defaultUsersFaker())];
     const categories: CategoryInterface[] = [];
