@@ -6,3 +6,11 @@ export interface UserInterface {
   password: string;
   role: UserRoles;
 }
+
+export interface CategoryInterface {
+  id: string;
+  name: string;
+  description: string;
+  slug: string;
+  createdById: UserInterface | string;
+}
