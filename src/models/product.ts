@@ -64,6 +64,7 @@ const ProductSchema = new Schema<ProductInterface>(
       {
         type: String,
         enum: fitArr,
+        required: true,
       },
     ],
     variants: [
