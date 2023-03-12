@@ -13,3 +13,7 @@ export const connect = async () => {
     console.log(error);
   }
 };
+
+export const close = async () => {
+  await mongoose.connection.close();
+};
