@@ -1,3 +1,4 @@
+import { FitType, SizeType } from "./dynamic";
 import { UserRoles } from "./types";
 
 export interface UserInterface {
@@ -12,27 +13,29 @@ export interface ProductInterface {
   name: string;
   description: string;
   slug: string;
-  price: number;
   categoryId: CategoryInterface | string;
   createdById: UserInterface | string;
+  price: PriceInterface;
   isAvailable: boolean;
   isHighlighted: boolean;
-  pricingTiers: PricingTierInterface[];
-  variants: VariantInterface[];
+  fit: FitType[];
+  // images: string[];
+  variants: {
+    id: string;
+    name: string;
+    color: string;
+    size: SizeType;
+    quantity: number;
+    price?: PriceInterface;
+  }[];
 }
 
-export interface PricingTierInterface {
+export interface PriceInterface {
   name: string;
-  description: string;
-  quantity: number;
-  price: number;
-  isActive: boolean;
-}
-
-export interface VariantInterface {
-  name: string;
-  options: string[];
-  quantity: number;
+  value: number;
+  currency: string;
+  salePrice?: number;
+  saleEndDate?: Date;
 }
 
 export interface CategoryInterface {

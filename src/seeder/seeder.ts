@@ -1,39 +1,69 @@
-import { userFaker, defaultUsersFaker } from "./user-faker";
-import { categoryFaker } from "./category-faker";
+import { connect, close } from "utils/server";
 import { User } from "models/user";
 import { Category } from "models/category";
-import { connect, close } from "utils/server";
-import { UserInterface, CategoryInterface } from "types/interfaces";
+import { Product } from "models/product";
+import {
+  UserInterface,
+  CategoryInterface,
+  ProductInterface,
+} from "types/interfaces";
+import { defaultUsersFaker, userFaker } from "./user-faker";
+import { categoryFaker } from "./category-faker";
+import { productFaker } from "./product-faker";
 
 const seeder = async () => {
-  // Connect to the database
-  await connect();
-  console.log("Seeding database...");
+  try {
+    // Connect to the database
+    await connect();
+    console.log("Seeding database...");
 
-  // Seed the database
-  const users: UserInterface[] = [...(await defaultUsersFaker())];
-  const adminUser = users[0];
-  const categories: CategoryInterface[] = [];
+    // delete all existing data
+    await User.deleteMany({});
+    await Category.deleteMany({});
+    await Product.deleteMany({});
 
-  Array.from({ length: 10 }).forEach(async () => {
-    const user = await userFaker();
-    users.push(user);
-  });
+    // Seed the database
+    const users: UserInterface[] = [...(await defaultUsersFaker())];
+    const categories: CategoryInterface[] = [];
+    const products: ProductInterface[] = [];
 
-  Array.from({ length: 4 }).forEach(async () => {
-    const category = await categoryFaker(adminUser.id);
-    categories.push(category);
-  });
+    // Filter the list of users to only include those with the "admin" role
+    const adminUsers = users.filter((user) => user.role === "admin");
 
-  await User.deleteMany({});
-  await User.insertMany(users);
+    // Create 10 additional users
+    for (let i = 0; i < 10; i++) {
+      const user = await userFaker();
+      users.push(user);
+    }
 
-  await Category.deleteMany({});
-  await Category.insertMany(categories);
+    // Create 4 categories
+    for (let i = 0; i < 4; i++) {
+      const category = await categoryFaker(
+        adminUsers[Math.floor(Math.random() * adminUsers.length)].id
+      );
+      categories.push(category);
+    }
 
-  // Close the connection
-  await close();
-  console.log("Database seeded");
+    // Create 30 products
+    for (let i = 0; i < 30; i++) {
+      const product = await productFaker(
+        adminUsers[Math.floor(Math.random() * adminUsers.length)].id,
+        categories[Math.floor(Math.random() * categories.length)].id
+      );
+      products.push(product);
+    }
+
+    // insert all many
+    await User.insertMany(users);
+    await Category.insertMany(categories);
+    await Product.insertMany(products);
+
+    // Close the connection
+    await close();
+    console.log("Database seeded");
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 seeder();
