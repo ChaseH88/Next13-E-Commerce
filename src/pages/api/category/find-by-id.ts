@@ -21,6 +21,10 @@ const handler = connectHandler(
 
     const category = await Category.findById(id);
 
+    if (!category) {
+      throw new Error("Category does not exist");
+    }
+
     res.status(200).json({
       message: "Category has been found",
       data: category,
