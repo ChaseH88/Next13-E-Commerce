@@ -10,14 +10,26 @@ const handler = connectHandler(
     isProtected: true,
   },
   async (
-    _: CustomRequest,
+    req: CustomRequest,
     res: NextApiResponse<Response<ProductInterface[]>>
   ) => {
-    const product = await Product.find({});
+    const page = parseInt(req.query.page as string) || 1;
+    const pageSize = parseInt(req.query.pageSize as string) || 10;
+    const count = await Product.countDocuments({});
+
+    const product = await Product.find({})
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
 
     res.status(200).json({
       message: `${product.length} products have been found`,
       data: product,
+      pagination: {
+        page,
+        pageSize,
+        totalPages: Math.ceil(count / pageSize),
+        totalItems: count,
+      },
     });
   }
 );
