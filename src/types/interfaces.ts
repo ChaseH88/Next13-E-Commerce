@@ -12,10 +12,10 @@ export interface UserInterface {
   email: string;
   password: string;
   role: UserRoles;
-  cart?: CartItem[];
+  cart?: CartItemInterface[];
 }
 
-export interface CartItem {
+export interface CartItemInterface {
   _id?: string;
   id: string;
   productId: string;

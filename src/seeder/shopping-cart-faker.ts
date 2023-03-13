@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { CartItem } from "types/interfaces";
+import { CartItemInterface } from "types/interfaces";
 
 /**
  * Faker to create a shopping cart item
@@ -9,7 +9,7 @@ export const shoppingCartFaker = (
   productId: string,
   variantId: string,
   quantity?: number
-): CartItem => ({
+): CartItemInterface => ({
   id: faker.database.mongodbObjectId(),
   productId,
   variantId,
