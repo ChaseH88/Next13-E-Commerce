@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 
 export interface ButtonStyledProps {
   variant: "primary" | "secondary";
+  disabled?: boolean;
+  activity?: boolean;
 }
 
 export const primaryButton = css`
@@ -17,4 +19,10 @@ export const secondaryButton = css`
 
 export const ButtonStyled = styled(motion.button)<ButtonStyledProps>`
   ${({ variant }) => (variant === "primary" ? primaryButton : secondaryButton)}
+  ${({ disabled }) =>
+    disabled &&
+    css`
+      opacity: 0.5;
+      cursor: not-allowed;
+    `}
 `;

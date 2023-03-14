@@ -1,9 +1,18 @@
+import { MotionStyle } from "framer-motion";
 import { ButtonStyled, ButtonStyledProps } from "./styles";
 
 interface ButtonProps extends ButtonStyledProps {
   text: string;
+  className?: string;
+  id?: string;
+  style?: MotionStyle;
+  onClick?: () => void;
 }
 
 export const Button = (props: ButtonProps) => {
-  return <ButtonStyled {...props}>{props.text}</ButtonStyled>;
+  return (
+    <ButtonStyled style={props.style} {...props}>
+      {props.text}
+    </ButtonStyled>
+  );
 };
