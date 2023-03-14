@@ -8,8 +8,8 @@ const lightColors = {
   background: "#04000e",
   backgroundSecondary: "#232935",
   backgroundTertiary: "#394F5D",
-  text: "#f5ebff",
-  textSecondary: "#252525",
+  text: "#000",
+  textSecondary: "#fff",
   textTertiary: "#f5ebff",
 };
 
