@@ -127,3 +127,7 @@ export const sizeArr = [
 ] as const;
 
 export type SizeType = typeof sizeArr[number];
+
+export const genderArr = ["male", "female"] as const;
+
+export type GenderType = typeof genderArr[number];

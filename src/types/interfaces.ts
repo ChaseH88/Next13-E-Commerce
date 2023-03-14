@@ -1,5 +1,5 @@
 import { NextApiRequest } from "next";
-import { FitType, SizeType } from "./dynamic";
+import { FitType, SizeType, GenderType } from "./dynamic";
 import { UserRoles } from "./types";
 
 export interface CustomRequest extends NextApiRequest {
@@ -35,6 +35,7 @@ export interface ProductInterface {
   isAvailable: boolean;
   isHighlighted: boolean;
   fit: FitType[];
+  gender: GenderType[];
   // images: string[];
   variants: VariantInterface[];
 }

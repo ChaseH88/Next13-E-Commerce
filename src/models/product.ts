@@ -1,5 +1,5 @@
 import { Schema, model, models } from "mongoose";
-import { fitArr, sizeArr } from "types/dynamic";
+import { fitArr, genderArr, sizeArr } from "types/dynamic";
 import { ProductInterface } from "types/interfaces";
 
 const ProductSchema = new Schema<ProductInterface>(
@@ -65,6 +65,12 @@ const ProductSchema = new Schema<ProductInterface>(
         type: String,
         enum: fitArr,
         required: true,
+      },
+    ],
+    gender: [
+      {
+        type: String,
+        enum: genderArr,
       },
     ],
     variants: [
