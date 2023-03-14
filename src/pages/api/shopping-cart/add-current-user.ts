@@ -3,6 +3,7 @@ import { Response } from "types/types";
 import { CustomRequest, CartItemInterface } from "types/interfaces";
 import { connectHandler } from "utils";
 import { User } from "models/user";
+import { Product } from "models/product";
 
 const handler = connectHandler(
   {
@@ -19,6 +20,19 @@ const handler = connectHandler(
       throw new Error(
         "Please provide all the required fields: productId, variantId, quantity"
       );
+    }
+
+    const productExist = await Product.findOne({
+      _id: productId,
+      variants: {
+        $elemMatch: {
+          _id: variantId,
+        },
+      },
+    });
+
+    if (!productExist) {
+      throw new Error("Product does not exist");
     }
 
     const user = await User.findById(req.userId);
@@ -59,7 +73,7 @@ const handler = connectHandler(
 
     res.status(200).json({
       message: "Product added to cart",
-      data: updated,
+      data: productExist,
     });
   }
 );
