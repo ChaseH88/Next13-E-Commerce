@@ -1,9 +1,9 @@
-import { ButtonStyled } from "./styles";
+import { ButtonStyled, ButtonStyledProps } from "./styles";
 
-interface ButtonProps {
+interface ButtonProps extends ButtonStyledProps {
   text: string;
 }
 
 export const Button = (props: ButtonProps) => {
-  return <ButtonStyled>{props.text}</ButtonStyled>;
+  return <ButtonStyled {...props}>{props.text}</ButtonStyled>;
 };

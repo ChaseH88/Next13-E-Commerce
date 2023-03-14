@@ -5,7 +5,7 @@ import { ThemeProvider } from "styled-components";
 import { makeTheme } from "../../styles/theme";
 
 <Meta
-  title="Components"
+  title="Components/Buttons"
   component={Button}
   parameters={{
     badges: [BADGE.STABLE],
@@ -16,7 +16,7 @@ export const Template = (args) => {
   const theme = makeTheme();
   return (
     <ThemeProvider theme={theme}>
-      <Button />
+      <Button {...args} />
     </ThemeProvider>
   );
 };
@@ -32,5 +32,25 @@ import { Button } from 'components'
 <ArgsTable of={Button} />
 
 <Canvas>
-  <Story name="Button">{Template.bind({})}</Story>
+  <Story
+    name="Primary Button"
+    args={{
+      text: "Testing",
+      variant: "primary",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Secondary Button"
+    args={{
+      text: "Testing",
+      variant: "secondary",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
 </Canvas>
