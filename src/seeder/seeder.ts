@@ -97,27 +97,6 @@ const seeder = async () => {
       }
     }
 
-    const randomUser = allUsers[Math.floor(Math.random() * allUsers.length)];
-    const randomProduct = products[Math.floor(Math.random() * products.length)];
-    const cartItem = await shoppingCartFaker(
-      randomProduct.id!,
-      randomProduct.variants[0].id!,
-      1
-    );
-
-    // Find the user in the database and add the cart item to their cart
-    const user = await User.findByIdAndUpdate(
-      randomUser.id,
-      {
-        $push: {
-          cart: cartItem,
-        },
-      },
-      { new: true }
-    );
-
-    console.log(user);
-
     // Close the connection
     await close();
     console.log("Database seeded");
