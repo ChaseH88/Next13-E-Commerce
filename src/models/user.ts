@@ -20,13 +20,12 @@ const UserSchema = new Schema<UserInterface>(
     },
     cart: [
       {
+        _id: false,
         productId: {
-          type: Schema.Types.ObjectId,
-          ref: "Product",
+          type: String,
         },
         variantId: {
-          type: Schema.Types.ObjectId,
-          ref: "Product.variants",
+          type: String,
         },
         quantity: {
           type: Number,

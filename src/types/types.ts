@@ -1,7 +1,7 @@
 export type Response<T> =
   | {
       message: string;
-      data: T;
+      data?: T;
       pagination?: {
         page: number;
         pageSize: number;

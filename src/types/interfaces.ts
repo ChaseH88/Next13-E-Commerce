@@ -17,7 +17,7 @@ export interface UserInterface {
 
 export interface CartItemInterface {
   _id?: string;
-  id: string;
+  id?: string;
   productId: string;
   variantId: string;
   quantity: number;
