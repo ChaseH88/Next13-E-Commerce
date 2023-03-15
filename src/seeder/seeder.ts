@@ -9,12 +9,13 @@ import {
 } from "types/interfaces";
 import { defaultUsersFaker, userFaker } from "./user-faker";
 import { categoryFaker } from "./category-faker";
-import { productFaker } from "./product-faker";
+import { productFaker, reviewFaker } from "./product-faker";
 import { shoppingCartFaker } from "./shopping-cart-faker";
 
 const NUMBER_OF_USERS = 3;
 const NUMBER_OF_CATEGORIES = 4;
 const NUMBER_OF_PRODUCTS = 30;
+const NUMBER_OF_REVIEWS = 3;
 const NUMBER_OF_SHOPPING_CART_ITEMS = 2;
 
 const seeder = async () => {
@@ -63,6 +64,18 @@ const seeder = async () => {
         adminUsers[Math.floor(Math.random() * adminUsers.length)].id,
         categories[Math.floor(Math.random() * categories.length)].id
       );
+      // for each product, create 3 reviews, we will use random users for each review
+      for (let i = 0; i < NUMBER_OF_REVIEWS; i++) {
+        const review = reviewFaker(
+          product.variants[0].id!,
+          users[Math.floor(Math.random() * users.length)].id
+        );
+        if (product.reviews) {
+          product.reviews.push(review);
+        } else {
+          product.reviews = [review];
+        }
+      }
       products.push(product);
     }
 
@@ -79,9 +92,9 @@ const seeder = async () => {
       for (let i = 0; i < NUMBER_OF_SHOPPING_CART_ITEMS; i++) {
         const randomProduct =
           allProducts[Math.floor(Math.random() * allProducts.length)];
-        const cartItem = await shoppingCartFaker(
-          randomProduct.id!,
-          randomProduct.variants[0].id!,
+        const cartItem = shoppingCartFaker(
+          randomProduct?.id!,
+          randomProduct?.variants[0].id!,
           1
         );
 

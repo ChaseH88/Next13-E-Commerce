@@ -1,7 +1,31 @@
 import { faker } from "@faker-js/faker";
 import { fitArr, FitType, sizeArr, genderArr, GenderType } from "types/dynamic";
-import { ProductInterface } from "types/interfaces";
+import { ProductInterface, ReviewInterface } from "types/interfaces";
 
+/**
+ * Faker to create a new review
+ * @param variantId - variant id
+ * @param userId - user id
+ * @returns
+ */
+export const reviewFaker = (
+  variantId: string,
+  userId: string
+): ReviewInterface => ({
+  id: faker.database.mongodbObjectId(),
+  variantId,
+  userId,
+  rating: faker.datatype.number({ min: 1, max: 5 }),
+  title: faker.lorem.sentence(),
+  body: faker.lorem.paragraph(),
+  isHelpful: faker.datatype.number({ min: 0, max: 100 }),
+  isNotHelpful: faker.datatype.number({ min: 0, max: 100 }),
+  archived: false,
+});
+
+/**
+ * Faker to create a new variant
+ */
 const variantFaker = (): ProductInterface["variants"][0] => ({
   id: faker.database.mongodbObjectId(),
   name: "default",

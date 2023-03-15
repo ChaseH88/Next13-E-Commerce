@@ -117,6 +117,36 @@ const ProductSchema = new Schema<ProductInterface>(
         },
       },
     ],
+    reviews: [
+      {
+        _id: false,
+        variantId: {
+          type: String,
+        },
+        userId: {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+        },
+        rating: {
+          type: Number,
+        },
+        title: {
+          type: String,
+        },
+        body: {
+          type: String,
+        },
+        isHelpful: {
+          type: Number,
+        },
+        isNotHelpful: {
+          type: Number,
+        },
+        archived: {
+          type: Boolean,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

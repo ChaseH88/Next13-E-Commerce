@@ -52,6 +52,7 @@ export interface ProductInterface {
   gender: GenderType[];
   // images: string[];
   variants: VariantInterface[];
+  reviews?: ReviewInterface[];
 }
 
 export interface VariantInterface {
@@ -62,6 +63,19 @@ export interface VariantInterface {
   size: SizeType;
   quantity: number;
   price?: PriceInterface;
+}
+
+export interface ReviewInterface {
+  _id?: string;
+  id: string;
+  variantId: VariantInterface | string;
+  userId: UserInterface | string;
+  rating: number;
+  title: string;
+  body: string;
+  isHelpful: number;
+  isNotHelpful: number;
+  archived: boolean;
 }
 
 export interface PriceInterface {
