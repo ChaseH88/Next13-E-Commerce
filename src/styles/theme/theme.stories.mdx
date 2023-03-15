@@ -1,0 +1,109 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { BADGE } from "@geometricpanda/storybook-addon-badges";
+import { makeTheme } from "../../styles/theme";
+
+export const theme = makeTheme();
+
+export const splitColors = (obj) => {
+  const primaryColors = {};
+  const secondaryColors = {};
+  const tertiaryColors = {};
+  const colorArray = [];
+  for (let key in obj) {
+    const formattedKey = key
+      .replace(/([A-Z])/g, " $1")
+      .replace(/^./, (str) => str.toUpperCase());
+    if (key.toLowerCase().includes("primary")) {
+      primaryColors[formattedKey] = obj[key];
+    } else if (key.toLowerCase().includes("secondary")) {
+      secondaryColors[formattedKey] = obj[key];
+    } else if (key.toLowerCase().includes("tertiary")) {
+      tertiaryColors[formattedKey] = obj[key];
+    }
+  }
+  colorArray.push(primaryColors);
+  colorArray.push(secondaryColors);
+  colorArray.push(tertiaryColors);
+  return colorArray;
+};
+
+export const Colors = () => {
+  const colors = splitColors(theme?.colors) || [];
+  return colors?.length ? (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "100%",
+        height: "100%",
+      }}
+    >
+      {colors.map((color, index) => (
+        <div
+          key={index}
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "100%",
+            height: "100%",
+          }}
+        >
+          {Object.keys(color).map((key, index) => (
+            <div
+              key={index}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              <div
+                title={color[key]}
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  backgroundColor: color[key],
+                  border: "1px solid black",
+                }}
+              />
+              <p
+                style={{
+                  textAlign: "center",
+                }}
+              >
+                {color[key]}
+                <br />
+                {key}
+              </p>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  ) : null;
+};
+
+# Color Palette - Light Theme
+
+<Colors />
+
+# Color Palette - Dark Theme
+
+This is coming soon!
+
+<br />
+<br />
+
+<Meta
+  title="Details/Color Palette"
+  parameters={{
+    badges: [BADGE.STABLE],
+  }}
+/>

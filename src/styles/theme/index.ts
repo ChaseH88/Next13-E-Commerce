@@ -1,31 +1,40 @@
+import { darkenColor, lightenColor } from "../helpers";
+
 /**
  * Light theme colors
  */
 const lightColors = {
-  primary: "#9BD1C2",
-  secondary: "#70A5A5",
-  tertiary: "#517884",
-  background: "#04000e",
-  backgroundSecondary: "#232935",
-  backgroundTertiary: "#394F5D",
-  text: "#000",
-  textSecondary: "#fff",
-  textTertiary: "#f5ebff",
+  primary: "#826251",
+  primaryLight: lightenColor("#826251"),
+  primaryDark: darkenColor("#826251"),
+  onPrimary: "#f3f3f3",
+  secondary: "#247BA0",
+  secondaryLight: lightenColor("#247BA0"),
+  secondaryDark: darkenColor("#247BA0"),
+  onSecondary: "#fff",
+  tertiary: "#449dd1",
+  tertiaryLight: lightenColor("#449dd1"),
+  tertiaryDark: darkenColor("#449dd1"),
+  onTertiary: "#fff",
 };
 
 /**
  * Dark theme colors
+ * // TODO: Add dark theme colors
  */
 const darkColors = {
-  primary: "#0070f3",
-  secondary: "#ff0070",
-  tertiary: "#ff0070",
-  background: "#252525",
-  backgroundSecondary: "#1b1b1b",
-  backgroundTertiary: "#f3f3f3",
-  text: "#f3f3f3",
-  textSecondary: "#bcbcbc",
-  textTertiary: "#252525",
+  primary: "#826251",
+  primaryLight: lightenColor("#826251"),
+  primaryDark: darkenColor("#826251"),
+  onPrimary: "#f3f3f3",
+  secondary: "#247BA0",
+  secondaryLight: lightenColor("#247BA0"),
+  secondaryDark: darkenColor("#247BA0"),
+  onSecondary: "#fff",
+  tertiary: "#449dd1",
+  tertiaryLight: lightenColor("#449dd1"),
+  tertiaryDark: darkenColor("#449dd1"),
+  onTertiary: "#fff",
 };
 
 /**
