@@ -18,6 +18,41 @@ const UserSchema = new Schema<UserInterface>(
       enum: ["customer", "manager", "admin"],
       default: "customer",
     },
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String,
+    },
+    locations: [
+      {
+        _id: false,
+        name: {
+          type: String,
+        },
+        address1: {
+          type: String,
+        },
+        address2: {
+          type: String,
+        },
+        city: {
+          type: String,
+        },
+        state: {
+          type: String,
+        },
+        zip: {
+          type: String,
+        },
+        country: {
+          type: String,
+        },
+        isActive: {
+          type: Boolean,
+        },
+      },
+    ],
     cart: [
       {
         _id: false,

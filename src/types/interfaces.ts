@@ -11,8 +11,22 @@ export interface UserInterface {
   id: string;
   email: string;
   password: string;
+  firstName?: string;
+  lastName?: string;
+  locations?: LocationInterface[];
   role: UserRoles;
   cart?: CartItemInterface[];
+}
+
+export interface LocationInterface {
+  name: string;
+  address1: string;
+  address2?: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string;
+  isActive: boolean;
 }
 
 export interface CartItemInterface {
