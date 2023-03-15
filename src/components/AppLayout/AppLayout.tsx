@@ -1,3 +1,5 @@
+import { Header } from "components/Header";
+
 interface AppLayoutProps {
   children: React.ReactNode;
 }
@@ -5,7 +7,7 @@ interface AppLayoutProps {
 const AppLayout = ({ children }: AppLayoutProps) => {
   return (
     <div id="layout">
-      <header>header</header>
+      <Header />
       <div>{children}</div>
       <footer>footer</footer>
     </div>
