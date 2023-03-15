@@ -2,7 +2,7 @@ import { MotionStyle } from "framer-motion";
 import { ButtonStyled, ButtonStyledProps } from "./styles";
 
 interface ButtonProps extends ButtonStyledProps {
-  text: string;
+  children?: React.ReactNode;
   className?: string;
   id?: string;
   style?: MotionStyle;
@@ -12,7 +12,7 @@ interface ButtonProps extends ButtonStyledProps {
 export const Button = (props: ButtonProps) => {
   return (
     <ButtonStyled style={props.style} {...props}>
-      {props.text}
+      {props.children}
     </ButtonStyled>
   );
 };

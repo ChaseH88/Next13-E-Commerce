@@ -3,6 +3,10 @@ import { BADGE } from "@geometricpanda/storybook-addon-badges";
 import { Input } from "./Input";
 import { ThemeProvider } from "styled-components";
 import { makeTheme } from "../../styles/theme";
+import { useForm } from "react-hook-form";
+import { Button } from "../Button";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 <Meta
   title="Components"
@@ -14,9 +18,26 @@ import { makeTheme } from "../../styles/theme";
 
 export const Template = (args) => {
   const theme = makeTheme();
+  const schema = yup.object().shape({
+    email: yup
+      .string()
+      .required("Email is required")
+      .email("Invalid email address"),
+  });
+  console.log(formHook?.formState?.errors?.email);
+  const formHook = useForm({
+    resolver: yupResolver(schema),
+    reValidateMode: "onChange",
+  });
   return (
     <ThemeProvider theme={theme}>
-      <Input />
+      <Input formHook={formHook} {...args} />
+      <Button
+        variant="primary"
+        onClick={() => alert(JSON.stringify(formHook.getValues()))}
+      >
+        Submit
+      </Button>
     </ThemeProvider>
   );
 };
@@ -32,5 +53,12 @@ import { Input } from 'components'
 <ArgsTable of={Input} />
 
 <Canvas>
-  <Story name="Input">{Template.bind({})}</Story>
+  <Story
+    name="Input"
+    args={{
+      formInputName: "email",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
 </Canvas>
