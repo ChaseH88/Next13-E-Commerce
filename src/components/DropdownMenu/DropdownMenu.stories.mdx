@@ -1,0 +1,63 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { BADGE } from "@geometricpanda/storybook-addon-badges";
+import { DropdownMenu } from "./DropdownMenu";
+import { ThemeProvider } from "styled-components";
+import { makeTheme } from "../../styles/theme";
+import { useRef, useState } from "react";
+
+<Meta
+  title="Components"
+  component={DropdownMenu}
+  parameters={{
+    badges: [BADGE.STABLE],
+  }}
+/>
+
+export const Template = (args) => {
+  const theme = makeTheme();
+  const targetRef = useRef(null);
+  const [open, setOpen] = useState(true);
+  const setToggle = () => setOpen(!open);
+  return (
+    <ThemeProvider theme={theme}>
+      <button ref={targetRef} onClick={setToggle}>
+        Button
+      </button>
+      <DropdownMenu open={open} target={targetRef} {...args} />
+    </ThemeProvider>
+  );
+};
+
+# DropdownMenu Component
+
+```
+import { DropdownMenu } from 'components'
+```
+
+## Props
+
+<ArgsTable of={DropdownMenu} />
+
+<Canvas>
+  <Story
+    name="DropdownMenu"
+    args={{
+      items: [
+        {
+          label: "Item 1",
+          onClick: () => console.log("Item 1 clicked"),
+        },
+        {
+          label: "Item 2",
+          onClick: () => console.log("Item 2 clicked"),
+        },
+        {
+          label: "Item 3",
+          onClick: () => console.log("Item 3 clicked"),
+        },
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
