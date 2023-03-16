@@ -1,0 +1,36 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { BADGE } from "@geometricpanda/storybook-addon-badges";
+import { Header } from "./Header";
+import { ThemeProvider } from "styled-components";
+import { makeTheme } from "../../styles/theme";
+
+<Meta
+  title="Page"
+  component={Header}
+  parameters={{
+    badges: [BADGE.STABLE],
+  }}
+/>
+
+export const Template = (args) => {
+  const theme = makeTheme();
+  return (
+    <ThemeProvider theme={theme}>
+      <Header {...args} />
+    </ThemeProvider>
+  );
+};
+
+# Header Component
+
+```
+import { Header } from 'components'
+```
+
+## Props
+
+<ArgsTable of={Header} />
+
+<Canvas>
+  <Story name="Header">{Template.bind({})}</Story>
+</Canvas>
