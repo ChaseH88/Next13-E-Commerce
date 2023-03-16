@@ -14,11 +14,11 @@ const menuStyles = css`
 
 const utilityStyles = css`
   .utility-menu {
-    flex: 0 0 20em;
+    flex: 0 0 140px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    gap: 2em;
+    gap: 1em;
   }
 `;
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { MutableRefObject, useState } from "react";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
 import { ButtonStyled, ButtonStyledProps } from "./styles";
 
@@ -7,6 +7,7 @@ interface ButtonProps extends ButtonStyledProps {
   className?: string;
   id?: string;
   onClick?: () => void;
+  ref?: MutableRefObject<HTMLButtonElement | null>;
 }
 
 export const Button = (props: ButtonProps) => {
@@ -35,6 +36,7 @@ export const Button = (props: ButtonProps) => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseLeave}
       size={props.size || "medium"}
+      ref={props.ref || null}
     >
       <span>{props.children}</span>
       <AnimatePresence>
@@ -58,7 +60,7 @@ export const Button = (props: ButtonProps) => {
               pointerEvents: "none",
               opacity: 1,
             }}
-          ></motion.span>
+          />
         )}
       </AnimatePresence>
     </ButtonStyled>

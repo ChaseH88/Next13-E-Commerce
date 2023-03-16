@@ -11,4 +11,5 @@ export interface DropdownMenuStyledProps {
 export const DropdownMenuStyled = styled(motion.div)<DropdownMenuStyledProps>`
   background-color: lightblue;
   max-width: ${({ maxWidth }) => maxWidth};
+  position: absolute;
 `;
