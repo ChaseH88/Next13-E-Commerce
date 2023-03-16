@@ -19,7 +19,8 @@
       "models/*": ["models/*"],
       "types/*": ["types/*"],
       "utils/*": ["utils/*"],
-      "components/*": ["components/*"]
+      "components/*": ["components/*"],
+      "hooks/*": ["hooks/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
