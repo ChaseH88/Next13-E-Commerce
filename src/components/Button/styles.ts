@@ -31,7 +31,7 @@ export const secondaryButton = css`
 `;
 
 export const smallButton = css`
-  padding: ${({ theme }) => theme.spacing[1]} ${({ theme }) => theme.spacing[4]};
+  padding: ${({ theme }) => theme.spacing[1]} ${({ theme }) => theme.spacing[1]};
   font-size: 0.8rem;
 `;
 
@@ -47,6 +47,38 @@ export const largeButton = css`
   font-size: 1.2rem;
 `;
 
+export const iconButton = css`
+  padding: 0 !important;
+  font-size: 0.8rem;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+`;
+
+const applyVariantStyles = (variant: string) => {
+  switch (variant) {
+    case "primary":
+      return primaryButton;
+    default:
+      return secondaryButton;
+  }
+};
+
+const applySizeStyles = (size: string) => {
+  switch (size) {
+    case "icon":
+      return iconButton;
+    case "small":
+      return smallButton;
+    case "medium":
+      return mediumButton;
+    case "large":
+      return largeButton;
+    default:
+      return mediumButton;
+  }
+};
+
 export const ButtonStyled = styled(motion.button)<ButtonStyledProps>`
   position: relative;
   overflow: hidden;
@@ -54,17 +86,12 @@ export const ButtonStyled = styled(motion.button)<ButtonStyledProps>`
   border: 1px solid;
   cursor: pointer;
   transition: all 0.3s ease;
-  ${({ variant }) => (variant === "primary" ? primaryButton : secondaryButton)}
+  ${({ variant }) => applyVariantStyles(variant)};
   ${({ disabled }) =>
     disabled &&
     css`
       opacity: 0.5;
       cursor: not-allowed;
     `}
-    ${({ size }) =>
-    size === "small"
-      ? smallButton
-      : size === "medium"
-      ? mediumButton
-      : largeButton};
+  ${({ size }) => applySizeStyles(size)};
 `;

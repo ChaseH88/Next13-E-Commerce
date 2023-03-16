@@ -3,6 +3,7 @@ import { BADGE } from "@geometricpanda/storybook-addon-badges";
 import { Button } from "./Button";
 import { ThemeProvider } from "styled-components";
 import { makeTheme } from "../../styles/theme";
+import { Icon } from "../Icon";
 
 <Meta
   title="Components/Buttons"
@@ -33,7 +34,7 @@ import { Button } from 'components'
 
 <Canvas>
   <Story
-    name="Primary Button"
+    name="Primary"
     args={{
       children: "Testing",
       variant: "primary",
@@ -46,10 +47,24 @@ import { Button } from 'components'
 
 <Canvas>
   <Story
-    name="Secondary Button"
+    name="Secondary"
     args={{
       children: "Testing",
       variant: "secondary",
+      onClick: () => alert("clicked"),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Icon"
+    args={{
+      children: <Icon name="FaShoppingCart" />,
+      size: "icon",
+      variant: "primary",
       onClick: () => alert("clicked"),
     }}
   >
