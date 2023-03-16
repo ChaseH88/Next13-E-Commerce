@@ -22,14 +22,14 @@ export const DropdownMenu = ({
   open,
   width = "300px",
 }: DropdownMenuProps) => {
-  const [position, setPosition] = useState({ top: "100%", left: "50%" });
+  const [position, setPosition] = useState({ top: "100%", left: "-50%" });
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (target?.current && dropdownRef?.current) {
       setPosition({
         top: "100%",
-        left: "50%",
+        left: "-50%",
       });
     }
   }, [target, dropdownRef, open]);
@@ -39,9 +39,9 @@ export const DropdownMenu = ({
       {open && (
         <DropdownMenuStyled
           ref={dropdownRef}
-          initial={{ opacity: 0, y: -10, x: "-50%" }}
-          animate={{ opacity: 1, y: 0, x: "-50%" }}
-          exit={{ opacity: 0, y: -10, x: "-50%" }}
+          initial={{ opacity: 0, y: -10, x: "-14%" }}
+          animate={{ opacity: 1, y: 0, x: "-14%" }}
+          exit={{ opacity: 0, y: -10, x: "-14%" }}
           transition={{ duration: 0.2 }}
           style={{ top: position.top, left: position.left }}
           width={width}
