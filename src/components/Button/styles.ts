@@ -5,39 +5,34 @@ export interface ButtonStyledProps {
   variant: "primary" | "secondary";
   disabled?: boolean;
   activity?: boolean;
-  size: "small" | "medium" | "large";
+  size: "icon" | "small" | "medium" | "large";
 }
 
 export const primaryButton = css`
-  background: transparent;
-  color: ${({ theme }) => theme.colors.text};
-  border-color: ${({ theme }) => theme.colors.text};
+  background: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.onPrimary};
+  border-color: ${({ theme }) => theme.colors.primary};
   &:hover,
   &:focus {
-    background: ${({ theme }) => theme.colors.text};
-    color: ${({ theme }) => theme.colors.background};
+    background: ${({ theme }) => theme.colors.primaryDark};
+    color: ${({ theme }) => theme.colors.onPrimary};
   }
 `;
 
 export const secondaryButton = css`
-  background: ${({ theme }) => theme.colors.secondary};
-  color: ${({ theme }) => theme.colors.textSecondary};
-  border-color: ${({ theme }) => theme.colors.textSecondary};
+  background: transparent;
+  color: ${({ theme }) => theme.colors.secondary};
+  border-color: ${({ theme }) => theme.colors.secondary};
   &:hover,
   &:focus {
-    background: ${({ theme }) => theme.colors.text};
-    color: ${({ theme }) => theme.colors.background};
+    background: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.colors.onSecondary};
   }
 `;
 
 export const smallButton = css`
   padding: ${({ theme }) => theme.spacing[1]} ${({ theme }) => theme.spacing[4]};
   font-size: 0.8rem;
-  &:hover,
-  &:focus {
-    background: ${({ theme }) => theme.colors.text};
-    color: ${({ theme }) => theme.colors.background};
-  }
 `;
 
 export const mediumButton = css`
