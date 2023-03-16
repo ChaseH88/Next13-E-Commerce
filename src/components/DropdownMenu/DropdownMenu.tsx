@@ -1,6 +1,7 @@
 import { DropdownMenuStyled, DropdownMenuStyledProps } from "./styles";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
+import { useClassNames } from "hooks";
 
 interface DropDownMenuItem {
   label: string;
@@ -19,7 +20,7 @@ export const DropdownMenu = ({
   target,
   handleToggle,
   open,
-  maxWidth = "300px",
+  width = "300px",
 }: DropdownMenuProps) => {
   const [position, setPosition] = useState({ top: "100%", left: "50%" });
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -43,11 +44,12 @@ export const DropdownMenu = ({
           exit={{ opacity: 0, y: -10, x: "-50%" }}
           transition={{ duration: 0.2 }}
           style={{ top: position.top, left: position.left }}
-          maxWidth={maxWidth}
+          width={width}
         >
           {items?.map((item, index) => (
             <motion.div
               key={index}
+              className={"dropdown-item"}
               onClick={() => {
                 item?.onClick();
                 handleToggle();

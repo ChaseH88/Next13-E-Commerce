@@ -7,7 +7,7 @@ import { HeaderStyled } from "./styles";
 interface HeaderProps {}
 
 const Header = (props: HeaderProps) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
   const targetRef = useRef(null);
   const accountMenu = useMemo(
     () => [
@@ -55,6 +55,7 @@ const Header = (props: HeaderProps) => {
             target={targetRef}
             handleToggle={() => null}
             open={open}
+            width="200px"
           />
         </div>
       </div>
