@@ -1,14 +1,17 @@
 import { Button } from "components/Button";
 import { DropdownMenu } from "components/DropdownMenu";
 import { Icon } from "components/Icon";
-import { useMemo, useRef, useState } from "react";
+import { useClickOutside } from "hooks/useClickOutside";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { HeaderStyled } from "./styles";
 
 interface HeaderProps {}
 
 const Header = (props: HeaderProps) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const targetRef = useRef(null);
+  useClickOutside(targetRef, () => setOpen(false));
+
   const accountMenu = useMemo(
     () => [
       {
