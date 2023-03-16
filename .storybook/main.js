@@ -23,10 +23,10 @@ module.exports = {
   },
   webpackFinal: async (config, { configType }) => {
     config.resolve.modules = [path.resolve(__dirname, ".."), "node_modules"];
-    console.log(path.resolve(__dirname, "../src/components"));
     config.resolve.alias = {
       ...config.resolve.alias,
       components: path.resolve(__dirname, "../src/components"),
+      hooks: path.resolve(__dirname, "../src/hooks"),
     };
     return config;
   },
