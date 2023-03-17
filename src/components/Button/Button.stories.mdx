@@ -23,25 +23,15 @@ import { Button } from 'components'
 
 <ArgsTable of={Button} />
 
-<Canvas>
-  <Story
-    name="Primary"
-    args={{
-      children: "Testing",
-      variant: "primary",
-      onClick: () => console.log("clicked"),
-    }}
-  >
-    {Template.bind({})}
-  </Story>
-</Canvas>
+## Contained Buttons
 
 <Canvas>
   <Story
-    name="Secondary"
+    name="Contained - Primary"
     args={{
       children: "Testing",
-      variant: "secondary",
+      color: "primary",
+      variant: "contained",
       onClick: () => alert("clicked"),
     }}
   >
@@ -51,11 +41,155 @@ import { Button } from 'components'
 
 <Canvas>
   <Story
-    name="Icon"
+    name="Contained - Secondary"
+    args={{
+      children: "Testing",
+      color: "secondary",
+      variant: "contained",
+      onClick: () => alert("clicked"),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Contained - Teritary"
+    args={{
+      children: "Testing",
+      color: "teritary",
+      variant: "contained",
+      onClick: () => alert("clicked"),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Contained - Icon"
     args={{
       children: <Icon name="FaShoppingCart" />,
-      size: "icon",
-      variant: "primary",
+      color: "primary",
+      variant: "contained",
+      onClick: () => alert("clicked"),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Outlined Buttons
+
+<Canvas>
+  <Story
+    name="Outlined - Primary"
+    args={{
+      children: "Testing",
+      color: "primary",
+      variant: "outlined",
+      onClick: () => alert("clicked"),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Outlined - Secondary"
+    args={{
+      children: "Testing",
+      color: "secondary",
+      variant: "outlined",
+      onClick: () => alert("clicked"),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Outlined - Teritary"
+    args={{
+      children: "Testing",
+      color: "teritary",
+      variant: "outlined",
+      onClick: () => alert("clicked"),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Outlined - Icon"
+    args={{
+      children: <Icon name="FaShoppingCart" />,
+      color: "primary",
+      variant: "outlined",
+      onClick: () => alert("clicked"),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+## Text Buttons
+
+<Canvas>
+  <Story
+    name="Text - Primary"
+    args={{
+      children: "Testing",
+      color: "primary",
+      variant: "text",
+      onClick: () => alert("clicked"),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Text - Secondary"
+    args={{
+      children: "Testing",
+      color: "secondary",
+      variant: "text",
+      onClick: () => alert("clicked"),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Text - Teritary"
+    args={{
+      children: "Testing",
+      color: "teritary",
+      variant: "text",
+      onClick: () => alert("clicked"),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Text - Icon"
+    args={{
+      children: <Icon name="FaShoppingCart" />,
+      color: "primary",
+      variant: "text",
       onClick: () => alert("clicked"),
     }}
   >

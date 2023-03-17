@@ -1,97 +1,93 @@
+import React, { ButtonHTMLAttributes } from "react";
 import styled, { css } from "styled-components";
-import { motion } from "framer-motion";
+import { ColorType } from "types/types";
 
-export interface ButtonStyledProps {
-  variant: "primary" | "secondary";
-  disabled?: boolean;
-  activity?: boolean;
-  size: "icon" | "small" | "medium" | "large";
+type Variant = "text" | "outlined" | "contained";
+
+export interface ButtonStyledProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: Variant;
+  color?: ColorType;
 }
 
-export const primaryButton = css`
-  background: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.onPrimary};
-  border-color: ${({ theme }) => theme.colors.primary};
-  &:hover,
-  &:focus {
-    background: ${({ theme }) => theme.colors.primaryDark};
-    color: ${({ theme }) => theme.colors.onPrimary};
-  }
-`;
-
-export const secondaryButton = css`
-  background: transparent;
-  color: ${({ theme }) => theme.colors.secondary};
-  border-color: ${({ theme }) => theme.colors.secondary};
-  &:hover,
-  &:focus {
-    background: ${({ theme }) => theme.colors.secondary};
-    color: ${({ theme }) => theme.colors.onSecondary};
-  }
-`;
-
-export const smallButton = css`
-  padding: ${({ theme }) => theme.spacing[1]} ${({ theme }) => theme.spacing[1]};
-  font-size: 0.8rem;
-`;
-
-export const mediumButton = css`
-  padding: ${({ theme }) => theme.spacing["2"]}
-    ${({ theme }) => theme.spacing[8]};
-  font-size: 1rem;
-`;
-
-export const largeButton = css`
-  padding: ${({ theme }) => theme.spacing[3]}
-    ${({ theme }) => theme.spacing[15]};
-  font-size: 1.2rem;
-`;
-
-export const iconButton = css`
-  padding: 0 !important;
-  font-size: 0.8rem;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-`;
-
-const applyVariantStyles = (variant: string) => {
-  switch (variant) {
-    case "primary":
-      return primaryButton;
-    default:
-      return secondaryButton;
-  }
+const buttonStyles = {
+  text: {
+    default: css`
+      color: rgba(0, 0, 0, 0.87);
+      background-color: transparent;
+    `,
+    primary: css`
+      color: ${({ theme }) => theme.colors.primary};
+      background-color: transparent;
+    `,
+    secondary: css`
+      color: ${({ theme }) => theme.colors.secondary};
+      background-color: transparent;
+    `,
+    tertiary: css`
+      color: ${({ theme }) => theme.colors.tertiary};
+      background-color: transparent;
+    `,
+  },
+  outlined: {
+    default: css`
+      color: ${({ theme }) => theme.colors.pallette.black[100]};
+      background-color: transparent;
+      border: 1px solid ${({ theme }) => theme.colors.pallette.black[100]};
+    `,
+    primary: css`
+      color: ${({ theme }) => theme.colors.primary};
+      background-color: transparent;
+      border: 1px solid ${({ theme }) => theme.colors.primary};
+    `,
+    secondary: css`
+      color: ${({ theme }) => theme.colors.secondary};
+      background-color: transparent;
+      border: 1px solid ${({ theme }) => theme.colors.secondary};
+    `,
+    tertiary: css`
+      color: ${({ theme }) => theme.colors.tertiary};
+      background-color: transparent;
+      border: 1px solid ${({ theme }) => theme.colors.tertiary};
+    `,
+  },
+  contained: {
+    default: css`
+      color: ${({ theme }) => theme.colors.pallette.white[100]};
+      background-color: ${({ theme }) => theme.colors.pallette.black[100]};
+    `,
+    primary: css`
+      color: ${({ theme }) => theme.colors.onPrimary};
+      background-color: ${({ theme }) => theme.colors.primary};
+    `,
+    secondary: css`
+      color: ${({ theme }) => theme.colors.onSecondary};
+      background-color: ${({ theme }) => theme.colors.secondary};
+    `,
+    tertiary: css`
+      color: ${({ theme }) => theme.colors.onTertiary};
+      background-color: ${({ theme }) => theme.colors.tertiary};
+    `,
+  },
 };
 
-const applySizeStyles = (size: string) => {
-  switch (size) {
-    case "icon":
-      return iconButton;
-    case "small":
-      return smallButton;
-    case "medium":
-      return mediumButton;
-    case "large":
-      return largeButton;
-    default:
-      return mediumButton;
-  }
-};
-
-export const ButtonStyled = styled(motion.button)<ButtonStyledProps>`
-  position: relative;
-  overflow: hidden;
-  user-select: none;
-  border: 1px solid;
+export const ButtonStyled = styled.button<ButtonStyledProps>`
+  ${({ variant, color }) => buttonStyles[variant || "text"][color || "default"]}
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 6px 16px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  ${({ variant }) => applyVariantStyles(variant)};
-  ${({ disabled }) =>
-    disabled &&
-    css`
-      opacity: 0.5;
-      cursor: not-allowed;
-    `}
-  ${({ size }) => applySizeStyles(size)};
+  text-transform: uppercase;
+  transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out,
+    border-color 0.25s ease-in-out;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 `;

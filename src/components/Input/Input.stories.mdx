@@ -30,7 +30,7 @@ export const Template = (args) => {
     <>
       <Input formHook={formHook} {...args} />
       <Button
-        variant="primary"
+        variant="contained"
         onClick={() => alert(JSON.stringify(formHook.getValues()))}
       >
         Submit

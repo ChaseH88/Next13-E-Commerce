@@ -39,18 +39,18 @@ const Header = (props: HeaderProps) => {
             position: "relative",
           }}
         >
-          <Button size="icon" variant="primary">
+          <Button color="primary" variant="contained">
             <Icon name="FaSearch" />
           </Button>
           <Button
             onClick={handleAccountMenuToggle}
-            size="icon"
-            variant="primary"
+            variant="contained"
+            color="primary"
             ref={targetRef}
           >
             <Icon name="FaUser" />
           </Button>
-          <Button size="icon" variant="primary">
+          <Button color="primary" variant="contained">
             <Icon name="FaShoppingCart" />
           </Button>
           <DropdownMenu

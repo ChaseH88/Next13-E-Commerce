@@ -1,5 +1,18 @@
 import { darkenColor, lightenColor } from "../helpers";
 
+const pallette = {
+  black: {
+    100: "#040307",
+    200: "#010102",
+    300: "#020203",
+  },
+  white: {
+    100: "#FBFBFD",
+    200: "#F4F4F8",
+    300: "#E6E6EC",
+  },
+};
+
 /**
  * Light theme colors
  */
@@ -16,6 +29,7 @@ const lightColors = {
   tertiaryLight: lightenColor("#449dd1"),
   tertiaryDark: darkenColor("#449dd1"),
   onTertiary: "#fff",
+  pallette,
 };
 
 /**
@@ -35,6 +49,7 @@ const darkColors = {
   tertiaryLight: lightenColor("#449dd1"),
   tertiaryDark: darkenColor("#449dd1"),
   onTertiary: "#fff",
+  pallette,
 };
 
 /**
