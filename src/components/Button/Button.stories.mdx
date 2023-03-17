@@ -1,8 +1,6 @@
 import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
 import { BADGE } from "@geometricpanda/storybook-addon-badges";
 import { Button } from "./Button";
-import { ThemeProvider } from "styled-components";
-import { makeTheme } from "../../styles/theme";
 import { Icon } from "../Icon";
 
 <Meta
@@ -13,14 +11,7 @@ import { Icon } from "../Icon";
   }}
 />
 
-export const Template = (args) => {
-  const theme = makeTheme();
-  return (
-    <ThemeProvider theme={theme}>
-      <Button {...args} />
-    </ThemeProvider>
-  );
-};
+export const Template = (args) => <Button {...args} />;
 
 # Button Component
 

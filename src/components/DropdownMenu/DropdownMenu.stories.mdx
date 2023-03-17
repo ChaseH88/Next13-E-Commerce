@@ -1,8 +1,7 @@
 import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
 import { BADGE } from "@geometricpanda/storybook-addon-badges";
 import { DropdownMenu } from "./DropdownMenu";
-import { ThemeProvider } from "styled-components";
-import { makeTheme } from "../../styles/theme";
+import { Button } from "components";
 import { useRef, useState } from "react";
 
 <Meta
@@ -14,17 +13,16 @@ import { useRef, useState } from "react";
 />
 
 export const Template = (args) => {
-  const theme = makeTheme();
   const targetRef = useRef(null);
   const [open, setOpen] = useState(true);
   const setToggle = () => setOpen(!open);
   return (
-    <ThemeProvider theme={theme}>
-      <button ref={targetRef} onClick={setToggle}>
+    <>
+      <Button ref={targetRef} onClick={setToggle}>
         Button
-      </button>
+      </Button>
       <DropdownMenu open={open} target={targetRef} {...args} />
-    </ThemeProvider>
+    </>
   );
 };
 

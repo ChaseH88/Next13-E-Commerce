@@ -2,8 +2,6 @@ import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
 import { BADGE } from "@geometricpanda/storybook-addon-badges";
 import { Form } from "./Form";
 import { Input, Button } from "components";
-import { ThemeProvider } from "styled-components";
-import { makeTheme } from "../../styles/theme";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -16,31 +14,28 @@ import { useForm } from "react-hook-form";
 />
 
 export const Template = (args) => {
-  const theme = makeTheme();
   const formHook = useForm();
   return (
-    <ThemeProvider theme={theme}>
-      <Form {...args}>
-        <Input
-          formInputName="email"
-          label="Email"
-          placeholder="Email"
-          formHook={formHook}
-        />
-        <Input
-          formInputName="password"
-          label="Password"
-          placeholder="Password"
-          formHook={formHook}
-        />
-        <Button
-          variant="primary"
-          onClick={() => alert(JSON.stringify(formHook.getValues()))}
-        >
-          Submit
-        </Button>
-      </Form>
-    </ThemeProvider>
+    <Form {...args}>
+      <Input
+        formInputName="email"
+        label="Email"
+        placeholder="Email"
+        formHook={formHook}
+      />
+      <Input
+        formInputName="password"
+        label="Password"
+        placeholder="Password"
+        formHook={formHook}
+      />
+      <Button
+        variant="primary"
+        onClick={() => alert(JSON.stringify(formHook.getValues()))}
+      >
+        Submit
+      </Button>
+    </Form>
   );
 };
 

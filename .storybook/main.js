@@ -8,6 +8,7 @@ module.exports = {
     "@storybook/addon-interactions",
     "@storybook/addon-docs",
     "@geometricpanda/storybook-addon-badges",
+    "storybook-addon-styled-component-theme/dist/preset",
   ],
   framework: "@storybook/react",
   core: {
