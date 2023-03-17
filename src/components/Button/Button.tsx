@@ -36,7 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         onMouseUp={handleMouseUp}
         onMouseLeave={handleMouseLeave}
         size={props.size || "medium"}
-        // ref={ref || null}
+        ref={ref}
       >
         <span>{props.children}</span>
         <AnimatePresence>
