@@ -1,4 +1,4 @@
-import { AppLayout } from "components/AppLayout";
+import { AppLayout } from "modules/AppLayout";
 import type { AppProps } from "next/app";
 import { useMemo } from "react";
 
