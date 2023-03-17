@@ -1,4 +1,3 @@
-import { AppLayout } from "modules/AppLayout";
 import type { AppProps } from "next/app";
 import { useMemo } from "react";
 
@@ -15,9 +14,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <AppLayout>
-          <Component {...pageProps} />
-        </AppLayout>
+        <Component {...pageProps} />
       </ThemeProvider>
     </>
   );
