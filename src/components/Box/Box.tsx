@@ -5,7 +5,7 @@ type BoxProps = BoxStyledProps & {
   children?: React.ReactNode;
 };
 
-const Box: React.FC<BoxProps> = ({ children, className, ...props }) => (
+const Box = ({ children, className, ...props }: BoxProps) => (
   <BoxStyled className={className} {...props}>
     {children}
   </BoxStyled>

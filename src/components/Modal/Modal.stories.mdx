@@ -1,0 +1,41 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { BADGE } from "@geometricpanda/storybook-addon-badges";
+import { Modal } from "./Modal";
+import { useState } from "react";
+
+<Meta
+  title="Components"
+  component={Modal}
+  parameters={{
+    badges: [BADGE.STABLE],
+  }}
+/>
+
+export const Template = (args) => {
+  const [openModal, setOpenModal] = useState(false);
+  const handleOpenModal = () => setOpenModal(true);
+  const handleCloseModal = () => setOpenModal(false);
+  return (
+    <div>
+      <button onClick={handleOpenModal}>Open Modal</button>
+      <Modal open={openModal} onClose={handleCloseModal}>
+        <h1>Modal Content</h1>
+        <p>This is the content of the modal.</p>
+      </Modal>
+    </div>
+  );
+};
+
+# Modal Component
+
+```
+import { Modal } from 'components'
+```
+
+## Props
+
+<ArgsTable of={Modal} />
+
+<Canvas>
+  <Story name="Modal">{Template.bind({})}</Story>
+</Canvas>
