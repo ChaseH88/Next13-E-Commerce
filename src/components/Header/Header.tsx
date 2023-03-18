@@ -1,8 +1,7 @@
-import { Button } from "components/Button";
-import { DropdownMenu } from "components/DropdownMenu";
+import { Box, Button, DropdownMenu } from "components";
 import { Icon } from "components/Icon";
 import { useClickOutside } from "hooks/useClickOutside";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { HeaderStyled } from "./styles";
 
 interface HeaderProps {}
@@ -30,14 +29,17 @@ const Header = (props: HeaderProps) => {
 
   return (
     <HeaderStyled>
-      <div className="container">
-        <div className="logo">Logo</div>
-        <div className="menu"></div>
-        <div
+      <Box className="container" display="flex">
+        <Box flex={"0 0 100px"} className="logo">
+          Logo
+        </Box>
+        <Box flex={"1 1 auto"} className="menu"></Box>
+        <Box
+          flex={"0 0 200px"}
           className="utility-menu"
-          style={{
-            position: "relative",
-          }}
+          position="relative"
+          display="flex"
+          gap=".5em"
         >
           <Button color="primary" variant="contained">
             <Icon name="FaSearch" />
@@ -60,8 +62,8 @@ const Header = (props: HeaderProps) => {
             open={open}
             width="200px"
           />
-        </div>
-      </div>
+        </Box>
+      </Box>
     </HeaderStyled>
   );
 };

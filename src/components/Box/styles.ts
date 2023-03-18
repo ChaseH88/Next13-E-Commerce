@@ -16,6 +16,9 @@ export interface BoxStyledProps {
   background?: string;
   borderRadius?: string;
   flex?: string;
+  position?: string;
+  maxWidth?: string;
+  gap?: string;
 }
 
 export const BoxStyled = styled.div<BoxStyledProps>`
@@ -33,5 +36,8 @@ export const BoxStyled = styled.div<BoxStyledProps>`
   height: ${({ height }) => height || "auto"};
   background: ${({ background }) => background || "transparent"};
   border-radius: ${({ borderRadius }) => borderRadius || "0"};
+  position: ${({ position }) => position || "static"};
+  max-width: ${({ maxWidth }) => maxWidth || "none"};
+  gap: ${({ gap }) => gap || "0"};
   ${({ flex }) => flex && `flex: ${flex};`}
 `;
