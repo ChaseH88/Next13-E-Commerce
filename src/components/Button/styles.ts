@@ -28,6 +28,22 @@ const buttonStyles = {
       color: ${({ theme }) => theme.colors.tertiary};
       background-color: transparent;
     `,
+    success: css`
+      color: ${({ theme }) => theme.colors.success};
+      background-color: transparent;
+    `,
+    warning: css`
+      color: ${({ theme }) => theme.colors.warning};
+      background-color: transparent;
+    `,
+    danger: css`
+      color: ${({ theme }) => theme.colors.danger};
+      background-color: transparent;
+    `,
+    info: css`
+      color: ${({ theme }) => theme.colors.info};
+      background-color: transparent;
+    `,
   },
   outlined: {
     default: css`
@@ -50,6 +66,26 @@ const buttonStyles = {
       background-color: transparent;
       border: 1px solid ${({ theme }) => theme.colors.tertiary};
     `,
+    success: css`
+      color: ${({ theme }) => theme.colors.success};
+      background-color: transparent;
+      border: 1px solid ${({ theme }) => theme.colors.success};
+    `,
+    warning: css`
+      color: ${({ theme }) => theme.colors.warning};
+      background-color: transparent;
+      border: 1px solid ${({ theme }) => theme.colors.warning};
+    `,
+    danger: css`
+      color: ${({ theme }) => theme.colors.danger};
+      background-color: transparent;
+      border: 1px solid ${({ theme }) => theme.colors.danger};
+    `,
+    info: css`
+      color: ${({ theme }) => theme.colors.info};
+      background-color: transparent;
+      border: 1px solid ${({ theme }) => theme.colors.info};
+    `,
   },
   contained: {
     default: css`
@@ -57,16 +93,32 @@ const buttonStyles = {
       background-color: ${({ theme }) => theme.colors.pallette.black[100]};
     `,
     primary: css`
-      color: ${({ theme }) => theme.colors.onPrimary};
+      color: ${({ theme }) => theme.colors.primaryText};
       background-color: ${({ theme }) => theme.colors.primary};
     `,
     secondary: css`
-      color: ${({ theme }) => theme.colors.onSecondary};
+      color: ${({ theme }) => theme.colors.secondaryText};
       background-color: ${({ theme }) => theme.colors.secondary};
     `,
     tertiary: css`
-      color: ${({ theme }) => theme.colors.onTertiary};
+      color: ${({ theme }) => theme.colors.tertiaryText};
       background-color: ${({ theme }) => theme.colors.tertiary};
+    `,
+    success: css`
+      color: ${({ theme }) => theme.colors.successText};
+      background-color: ${({ theme }) => theme.colors.success};
+    `,
+    warning: css`
+      color: ${({ theme }) => theme.colors.warningText};
+      background-color: ${({ theme }) => theme.colors.warning};
+    `,
+    danger: css`
+      color: ${({ theme }) => theme.colors.dangerText};
+      background-color: ${({ theme }) => theme.colors.danger};
+    `,
+    info: css`
+      color: ${({ theme }) => theme.colors.infoText};
+      background-color: ${({ theme }) => theme.colors.info};
     `,
   },
 };

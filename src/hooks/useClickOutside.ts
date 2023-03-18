@@ -13,11 +13,14 @@ const useClickOutside = (
 ): void => {
   const currentHandler = useRef(handler);
 
-  const memoizedCallback = useCallback((e: MouseEvent) => {
-    if (ref && ref.current && !ref.current.contains(e.target as Element)) {
-      currentHandler.current(e);
-    }
-  }, []);
+  const memoizedCallback = useCallback(
+    (e: MouseEvent) => {
+      if (ref && ref.current && !ref.current.contains(e.target as Element)) {
+        currentHandler.current(e);
+      }
+    },
+    [ref]
+  );
 
   useEffect(() => {
     currentHandler.current = handler;
@@ -29,7 +32,7 @@ const useClickOutside = (
     return () => {
       document.removeEventListener("click", memoizedCallback, true);
     };
-  }, [ref, handler]);
+  }, [ref, handler, memoizedCallback]);
 };
 
 export { useClickOutside };

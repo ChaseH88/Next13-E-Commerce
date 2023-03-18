@@ -1,3 +1,4 @@
+import { ColorType } from "types/types";
 import { darkenColor, lightenColor } from "../helpers";
 
 const pallette = {
@@ -27,23 +28,41 @@ const light = {
   info: "#17a2b8",
 };
 
-const createPallette = (name: string, color: string, textColor: string) => ({
-  [name]: color,
-  [`${name}Light`]: lightenColor(color),
-  [`${name}Lighter`]: lightenColor(color, 0.4),
-  [`${name}Dark`]: darkenColor(color),
-  [`${name}Darker`]: darkenColor(color, 0.4),
-  [`on${name}`]: textColor,
-});
+type CreatePaletteReturnType = {
+  [key: string]: string;
+};
+
+type PaletteType<C extends ColorType> = CreatePaletteReturnType &
+  {
+    [K in C | `${C}Light` | `${C}Dark` | `on${C}` | `${C}Text`]: string;
+  };
+
+const createPalette = <C extends ColorType>(
+  name: C,
+  color: string,
+  textColor: string
+): PaletteType<C> =>
+  ({
+    [name]: color,
+    [`${name}Light`]: lightenColor(color),
+    [`${name}Lighter`]: lightenColor(color, 0.4),
+    [`${name}Dark`]: darkenColor(color),
+    [`${name}Darker`]: darkenColor(color, 0.4),
+    [`${name}Text`]: textColor,
+  } as PaletteType<C>);
 
 const lightColors = {
-  ...createPallette("primary", light.primary, pallette.white[100]),
-  ...createPallette("secondary", light.secondary, pallette.white[100]),
-  ...createPallette("tertiary", light.tertiary, pallette.black[100]),
-  ...createPallette("success", light.success, pallette.white[100]),
-  ...createPallette("danger", light.danger, pallette.white[100]),
-  ...createPallette("warning", light.warning, pallette.white[100]),
-  ...createPallette("info", light.info, pallette.white[100]),
+  ...createPalette<"primary">("primary", light.primary, pallette.white[100]),
+  ...createPalette<"secondary">(
+    "secondary",
+    light.secondary,
+    pallette.white[100]
+  ),
+  ...createPalette<"tertiary">("tertiary", light.tertiary, pallette.black[100]),
+  ...createPalette<"success">("success", light.success, pallette.white[100]),
+  ...createPalette<"danger">("danger", light.danger, pallette.white[100]),
+  ...createPalette<"warning">("warning", light.warning, pallette.white[100]),
+  ...createPalette<"info">("info", light.info, pallette.white[100]),
   pallette,
 };
 
@@ -52,13 +71,17 @@ const lightColors = {
  * // TODO: Add dark theme colors
  */
 const darkColors = {
-  ...createPallette("primary", light.primary, pallette.white[100]),
-  ...createPallette("secondary", light.secondary, pallette.white[100]),
-  ...createPallette("tertiary", light.tertiary, pallette.black[100]),
-  ...createPallette("success", light.success, pallette.white[100]),
-  ...createPallette("danger", light.danger, pallette.white[100]),
-  ...createPallette("warning", light.warning, pallette.white[100]),
-  ...createPallette("info", light.info, pallette.white[100]),
+  ...createPalette<"primary">("primary", light.primary, pallette.white[100]),
+  ...createPalette<"secondary">(
+    "secondary",
+    light.secondary,
+    pallette.white[100]
+  ),
+  ...createPalette<"tertiary">("tertiary", light.tertiary, pallette.black[100]),
+  ...createPalette<"success">("success", light.success, pallette.white[100]),
+  ...createPalette<"danger">("danger", light.danger, pallette.white[100]),
+  ...createPalette<"warning">("warning", light.warning, pallette.white[100]),
+  ...createPalette<"info">("info", light.info, pallette.white[100]),
   pallette,
 };
 

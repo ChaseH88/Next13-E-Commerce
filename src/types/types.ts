@@ -21,12 +21,12 @@ export type UserRoles = "customer" | "manager" | "admin";
 
 type ReturnTypeMakeTheme = ReturnType<typeof makeTheme>;
 export type FontType = keyof ReturnTypeMakeTheme["fontSizes"];
-type FilterTypesWithOn<T> = {
-  [K in keyof T as K extends string
-    ? K extends `on${infer Suffix}`
-      ? Uncapitalize<Suffix>
-      : never
-    : never]: T[K];
-};
-export type ColorType = keyof FilterTypesWithOn<ReturnTypeMakeTheme["colors"]>;
+export type ColorType =
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "success"
+  | "danger"
+  | "warning"
+  | "info";
 export type SpacingType = keyof ReturnTypeMakeTheme["spacing"];
