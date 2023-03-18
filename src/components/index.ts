@@ -8,4 +8,5 @@ export * from "./Header";
 export * from "./Icon";
 export * from "./Input";
 export * from "./Modal";
+export * from "./TopBar";
 export * from "./Typography";

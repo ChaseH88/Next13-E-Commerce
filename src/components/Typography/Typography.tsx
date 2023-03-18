@@ -6,10 +6,16 @@ interface TypographyProps extends TypographyStyledProps {
   className?: string;
   id?: string;
   style?: CSSProperties;
+  ref?: React.RefObject<HTMLParagraphElement>;
 }
 
-const Typography = ({ children, style = {}, ...props }: TypographyProps) => (
-  <TypographyStyled {...props} style={style}>
+const Typography = ({
+  children,
+  ref,
+  style = {},
+  ...props
+}: TypographyProps) => (
+  <TypographyStyled ref={ref} {...props} style={style}>
     {children}
   </TypographyStyled>
 );

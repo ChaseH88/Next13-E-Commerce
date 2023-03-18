@@ -7,7 +7,7 @@ type BannerProps = BannerStyledProps & {
 };
 
 const Banner = ({ children, className, style, ...props }: BannerProps) => (
-  <BannerStyled className={className} {...props} style={style}>
+  <BannerStyled className={className} {...props} variant="hero" style={style}>
     {children}
   </BannerStyled>
 );
