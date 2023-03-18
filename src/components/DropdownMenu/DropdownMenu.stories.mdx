@@ -1,11 +1,10 @@
 import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
 import { BADGE } from "@geometricpanda/storybook-addon-badges";
-import { DropdownMenu } from "./DropdownMenu";
-import { Button } from "components";
+import { Button, DropdownMenu } from "components";
 import { useRef, useState } from "react";
 
 <Meta
-  title="Components"
+  title="Components/DropdownMenu"
   component={DropdownMenu}
   parameters={{
     badges: [BADGE.STABLE],
@@ -13,16 +12,26 @@ import { useRef, useState } from "react";
 />
 
 export const Template = (args) => {
-  const targetRef = useRef(null);
-  const [open, setOpen] = useState(true);
+  const anchorRef = useRef(null);
+  const [open, setOpen] = useState(false);
   const setToggle = () => setOpen(!open);
   return (
-    <>
-      <Button ref={targetRef} onClick={setToggle}>
-        Button
+    <div>
+      <Button
+        color="primary"
+        variant="contained"
+        ref={anchorRef}
+        onClick={setToggle}
+      >
+        Open Menu
       </Button>
-      <DropdownMenu open={open} target={targetRef} {...args} />
-    </>
+      <DropdownMenu
+        anchorElement={anchorRef.current}
+        open={open}
+        onClose={setToggle}
+        {...args}
+      />
+    </div>
   );
 };
 
@@ -36,22 +45,62 @@ import { DropdownMenu } from 'components'
 
 <ArgsTable of={DropdownMenu} />
 
+### React Nodes
+
 <Canvas>
   <Story
-    name="DropdownMenu"
+    name="React Nodes"
+    args={{
+      items: (
+        <div>
+          <div>Menu Item 1</div>
+          <div>Menu Item 2</div>
+          <div>Menu Item 3</div>
+        </div>
+      ),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Contained Items
+
+```ts
+export interface DropdownMenuItem {
+  id: string;
+  name: string;
+  slug: string;
+  description?: string;
+  onClick?: () => void;
+}
+```
+
+<Canvas>
+  <Story
+    name="Contained Items"
     args={{
       items: [
         {
-          label: "Item 1",
-          onClick: () => console.log("Item 1 clicked"),
+          id: "1",
+          name: "Menu Item 1",
+          slug: "menu-item-1",
+          description: "This is a description",
+          onClick: () => alert("clicked!"),
         },
         {
-          label: "Item 2",
-          onClick: () => console.log("Item 2 clicked"),
+          id: "2",
+          name: "Menu Item 2",
+          slug: "menu-item-2",
+          description: "This is a description",
+          onClick: () => alert("clicked!"),
         },
         {
-          label: "Item 3",
-          onClick: () => console.log("Item 3 clicked"),
+          id: "3",
+          name: "Menu Item 3",
+          slug: "menu-item-3",
+          description: "This is a description",
+          onClick: () => alert("clicked!"),
         },
       ],
     }}
