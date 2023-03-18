@@ -1,7 +1,7 @@
 import { useClassNames } from "hooks/useClassNames";
-import { FormStyled, FieldSetStyled } from "./styles";
+import { FormStyled, FieldSetStyled, FormStyledProps } from "./styles";
 
-interface FormProps {
+interface FormProps extends FormStyledProps {
   children?: React.ReactNode;
   className?: string;
   id?: string;

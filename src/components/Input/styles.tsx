@@ -9,7 +9,7 @@ export const InputContainer = styled.div`
 `;
 
 export const InputLabel = styled.label`
-  font-size: 1rem;
+  ${textCss("subtitle2", "primary")};
   font-weight: 500;
   margin-bottom: 4px;
 `;

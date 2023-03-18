@@ -1,7 +1,7 @@
 import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
 import { BADGE } from "@geometricpanda/storybook-addon-badges";
 import { Form } from "./Form";
-import { Input, Button } from "components";
+import { Input, Box, Button } from "components";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -16,25 +16,23 @@ import { useForm } from "react-hook-form";
 export const Template = (args) => {
   const formHook = useForm();
   return (
-    <Form {...args}>
-      <Input
-        formInputName="email"
-        label="Email"
-        placeholder="Email"
-        formHook={formHook}
-      />
-      <Input
-        formInputName="password"
-        label="Password"
-        placeholder="Password"
-        formHook={formHook}
-      />
-      <Button
-        variant="contained"
-        onClick={() => alert(JSON.stringify(formHook.getValues()))}
-      >
-        Submit
-      </Button>
+    <Form {...args} width={"50%"}>
+      <Box padding={"12px"}>
+        <Input formInputName="email" label="Email" formHook={formHook} />
+      </Box>
+      <Box padding={"12px"}>
+        <Input formInputName="password" label="Password" formHook={formHook} />
+      </Box>
+      <Box padding={"12px"} display={"flex"} justifyContent={"center"}>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => alert(JSON.stringify(formHook.getValues()))}
+          disabled={args.isSubmitting || formHook.formState.isSubmitting}
+        >
+          Login
+        </Button>
+      </Box>
     </Form>
   );
 };

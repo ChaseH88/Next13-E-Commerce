@@ -12,4 +12,7 @@ export const textCss = (
       `on${variant.charAt(0).toUpperCase() + variant.slice(1)}` as ColorType
     ]};
   padding: ${({ theme }) => theme.spacing[padding]};
+  font-family: ${({ theme }) => theme.fonts.secondary};
+  margin: 0;
+  padding: 0;
 `;
