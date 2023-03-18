@@ -8,7 +8,7 @@ import { HeaderStyled } from "./styles";
 interface HeaderProps {}
 
 const Header = (props: HeaderProps) => {
-  const [searchToggle, setSearchToggle] = useState(true);
+  const [searchToggle, setSearchToggle] = useState(false);
   const scrollPosition = useScrollPosition();
   const scrollPast = useMemo(() => scrollPosition > 100, [scrollPosition]);
   const formHook = useForm({
