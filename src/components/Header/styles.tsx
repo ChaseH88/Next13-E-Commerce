@@ -8,7 +8,7 @@ export const HeaderStyled = styled.header<{ scrollPast: boolean }>`
   bottom: auto;
   padding: ${(props) => props.theme.spacing[5]} 0;
   background-color: ${({ scrollPast, theme }) =>
-    !scrollPast ? "transparent" : theme.colors.pallette.white[100]};
+    !scrollPast ? "transparent" : theme.colors.palette.white[100]};
   z-index: 1000;
   transition: background-color 0.3s ease-in-out;
 

@@ -58,9 +58,9 @@ const buttonStyles = {
   },
   outlined: {
     default: css`
-      color: ${({ theme }) => theme.colors.pallette.black[100]};
+      color: ${({ theme }) => theme.colors.palette.black[100]};
       background-color: transparent;
-      border: 1px solid ${({ theme }) => theme.colors.pallette.black[100]};
+      border: 1px solid ${({ theme }) => theme.colors.palette.black[100]};
     `,
     primary: css`
       color: ${({ theme }) => theme.colors.primary};
@@ -100,8 +100,8 @@ const buttonStyles = {
   },
   contained: {
     default: css`
-      color: ${({ theme }) => theme.colors.pallette.white[100]};
-      background-color: ${({ theme }) => theme.colors.pallette.black[100]};
+      color: ${({ theme }) => theme.colors.palette.white[100]};
+      background-color: ${({ theme }) => theme.colors.palette.black[100]};
     `,
     primary: css`
       color: ${({ theme }) => theme.colors.primaryText};
@@ -134,7 +134,7 @@ const buttonStyles = {
   },
   "no-outline-icon": {
     default: css`
-      color: ${({ theme }) => theme.colors.pallette.black[100]};
+      color: ${({ theme }) => theme.colors.palette.black[100]};
       background-color: transparent !important;
       ${sharedIconButtonStyles};
     `,

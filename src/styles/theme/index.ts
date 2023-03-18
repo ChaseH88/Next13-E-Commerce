@@ -1,7 +1,7 @@
 import { ColorType } from "types/types";
 import { darkenColor, lightenColor } from "../helpers";
 
-const pallette = {
+const palette = {
   black: {
     100: "#040307",
     200: "#010102",
@@ -52,18 +52,18 @@ const createPalette = <C extends ColorType>(
   } as PaletteType<C>);
 
 const lightColors = {
-  ...createPalette<"primary">("primary", light.primary, pallette.white[100]),
+  ...createPalette<"primary">("primary", light.primary, palette.white[100]),
   ...createPalette<"secondary">(
     "secondary",
     light.secondary,
-    pallette.white[100]
+    palette.white[100]
   ),
-  ...createPalette<"tertiary">("tertiary", light.tertiary, pallette.black[100]),
-  ...createPalette<"success">("success", light.success, pallette.white[100]),
-  ...createPalette<"danger">("danger", light.danger, pallette.white[100]),
-  ...createPalette<"warning">("warning", light.warning, pallette.white[100]),
-  ...createPalette<"info">("info", light.info, pallette.white[100]),
-  pallette,
+  ...createPalette<"tertiary">("tertiary", light.tertiary, palette.black[100]),
+  ...createPalette<"success">("success", light.success, palette.white[100]),
+  ...createPalette<"danger">("danger", light.danger, palette.white[100]),
+  ...createPalette<"warning">("warning", light.warning, palette.white[100]),
+  ...createPalette<"info">("info", light.info, palette.white[100]),
+  palette,
 };
 
 /**
@@ -71,18 +71,18 @@ const lightColors = {
  * // TODO: Add dark theme colors
  */
 const darkColors = {
-  ...createPalette<"primary">("primary", light.primary, pallette.white[100]),
+  ...createPalette<"primary">("primary", light.primary, palette.white[100]),
   ...createPalette<"secondary">(
     "secondary",
     light.secondary,
-    pallette.white[100]
+    palette.white[100]
   ),
-  ...createPalette<"tertiary">("tertiary", light.tertiary, pallette.black[100]),
-  ...createPalette<"success">("success", light.success, pallette.white[100]),
-  ...createPalette<"danger">("danger", light.danger, pallette.white[100]),
-  ...createPalette<"warning">("warning", light.warning, pallette.white[100]),
-  ...createPalette<"info">("info", light.info, pallette.white[100]),
-  pallette,
+  ...createPalette<"tertiary">("tertiary", light.tertiary, palette.black[100]),
+  ...createPalette<"success">("success", light.success, palette.white[100]),
+  ...createPalette<"danger">("danger", light.danger, palette.white[100]),
+  ...createPalette<"warning">("warning", light.warning, palette.white[100]),
+  ...createPalette<"info">("info", light.info, palette.white[100]),
+  palette,
 };
 
 /**
@@ -92,8 +92,8 @@ const darkColors = {
 export const makeTheme = (mode: "light" | "dark" = "light") => ({
   colors: mode === "light" ? lightColors : darkColors,
   fonts: {
-    primary: ``,
-    secondary: ``,
+    primary: `'Oswald', sans-serif`,
+    secondary: `'Source Sans Pro', sans-serif`,
   },
   fontSizes: {
     h1: "2.5em",
@@ -104,7 +104,12 @@ export const makeTheme = (mode: "light" | "dark" = "light") => ({
     contentSmall: "0.83em",
     contentLarge: "1.17em",
   },
-  fontWeights: {},
+  fontWeights: {
+    light: 400,
+    regular: 400,
+    medium: 600,
+    bold: 600,
+  },
   borderRadius: {
     small: "0.25rem",
     medium: "0.5rem",

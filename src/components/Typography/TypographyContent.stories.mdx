@@ -1,0 +1,88 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { BADGE } from "@geometricpanda/storybook-addon-badges";
+import { Typography } from "./Typography";
+import { makeTheme } from "styles/theme";
+
+<Meta
+  title="Typography/Content"
+  component={Typography}
+  parameters={{
+    badges: [BADGE.STABLE],
+  }}
+/>
+
+export const theme = makeTheme();
+
+# Typography Component
+
+```
+import { Typography } from 'components'
+```
+
+## Props
+
+<ArgsTable of={Typography} />
+
+## Paragraph
+
+<Canvas>
+  <Story name="Default">
+    <Typography variant="body1">
+      lorem ipsum dolor sit amet, consectetur adipiscing elit. sed auctor lorem
+      ut libero tincidunt, a aliquet nisl aliquet. sed auctor lorem ut libero
+      tincidunt, a aliquet nisl aliquet. sed auctor lorem ut libero tincidunt, a
+      aliquet nisl aliquet.
+    </Typography>
+    <Typography variant="body2">
+      lorem ipsum dolor sit amet, consectetur adipiscing elit. sed auctor lorem
+      ut libero tincidunt, a aliquet nisl aliquet. sed auctor lorem ut libero
+      tincidunt, a aliquet nisl aliquet. sed auctor lorem ut libero tincidunt, a
+      aliquet nisl aliquet.
+    </Typography>
+    <Typography variant="body1" align="center">
+      lorem ipsum dolor sit amet, consectetur adipiscing elit. sed auctor lorem
+      ut libero tincidunt, a aliquet nisl aliquet. sed auctor lorem ut libero
+      tincidunt, a aliquet nisl aliquet. sed auctor lorem ut libero tincidunt, a
+      aliquet nisl aliquet.
+    </Typography>
+    <Typography variant="body2" align="right" color={theme.colors.secondary}>
+      lorem ipsum dolor sit amet, consectetur adipiscing elit. sed auctor lorem
+      ut libero tincidunt, a aliquet nisl aliquet. sed auctor lorem ut libero
+      tincidunt, a aliquet nisl aliquet. sed auctor lorem ut libero tincidunt, a
+      aliquet nisl aliquet.
+    </Typography>
+  </Story>
+</Canvas>
+
+## Captions
+
+<Canvas>
+  <Story name="Captions">
+    <Typography variant="caption">lorem ipsum dolor sit amet</Typography>
+    <Typography variant="caption" align="center">
+      lorem ipsum dolor sit amet
+    </Typography>
+    <Typography variant="caption" align="right" color={theme.colors.secondary}>
+      lorem ipsum dolor sit amet
+    </Typography>
+  </Story>
+</Canvas>
+
+## Subtitles
+
+<Canvas>
+  <Story name="Subtitles">
+    <Typography variant="subtitle1">lorem ipsum dolor sit amet</Typography>
+    <Typography variant="subtitle2">lorem ipsum dolor sit amet</Typography>
+    <Typography variant="subtitle1" align="center">
+      lorem ipsum dolor sit amet
+    </Typography>
+    <Typography
+      variant="subtitle2"
+      align="right"
+      color={theme.colors.secondary}
+    >
+      lorem ipsum dolor sit amet
+    </Typography>
+  </Story>
+</Canvas>

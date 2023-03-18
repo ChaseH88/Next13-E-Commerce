@@ -1,0 +1,76 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { BADGE } from "@geometricpanda/storybook-addon-badges";
+import { Typography } from "./Typography";
+import { makeTheme } from "styles/theme";
+
+<Meta
+  title="Typography/Headings"
+  component={Typography}
+  parameters={{
+    badges: [BADGE.STABLE],
+  }}
+/>
+
+export const theme = makeTheme();
+
+# Typography Component
+
+```
+import { Typography } from 'components'
+```
+
+## Props
+
+<ArgsTable of={Typography} />
+
+<Canvas>
+  <Story name="Headings">
+    <Typography variant="h1">Heading 1</Typography>
+    <Typography variant="h2">Heading 2</Typography>
+    <Typography variant="h3">Heading 3</Typography>
+    <Typography variant="h4">Heading 4</Typography>
+    <Typography variant="h5">Heading 5</Typography>
+    <Typography variant="h6">Heading 6</Typography>
+  </Story>
+</Canvas>
+
+## Align Options
+
+<Canvas>
+  <Story name="Align Options">
+    <Typography variant="h1" align="left">
+      Heading 1
+    </Typography>
+    <Typography variant="h2" align="center">
+      Heading 2
+    </Typography>
+    <Typography variant="h3" align="right">
+      Heading 3
+    </Typography>
+  </Story>
+</Canvas>
+
+## Color Options
+
+<Canvas>
+  <Story name="Color Options">
+    <Typography variant="h1" color={theme.colors.primary}>
+      Heading 1
+    </Typography>
+    <Typography variant="h2" color={theme.colors.secondary}>
+      Heading 2
+    </Typography>
+    <Typography variant="h3" color={theme.colors.palette.black[300]}>
+      Heading 3
+    </Typography>
+    <Typography variant="h4" color={theme.colors.success}>
+      Heading 4
+    </Typography>
+    <Typography variant="h5" color={theme.colors.danger}>
+      Heading 5
+    </Typography>
+    <Typography variant="h6" color={theme.colors.warning}>
+      Heading 6
+    </Typography>
+  </Story>
+</Canvas>
