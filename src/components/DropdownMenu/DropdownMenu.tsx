@@ -16,7 +16,6 @@ const menuAnimation = {
   },
 };
 
-// make a type of the different menu animation options
 type MenuAnimation = keyof typeof menuAnimation;
 
 export interface DropdownMenuItem {
