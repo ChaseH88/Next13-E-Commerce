@@ -4,10 +4,20 @@ import { DropdownMenuStyledProps, DropdownMenuStyled } from "./styles";
 import { Box } from "components";
 
 const menuAnimation = {
-  initial: { opacity: 0, scaleY: 0.9 },
-  animate: { opacity: 1, scaleY: 1 },
-  exit: { opacity: 0, scaleY: 0.9 },
+  in: {
+    initial: { opacity: 0, scale: 0.9, originY: 0 },
+    animate: { opacity: 1, scale: 1, originY: 0 },
+    exit: { opacity: 0, scale: 0.9, originY: 0 },
+  },
+  fromBottom: {
+    initial: { opacity: 0, scale: 0.9, originY: 1 },
+    animate: { opacity: 1, scale: 1, originY: 1 },
+    exit: { opacity: 0, scale: 0.9, originY: 1 },
+  },
 };
+
+// make a type of the different menu animation options
+type MenuAnimation = keyof typeof menuAnimation;
 
 export interface DropdownMenuItem {
   id: string;
@@ -23,6 +33,7 @@ interface DropdownMenuProps extends DropdownMenuStyledProps {
   onClose: () => void;
   style?: React.CSSProperties;
   items: DropdownMenuItem[] | React.ReactNode;
+  animation: MenuAnimation;
 }
 
 const DropdownMenu = ({
@@ -31,6 +42,7 @@ const DropdownMenu = ({
   onClose,
   style,
   items,
+  animation = "in",
 }: DropdownMenuProps) => {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -59,7 +71,7 @@ const DropdownMenu = ({
           initial="initial"
           animate="animate"
           exit="exit"
-          variants={menuAnimation}
+          variants={menuAnimation[animation]}
           transition={{ duration: 0.2 }}
           style={style}
         >
