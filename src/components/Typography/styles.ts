@@ -21,52 +21,64 @@ export interface TypographyStyledProps {
 
 const typographyStyles = {
   h1: css`
-    font-size: 2rem;
-    font-weight: 500;
+    font-size: ${({ theme }) => theme.fontSizes.h1};
+    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-family: ${({ theme }) => theme.fonts.primary};
   `,
   h2: css`
-    font-size: 1.5rem;
-    font-weight: 500;
+    font-size: ${({ theme }) => theme.fontSizes.h2};
+    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-family: ${({ theme }) => theme.fonts.primary};
   `,
   h3: css`
-    font-size: 1.25rem;
-    font-weight: 500;
+    font-size: ${({ theme }) => theme.fontSizes.h3};
+    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-family: ${({ theme }) => theme.fonts.primary};
   `,
   h4: css`
-    font-size: 1.125rem;
-    font-weight: 500;
+    font-size: ${({ theme }) => theme.fontSizes.h4};
+    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-family: ${({ theme }) => theme.fonts.primary};
   `,
   h5: css`
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: ${({ theme }) => theme.fontSizes.h5};
+    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-family: ${({ theme }) => theme.fonts.primary};
   `,
   h6: css`
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: ${({ theme }) => theme.fontSizes.h6};
+    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-family: ${({ theme }) => theme.fonts.primary};
   `,
   subtitle1: css`
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: ${({ theme }) => theme.fontSizes.subtitle1};
+    font-weight: ${({ theme }) => theme.fontWeights.regular};
+    font-family: ${({ theme }) => theme.fonts.secondary};
   `,
   subtitle2: css`
-    font-size: 0.875rem;
-    font-weight: 400;
+    font-size: ${({ theme }) => theme.fontSizes.subtitle2};
+    font-weight: ${({ theme }) => theme.fontWeights.regular};
+    font-family: ${({ theme }) => theme.fonts.secondary};
   `,
   body1: css`
-    font-size: 1rem;
-    font-weight: 400;
+    font-size: ${({ theme }) => theme.fontSizes.body1};
+    font-weight: ${({ theme }) => theme.fontWeights.regular};
+    font-family: ${({ theme }) => theme.fonts.secondary};
   `,
   body2: css`
-    font-size: 0.875rem;
-    font-weight: 400;
+    font-size: ${({ theme }) => theme.fontSizes.body2};
+    font-weight: ${({ theme }) => theme.fontWeights.regular};
+    font-family: ${({ theme }) => theme.fonts.secondary};
   `,
   caption: css`
-    font-size: 0.75rem;
-    font-weight: 400;
+    font-size: ${({ theme }) => theme.fontSizes.caption};
+    font-weight: ${({ theme }) => theme.fontWeights.regular};
+    font-family: ${({ theme }) => theme.fonts.secondary};
   `,
 };
 
 export const TypographyStyled = styled.p<TypographyStyledProps>`
+  font-family: ${({ theme }) => theme.fonts.secondary};
   ${({ variant }) => typographyStyles[variant || "body1"]}
   color: ${({ color }) => color || "inherit"};
   text-align: ${({ align }) => align || "inherit"};
