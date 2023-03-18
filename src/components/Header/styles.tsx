@@ -6,11 +6,11 @@ export const HeaderStyled = styled.header<{ scrollPast: boolean }>`
   left: 0;
   right: 0;
   bottom: auto;
-  padding: ${(props) => props.theme.spacing[5]} 0;
+  padding: ${({ scrollPast, theme }) => (!scrollPast ? theme.spacing[5] : 0)} 0;
   background-color: ${({ scrollPast, theme }) =>
     !scrollPast ? "transparent" : theme.colors.palette.white[100]};
   z-index: 1000;
-  transition: background-color 0.3s ease-in-out;
+  transition: ${({ theme: { transition } }) => `all ${transition.regular}`};
 
   & > .container {
     max-width: ${(props) => props.theme.container.large};

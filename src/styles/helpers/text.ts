@@ -1,5 +1,4 @@
 import { css } from "styled-components";
-import { makeTheme } from "../theme";
 import { FontType, ColorType, SpacingType } from "types/types";
 
 export const textCss = (

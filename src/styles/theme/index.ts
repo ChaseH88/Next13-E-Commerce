@@ -124,9 +124,9 @@ export const makeTheme = (mode: "light" | "dark" = "light") => ({
     large: "0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)",
   },
   transition: {
-    slow: "all 0.3s ease-in-out",
-    regular: "all 0.2s ease-in-out",
-    fast: "all 0.1s ease-in-out",
+    slow: "0.3s ease-in-out",
+    regular: "0.2s ease-in-out",
+    fast: "0.1s ease-in-out",
   },
   container: {
     small: "60%",

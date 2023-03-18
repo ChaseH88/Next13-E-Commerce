@@ -1,69 +1,141 @@
-import { Box, Button, DropdownMenu, Icon } from "components";
-import { useClickOutside, useScrollPosition } from "hooks";
+import { Box, Button, Icon, Typography, Input } from "components";
+import { useScrollPosition } from "hooks";
 import { useMemo, useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { CategoryInterface } from "types/interfaces";
 import { HeaderStyled } from "./styles";
 
 interface HeaderProps {}
 
 const Header = (props: HeaderProps) => {
-  const [open, setOpen] = useState(false);
-  const targetRef = useRef(null);
+  const [searchToggle, setSearchToggle] = useState(true);
   const scrollPosition = useScrollPosition();
   const scrollPast = useMemo(() => scrollPosition > 100, [scrollPosition]);
-  useClickOutside(targetRef, () => setOpen(false));
+  const formHook = useForm({
+    mode: "onChange",
+  });
 
-  console.log("scrollPosition", scrollPosition);
+  const handleSubmitSearch = (data: any) => {
+    alert(JSON.stringify(data));
+  };
 
-  const accountMenu = useMemo(
-    () => [
-      {
-        label: "Item 1",
-        onClick: () => console.log("Item 1 clicked"),
-      },
-      {
-        label: "Item 2",
-        onClick: () => console.log("Item 2 clicked"),
-      },
-    ],
+  const navMenu = useMemo(
+    () =>
+      [
+        {
+          id: "1",
+          name: "Shirts",
+          slug: "shirts",
+          description: "Shirts description",
+        },
+        {
+          id: "2",
+          name: "Pants",
+          slug: "pants",
+          description: "Pants description",
+        },
+        {
+          id: "3",
+          name: "Shoes",
+          slug: "shoes",
+          description: "Shoes description",
+        },
+        {
+          id: "4",
+          name: "Accessories",
+          slug: "accessories",
+          description: "Accessories description",
+        },
+      ] as Partial<CategoryInterface>[],
     []
   );
 
-  const handleAccountMenuToggle = () => setOpen(!open);
+  const handleSearchToggle = () => setSearchToggle(!searchToggle);
 
   return (
     <HeaderStyled scrollPast={scrollPast}>
       <Box className="container" display="flex">
-        <Box flex={"0 0 100px"} className="logo">
-          FitZip
+        <Box flex={"0 0 200px"} className="logo">
+          <Typography
+            variant="h1"
+            style={{
+              fontSize: "1.5em",
+            }}
+          >
+            FitZip
+          </Typography>
         </Box>
-        <Box flex={"1 1 auto"} className="menu"></Box>
+        <Box flex={"1 1 auto"} className="menu">
+          {searchToggle ? (
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              height="100%"
+              position="relative"
+            >
+              <Input
+                type="text"
+                placeholder="What are you looking for?"
+                formInputName="search"
+                formHook={formHook}
+              />
+              <Box
+                className="close-search"
+                position="absolute"
+                style={{
+                  right: "1em",
+                  top: "50%",
+                  transform: "translateY(-50%)",
+                }}
+                display="flex"
+              >
+                <Button
+                  onClick={() => handleSubmitSearch(formHook.getValues())}
+                  variant="no-outline-icon"
+                >
+                  <Icon name="FaSearch" />
+                </Button>
+                <Button onClick={handleSearchToggle} variant="no-outline-icon">
+                  <Icon name="FaTimes" />
+                </Button>
+              </Box>
+            </Box>
+          ) : (
+            <Box display="flex" gap="1em">
+              {navMenu.map((item) => (
+                <Typography
+                  key={item.id}
+                  variant="h4"
+                  style={{
+                    fontSize: "1em",
+                  }}
+                >
+                  {item.name}
+                </Typography>
+              ))}
+            </Box>
+          )}
+        </Box>
         <Box
-          flex={"0 0 200px"}
+          flex={"0 0 100px"}
           className="utility-menu"
           position="relative"
           display="flex"
           gap=".5em"
+          justifyContent="flex-end"
         >
+          {!searchToggle && (
+            <Button onClick={handleSearchToggle} variant="no-outline-icon">
+              <Icon name="FaSearch" />
+            </Button>
+          )}
           <Button variant="no-outline-icon">
-            <Icon name="FaSearch" />
-          </Button>
-          <Button
-            onClick={handleAccountMenuToggle}
-            variant="no-outline-icon"
-            ref={targetRef}
-          >
             <Icon name="FaUser" />
           </Button>
           <Button variant="no-outline-icon">
             <Icon name="FaShoppingCart" />
           </Button>
-          <DropdownMenu
-            items={accountMenu}
-            target={targetRef}
-            handleToggle={() => null}
-            open={open}
-            width="200px"
-          />
         </Box>
       </Box>
     </HeaderStyled>

@@ -2,6 +2,7 @@ import { DropdownMenuStyled, DropdownMenuStyledProps } from "./styles";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useRef } from "react";
 import { useClassNames } from "hooks";
+import { Typography } from "..";
 
 interface DropDownMenuItem {
   label: string;
@@ -39,9 +40,9 @@ export const DropdownMenu = ({
       {open && (
         <DropdownMenuStyled
           ref={dropdownRef}
-          initial={{ opacity: 0, y: -10, x: "-14%" }}
+          initial={{ opacity: 0, y: 10, x: "-14%" }}
           animate={{ opacity: 1, y: 0, x: "-14%" }}
-          exit={{ opacity: 0, y: -10, x: "-14%" }}
+          exit={{ opacity: 0, y: 10, x: "-14%" }}
           transition={{ duration: 0.2 }}
           style={{ top: position.top, left: position.left }}
           width={width}
@@ -55,7 +56,7 @@ export const DropdownMenu = ({
                 handleToggle();
               }}
             >
-              {item.label}
+              <Typography variant="body1">{item?.label}</Typography>
             </motion.div>
           ))}
         </DropdownMenuStyled>

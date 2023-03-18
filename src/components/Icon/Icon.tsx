@@ -8,6 +8,7 @@ import {
   FaUser,
   FaCheck,
   FaSearch,
+  FaTimes,
 } from "react-icons/fa";
 
 const icons = {
@@ -19,6 +20,7 @@ const icons = {
   FaUser,
   FaCheck,
   FaSearch,
+  FaTimes,
 } as const;
 
 type IconName = keyof typeof icons;

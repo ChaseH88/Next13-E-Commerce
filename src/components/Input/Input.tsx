@@ -1,10 +1,11 @@
-import { InputStyled } from "./styles";
+import { InputStyled, InputLabel, InputContainer } from "./styles";
 import { UseFormReturn } from "react-hook-form";
 import { MotionStyle } from "framer-motion";
 
 interface InputProps {
   formHook: UseFormReturn;
   formInputName: string;
+  label?: string;
   placeholder?: string;
   className?: string;
   id?: string;
@@ -15,19 +16,20 @@ interface InputProps {
 export const Input = ({
   formHook,
   formInputName,
+  label,
   placeholder,
   ...props
 }: InputProps) => {
   const error = formHook.formState.errors[formInputName];
-  console.log(error);
   return (
-    <>
+    <InputContainer>
+      {label && <InputLabel htmlFor={props.id}>{label}</InputLabel>}
       <InputStyled
         placeholder={placeholder}
         {...formHook.register(formInputName)}
         {...props}
       />
       {error && <p>{error.message?.toString()}</p>}
-    </>
+    </InputContainer>
   );
 };
