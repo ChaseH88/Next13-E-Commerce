@@ -10,7 +10,7 @@ type ButtonProps = ButtonStyledProps & {
 };
 
 const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = "contained", color = "primary", ...props }, ref) => {
+  ({ variant = "contained", color, ...props }, ref) => {
     return (
       <ButtonStyled ref={ref} {...props} variant={variant} color={color}>
         {props.children}

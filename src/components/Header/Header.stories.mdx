@@ -10,7 +10,17 @@ import { Header } from "./Header";
   }}
 />
 
-export const Template = (args) => <Header {...args} />;
+export const Template = (args) => (
+  <>
+    <Header {...args} />
+    <div
+      style={{
+        height: "200vh",
+        background: "skyblue",
+      }}
+    />
+  </>
+);
 
 # Header Component
 

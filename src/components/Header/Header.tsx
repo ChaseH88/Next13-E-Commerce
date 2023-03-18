@@ -1,6 +1,5 @@
-import { Box, Button, DropdownMenu } from "components";
-import { Icon } from "components/Icon";
-import { useClickOutside } from "hooks/useClickOutside";
+import { Box, Button, DropdownMenu, Icon } from "components";
+import { useClickOutside, useScrollPosition } from "hooks";
 import { useMemo, useRef, useState } from "react";
 import { HeaderStyled } from "./styles";
 
@@ -9,7 +8,11 @@ interface HeaderProps {}
 const Header = (props: HeaderProps) => {
   const [open, setOpen] = useState(false);
   const targetRef = useRef(null);
+  const scrollPosition = useScrollPosition();
+  const scrollPast = useMemo(() => scrollPosition > 100, [scrollPosition]);
   useClickOutside(targetRef, () => setOpen(false));
+
+  console.log("scrollPosition", scrollPosition);
 
   const accountMenu = useMemo(
     () => [
@@ -28,7 +31,7 @@ const Header = (props: HeaderProps) => {
   const handleAccountMenuToggle = () => setOpen(!open);
 
   return (
-    <HeaderStyled>
+    <HeaderStyled scrollPast={scrollPast}>
       <Box className="container" display="flex">
         <Box flex={"0 0 100px"} className="logo">
           Logo
@@ -41,18 +44,17 @@ const Header = (props: HeaderProps) => {
           display="flex"
           gap=".5em"
         >
-          <Button color="primary" variant="contained">
+          <Button variant="no-outline-icon">
             <Icon name="FaSearch" />
           </Button>
           <Button
             onClick={handleAccountMenuToggle}
-            variant="contained"
-            color="primary"
+            variant="no-outline-icon"
             ref={targetRef}
           >
             <Icon name="FaUser" />
           </Button>
-          <Button color="primary" variant="contained">
+          <Button variant="no-outline-icon">
             <Icon name="FaShoppingCart" />
           </Button>
           <DropdownMenu

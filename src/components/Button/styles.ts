@@ -2,13 +2,24 @@ import React, { ButtonHTMLAttributes } from "react";
 import styled, { css } from "styled-components";
 import { ColorType } from "types/types";
 
-type Variant = "text" | "outlined" | "contained";
+type Variant = "text" | "outlined" | "contained" | "no-outline-icon";
 
 export interface ButtonStyledProps
   extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: Variant;
   color?: ColorType;
 }
+
+const sharedIconButtonStyles = css`
+  border-radius: 50% !important;
+  height: 40px;
+  width: 40px;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none !important;
+`;
 
 const buttonStyles = {
   text: {
@@ -119,6 +130,48 @@ const buttonStyles = {
     info: css`
       color: ${({ theme }) => theme.colors.infoText};
       background-color: ${({ theme }) => theme.colors.info};
+    `,
+  },
+  "no-outline-icon": {
+    default: css`
+      color: ${({ theme }) => theme.colors.pallette.black[100]};
+      background-color: transparent !important;
+      ${sharedIconButtonStyles};
+    `,
+    primary: css`
+      color: ${({ theme }) => theme.colors.primaryText};
+      background-color: ${({ theme }) => theme.colors.primary};
+      ${sharedIconButtonStyles};
+    `,
+    secondary: css`
+      color: ${({ theme }) => theme.colors.secondaryText};
+      background-color: ${({ theme }) => theme.colors.secondary};
+      ${sharedIconButtonStyles};
+    `,
+    tertiary: css`
+      color: ${({ theme }) => theme.colors.tertiaryText};
+      background-color: ${({ theme }) => theme.colors.tertiary};
+      ${sharedIconButtonStyles};
+    `,
+    success: css`
+      color: ${({ theme }) => theme.colors.successText};
+      background-color: ${({ theme }) => theme.colors.success};
+      ${sharedIconButtonStyles};
+    `,
+    warning: css`
+      color: ${({ theme }) => theme.colors.warningText};
+      background-color: ${({ theme }) => theme.colors.warning};
+      ${sharedIconButtonStyles};
+    `,
+    danger: css`
+      color: ${({ theme }) => theme.colors.dangerText};
+      background-color: ${({ theme }) => theme.colors.danger};
+      ${sharedIconButtonStyles};
+    `,
+    info: css`
+      color: ${({ theme }) => theme.colors.infoText};
+      background-color: ${({ theme }) => theme.colors.info};
+      ${sharedIconButtonStyles};
     `,
   },
 };
