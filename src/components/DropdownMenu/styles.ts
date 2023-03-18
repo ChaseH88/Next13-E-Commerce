@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 export interface DropdownMenuStyledProps {}
 
 export const DropdownMenuStyled = styled(motion.div)`
+  transform-origin: top;
   position: absolute;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.12);

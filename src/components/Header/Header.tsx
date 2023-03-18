@@ -1,6 +1,6 @@
-import { Box, Button, Icon, Typography, Input } from "components";
+import { Box, Button, Icon, Typography, Input, DropdownMenu } from "components";
 import { useScrollPosition } from "hooks";
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState, forwardRef } from "react";
 import { useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
 import { CategoryInterface } from "types/interfaces";
@@ -10,6 +10,8 @@ interface HeaderProps {}
 
 const Header = (props: HeaderProps) => {
   const [searchToggle, setSearchToggle] = useState(false);
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
+  const accountAnchorRef = useRef(null);
   const theme = useTheme();
   const scrollPosition = useScrollPosition();
   const scrollPast = useMemo(() => scrollPosition > 100, [scrollPosition]);
@@ -17,9 +19,17 @@ const Header = (props: HeaderProps) => {
     mode: "onChange",
   });
 
-  const handleSubmitSearch = (data: any) => {
+  const handleSubmitSearch = useCallback((data: any) => {
     alert(JSON.stringify(data));
-  };
+  }, []);
+
+  const handleSearchToggle = useCallback(() => {
+    setSearchToggle((prevSearchToggle) => !prevSearchToggle);
+  }, []);
+
+  const handleAccountMenuToggle = useCallback(() => {
+    setAccountMenuOpen((prevAccountMenuOpen) => !prevAccountMenuOpen);
+  }, []);
 
   const navMenu = useMemo(
     () =>
@@ -52,102 +62,149 @@ const Header = (props: HeaderProps) => {
     []
   );
 
-  const handleSearchToggle = () => setSearchToggle(!searchToggle);
-
   return (
-    <HeaderStyled scrollPast={scrollPast}>
-      <Box className="container" display="flex">
-        <Box
-          flex={"0 0 200px"}
-          className="logo"
-          display="flex"
-          alignItems="center"
-          gap="10px"
-        >
-          <Icon name="FaShoppingBag" color={theme.colors.secondary} size={18} />
-          <Typography
-            variant="h1"
+    <>
+      <HeaderStyled scrollPast={scrollPast}>
+        <Box className="container" display="flex">
+          <Box
+            flex={"0 0 200px"}
+            className="logo"
+            display="flex"
+            alignItems="center"
+            gap="10px"
+          >
+            <Icon
+              name="FaShoppingBag"
+              color={theme.colors.secondary}
+              size={18}
+            />
+            <Typography
+              variant="h1"
+              style={{
+                fontSize: "1.5em",
+              }}
+            >
+              FitZip
+            </Typography>
+          </Box>
+          <Box flex={"1 1 auto"} className="menu">
+            {searchToggle ? (
+              <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                height="100%"
+                position="relative"
+              >
+                <Input
+                  type="text"
+                  placeholder="What are you looking for?"
+                  formInputName="search"
+                  formHook={formHook}
+                />
+                <Box
+                  className="close-search"
+                  position="absolute"
+                  style={{
+                    right: "1em",
+                    top: "50%",
+                    transform: "translateY(-50%)",
+                  }}
+                  display="flex"
+                >
+                  <Button
+                    onClick={() => handleSubmitSearch(formHook.getValues())}
+                    variant="no-outline-icon"
+                  >
+                    <Icon name="FaSearch" />
+                  </Button>
+                  <Button
+                    onClick={handleSearchToggle}
+                    variant="no-outline-icon"
+                  >
+                    <Icon name="FaTimes" />
+                  </Button>
+                </Box>
+              </Box>
+            ) : (
+              <Box display="flex" gap="1em">
+                {navMenu.map((item) => (
+                  <Typography
+                    key={item.id}
+                    variant="h4"
+                    style={{
+                      fontSize: "1em",
+                    }}
+                  >
+                    {item.name}
+                  </Typography>
+                ))}
+              </Box>
+            )}
+          </Box>
+          <Box
+            className="utility-menu"
+            position="relative"
             style={{
-              fontSize: "1.5em",
+              textAlign: "right",
             }}
           >
-            FitZip
-          </Typography>
-        </Box>
-        <Box flex={"1 1 auto"} className="menu">
-          {searchToggle ? (
-            <Box
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-              height="100%"
-              position="relative"
-            >
-              <Input
-                type="text"
-                placeholder="What are you looking for?"
-                formInputName="search"
-                formHook={formHook}
-              />
-              <Box
-                className="close-search"
-                position="absolute"
-                style={{
-                  right: "1em",
-                  top: "50%",
-                  transform: "translateY(-50%)",
-                }}
-                display="flex"
+            {!searchToggle && (
+              <Button
+                onClick={handleSearchToggle}
+                variant="no-outline-icon"
+                style={{ display: "inline-block", margin: "0 5px 0 0" }}
               >
-                <Button
-                  onClick={() => handleSubmitSearch(formHook.getValues())}
-                  variant="no-outline-icon"
-                >
-                  <Icon name="FaSearch" />
-                </Button>
-                <Button onClick={handleSearchToggle} variant="no-outline-icon">
-                  <Icon name="FaTimes" />
-                </Button>
-              </Box>
-            </Box>
-          ) : (
-            <Box display="flex" gap="1em">
-              {navMenu.map((item) => (
-                <Typography
-                  key={item.id}
-                  variant="h4"
-                  style={{
-                    fontSize: "1em",
-                  }}
-                >
-                  {item.name}
-                </Typography>
-              ))}
-            </Box>
-          )}
-        </Box>
-        <Box
-          flex={"0 0 100px"}
-          className="utility-menu"
-          position="relative"
-          display="flex"
-          gap=".5em"
-          justifyContent="flex-end"
-        >
-          {!searchToggle && (
-            <Button onClick={handleSearchToggle} variant="no-outline-icon">
-              <Icon name="FaSearch" />
+                <Icon name="FaSearch" />
+              </Button>
+            )}
+            <Button
+              variant="no-outline-icon"
+              ref={accountAnchorRef}
+              onClick={handleAccountMenuToggle}
+              style={{ display: "inline-block", margin: "0 5px 0 0" }}
+            >
+              <Icon name="FaUser" />
             </Button>
-          )}
-          <Button variant="no-outline-icon">
-            <Icon name="FaUser" />
-          </Button>
-          <Button variant="no-outline-icon">
-            <Icon name="FaShoppingCart" />
-          </Button>
+            <Button
+              variant="no-outline-icon"
+              style={{ display: "inline-block", margin: "0 5px 0 0" }}
+            >
+              <Icon name="FaShoppingCart" />
+            </Button>
+          </Box>
         </Box>
-      </Box>
-    </HeaderStyled>
+      </HeaderStyled>
+      <DropdownMenu
+        animation="in"
+        position="right"
+        anchorElement={accountAnchorRef.current}
+        open={accountMenuOpen}
+        onClose={handleAccountMenuToggle}
+        items={[
+          {
+            id: "1",
+            name: "My Account",
+            slug: "my-account",
+          },
+          {
+            id: "2",
+            name: "My Orders",
+            slug: "my-orders",
+          },
+          {
+            id: "3",
+            name: "My Wishlist",
+            slug: "my-wishlist",
+          },
+          {
+            id: "4",
+            name: "Logout",
+            slug: "logout",
+          },
+        ]}
+      />
+    </>
   );
 };
 

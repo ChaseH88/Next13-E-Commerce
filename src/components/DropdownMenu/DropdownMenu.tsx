@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
 import { DropdownMenuStyledProps, DropdownMenuStyled } from "./styles";
 import { Box } from "components";
@@ -32,7 +32,9 @@ interface DropdownMenuProps extends DropdownMenuStyledProps {
   onClose: () => void;
   style?: React.CSSProperties;
   items: DropdownMenuItem[] | React.ReactNode;
-  animation: MenuAnimation;
+  animation?: MenuAnimation;
+  position?: "left" | "middle" | "right";
+  offset?: number;
 }
 
 const DropdownMenu = ({
@@ -42,25 +44,42 @@ const DropdownMenu = ({
   style,
   items,
   animation = "in",
+  position = "left",
+  offset = 0,
 }: DropdownMenuProps) => {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (containerRef.current) {
       setContainer(containerRef.current);
     }
-  }, []);
+  }, [open]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (open && container && anchorElement) {
       const rect = anchorElement.getBoundingClientRect();
-      container.style.top = `${rect.bottom + window.pageYOffset}px`;
-      container.style.left = `${rect.left + window.pageXOffset}px`;
+      container.style.top = `${rect.bottom + window.pageYOffset + offset}px`;
+      switch (position) {
+        case "middle":
+          container.style.left = `${
+            rect.left +
+            window.pageXOffset +
+            rect.width / 2 -
+            container.offsetWidth / 2
+          }px`;
+          break;
+        case "right":
+          container.style.left = `${
+            rect.left + window.pageXOffset + rect.width - container.offsetWidth
+          }px`;
+          break;
+        default:
+          container.style.left = `${rect.left + window.pageXOffset}px`;
+          break;
+      }
     }
-  }, [open, container, anchorElement]);
-
-  console.log("items", Array.isArray(items), items);
+  }, [open, container, anchorElement, position, offset]);
 
   return (
     <AnimatePresence>
