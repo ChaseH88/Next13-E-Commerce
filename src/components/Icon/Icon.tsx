@@ -11,6 +11,7 @@ import {
   FaTimes,
   FaGlobeAmericas,
   FaHeadset,
+  FaShoppingBag,
 } from "react-icons/fa";
 
 const icons = {
@@ -25,6 +26,7 @@ const icons = {
   FaTimes,
   FaGlobeAmericas,
   FaHeadset,
+  FaShoppingBag,
 } as const;
 
 type IconName = keyof typeof icons;

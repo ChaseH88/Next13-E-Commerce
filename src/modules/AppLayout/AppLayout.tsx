@@ -1,4 +1,6 @@
+import { Box } from "components/Box";
 import { Header } from "components/Header";
+import { TopBar } from "components/TopBar";
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -6,11 +8,15 @@ interface AppLayoutProps {
 
 const AppLayout = ({ children }: AppLayoutProps) => {
   return (
-    <div id="layout">
+    <Box>
+      <TopBar
+        location="Mobile, AL"
+        message="Check out our deals on the best apparel and gear!"
+      />
       <Header />
-      <div>{children}</div>
+      <Box className="content">{children}</Box>
       <footer>footer</footer>
-    </div>
+    </Box>
   );
 };
 

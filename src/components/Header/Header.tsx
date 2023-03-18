@@ -2,6 +2,7 @@ import { Box, Button, Icon, Typography, Input } from "components";
 import { useScrollPosition } from "hooks";
 import { useMemo, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useTheme } from "styled-components";
 import { CategoryInterface } from "types/interfaces";
 import { HeaderStyled } from "./styles";
 
@@ -9,6 +10,7 @@ interface HeaderProps {}
 
 const Header = (props: HeaderProps) => {
   const [searchToggle, setSearchToggle] = useState(false);
+  const theme = useTheme();
   const scrollPosition = useScrollPosition();
   const scrollPast = useMemo(() => scrollPosition > 100, [scrollPosition]);
   const formHook = useForm({
@@ -55,7 +57,14 @@ const Header = (props: HeaderProps) => {
   return (
     <HeaderStyled scrollPast={scrollPast}>
       <Box className="container" display="flex">
-        <Box flex={"0 0 200px"} className="logo">
+        <Box
+          flex={"0 0 200px"}
+          className="logo"
+          display="flex"
+          alignItems="center"
+          gap="10px"
+        >
+          <Icon name="FaShoppingBag" color={theme.colors.secondary} size={18} />
           <Typography
             variant="h1"
             style={{
