@@ -5,25 +5,29 @@ import { makeTheme } from "../../styles/theme";
 export const theme = makeTheme();
 
 export const splitColors = (obj) => {
-  const primaryColors = {};
-  const secondaryColors = {};
-  const tertiaryColors = {};
+  const colorCategories = {
+    primary: {},
+    secondary: {},
+    tertiary: {},
+    success: {},
+    danger: {},
+    warning: {},
+    info: {},
+  };
   const colorArray = [];
   for (let key in obj) {
     const formattedKey = key
       .replace(/([A-Z])/g, " $1")
       .replace(/^./, (str) => str.toUpperCase());
-    if (key.toLowerCase().includes("primary")) {
-      primaryColors[formattedKey] = obj[key];
-    } else if (key.toLowerCase().includes("secondary")) {
-      secondaryColors[formattedKey] = obj[key];
-    } else if (key.toLowerCase().includes("tertiary")) {
-      tertiaryColors[formattedKey] = obj[key];
+    for (let category in colorCategories) {
+      if (key.toLowerCase().includes(category)) {
+        colorCategories[category][formattedKey] = obj[key];
+      }
     }
   }
-  colorArray.push(primaryColors);
-  colorArray.push(secondaryColors);
-  colorArray.push(tertiaryColors);
+  for (let category in colorCategories) {
+    colorArray.push(colorCategories[category]);
+  }
   return colorArray;
 };
 

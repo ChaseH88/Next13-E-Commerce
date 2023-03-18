@@ -16,19 +16,34 @@ const pallette = {
 /**
  * Light theme colors
  */
+
+const light = {
+  primary: "#449dd1",
+  secondary: "#2a324b",
+  tertiary: "#f7f9f9",
+  success: "#28a745",
+  danger: "#dc3545",
+  warning: "#ffc107",
+  info: "#17a2b8",
+};
+
+const createPallette = (name: string, color: string, textColor: string) => ({
+  [name]: color,
+  [`${name}Light`]: lightenColor(color),
+  [`${name}Lighter`]: lightenColor(color, 0.4),
+  [`${name}Dark`]: darkenColor(color),
+  [`${name}Darker`]: darkenColor(color, 0.4),
+  [`on${name}`]: textColor,
+});
+
 const lightColors = {
-  primary: "#826251",
-  primaryLight: lightenColor("#826251"),
-  primaryDark: darkenColor("#826251"),
-  onPrimary: "#f3f3f3",
-  secondary: "#247BA0",
-  secondaryLight: lightenColor("#247BA0"),
-  secondaryDark: darkenColor("#247BA0"),
-  onSecondary: "#fff",
-  tertiary: "#449dd1",
-  tertiaryLight: lightenColor("#449dd1"),
-  tertiaryDark: darkenColor("#449dd1"),
-  onTertiary: "#fff",
+  ...createPallette("primary", light.primary, pallette.white[100]),
+  ...createPallette("secondary", light.secondary, pallette.white[100]),
+  ...createPallette("tertiary", light.tertiary, pallette.black[100]),
+  ...createPallette("success", light.success, pallette.white[100]),
+  ...createPallette("danger", light.danger, pallette.white[100]),
+  ...createPallette("warning", light.warning, pallette.white[100]),
+  ...createPallette("info", light.info, pallette.white[100]),
   pallette,
 };
 
@@ -37,18 +52,13 @@ const lightColors = {
  * // TODO: Add dark theme colors
  */
 const darkColors = {
-  primary: "#826251",
-  primaryLight: lightenColor("#826251"),
-  primaryDark: darkenColor("#826251"),
-  onPrimary: "#f3f3f3",
-  secondary: "#247BA0",
-  secondaryLight: lightenColor("#247BA0"),
-  secondaryDark: darkenColor("#247BA0"),
-  onSecondary: "#fff",
-  tertiary: "#449dd1",
-  tertiaryLight: lightenColor("#449dd1"),
-  tertiaryDark: darkenColor("#449dd1"),
-  onTertiary: "#fff",
+  ...createPallette("primary", light.primary, pallette.white[100]),
+  ...createPallette("secondary", light.secondary, pallette.white[100]),
+  ...createPallette("tertiary", light.tertiary, pallette.black[100]),
+  ...createPallette("success", light.success, pallette.white[100]),
+  ...createPallette("danger", light.danger, pallette.white[100]),
+  ...createPallette("warning", light.warning, pallette.white[100]),
+  ...createPallette("info", light.info, pallette.white[100]),
   pallette,
 };
 
