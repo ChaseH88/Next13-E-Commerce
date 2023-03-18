@@ -34,7 +34,7 @@ const Header = (props: HeaderProps) => {
     <HeaderStyled scrollPast={scrollPast}>
       <Box className="container" display="flex">
         <Box flex={"0 0 100px"} className="logo">
-          Logo
+          FitZip
         </Box>
         <Box flex={"1 1 auto"} className="menu"></Box>
         <Box

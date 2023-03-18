@@ -27,27 +27,27 @@ const typographyStyles = {
   `,
   h2: css`
     font-size: ${({ theme }) => theme.fontSizes.h2};
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-weight: ${({ theme }) => theme.fontWeights.medium};
     font-family: ${({ theme }) => theme.fonts.primary};
   `,
   h3: css`
     font-size: ${({ theme }) => theme.fontSizes.h3};
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-weight: ${({ theme }) => theme.fontWeights.medium};
     font-family: ${({ theme }) => theme.fonts.primary};
   `,
   h4: css`
     font-size: ${({ theme }) => theme.fontSizes.h4};
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-weight: ${({ theme }) => theme.fontWeights.medium};
     font-family: ${({ theme }) => theme.fonts.primary};
   `,
   h5: css`
     font-size: ${({ theme }) => theme.fontSizes.h5};
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-weight: ${({ theme }) => theme.fontWeights.medium};
     font-family: ${({ theme }) => theme.fonts.primary};
   `,
   h6: css`
     font-size: ${({ theme }) => theme.fontSizes.h6};
-    font-weight: ${({ theme }) => theme.fontWeights.bold};
+    font-weight: ${({ theme }) => theme.fontWeights.medium};
     font-family: ${({ theme }) => theme.fonts.primary};
   `,
   subtitle1: css`
