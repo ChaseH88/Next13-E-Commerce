@@ -1,4 +1,4 @@
-import { AuthLayout } from "modules/AuthLayout";
+import { AuthLayout } from "modules";
 
 export default function Login() {
   return (

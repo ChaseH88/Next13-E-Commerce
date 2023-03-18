@@ -1,6 +1,4 @@
-import { Box } from "components/Box";
-import { Header } from "components/Header";
-import { TopBar } from "components/TopBar";
+import { Box, Header, TopBar } from "components";
 
 interface AppLayoutProps {
   children: React.ReactNode;

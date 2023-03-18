@@ -1,5 +1,5 @@
-import { Banner } from "components/Banner";
-import { AppLayout } from "modules/AppLayout";
+import { Banner } from "components";
+import { AppLayout } from "modules";
 
 export default function Home() {
   return (

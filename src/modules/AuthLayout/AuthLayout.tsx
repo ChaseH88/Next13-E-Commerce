@@ -1,4 +1,3 @@
-import { Box } from "components/Box";
 import { AuthLayoutStyled } from "./styles";
 
 interface AuthLayoutProps {
