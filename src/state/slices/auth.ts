@@ -1,7 +1,9 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { createSlice } from "@reduxjs/toolkit";
+import { HYDRATE } from "next-redux-wrapper";
 import { UserInterface } from "types/interfaces";
 import { Response } from "types/types";
+import axiosBaseQuery from "state/services/axiosBaseQuery";
 
 export interface AuthState {
   user: UserInterface | null;
@@ -11,11 +13,19 @@ export interface AuthState {
 export const authApi = createApi({
   reducerPath: "authApi",
   tagTypes: ["User"],
-  baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/api",
-    credentials: "include",
+  baseQuery: axiosBaseQuery({
+    transformResponse: (response) => response,
   }),
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === HYDRATE) {
+      return action.payload[reducerPath];
+    }
+  },
   endpoints: (builder) => ({
+    me: builder.query<UserInterface, void>({
+      query: () => "/user/me",
+      providesTags: [{ type: "User", id: "current" }],
+    }),
     login: builder.mutation<
       Response<UserInterface>,
       { email: string; password: string }

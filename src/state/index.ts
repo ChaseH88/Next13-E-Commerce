@@ -1,6 +1,7 @@
 import { configureStore, Middleware } from "@reduxjs/toolkit";
 import rootReducer from "./slices";
 import { authApi } from "./slices/auth";
+import { createWrapper } from "next-redux-wrapper";
 
 const store = configureStore({
   reducer: rootReducer,
@@ -13,4 +14,4 @@ const store = configureStore({
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
-export { store };
+export const wrapper = createWrapper(() => store);
