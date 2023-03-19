@@ -20,7 +20,9 @@ const handler = connectHandler(
       throw new Error("Please provide an email and password");
     }
 
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({
+      email: { $regex: new RegExp(email, "i") },
+    }).select("+password");
 
     if (!user) {
       throw new Error(`Cannot find user with the email: ${email}`);

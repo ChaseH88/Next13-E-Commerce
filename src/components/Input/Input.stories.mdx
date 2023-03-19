@@ -21,7 +21,6 @@ export const Template = (args) => {
       .required("Email is required")
       .email("Invalid email address"),
   });
-  console.log(formHook?.formState?.errors?.email);
   const formHook = useForm({
     resolver: yupResolver(schema),
     reValidateMode: "onChange",

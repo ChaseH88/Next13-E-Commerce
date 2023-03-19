@@ -1,4 +1,5 @@
 import { Box, Button, Form, Input, Typography } from "components";
+import { useAuthState } from "hooks/redux/useAuthState";
 import { AuthLayout } from "modules";
 import { useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
@@ -6,6 +7,13 @@ import { useTheme } from "styled-components";
 export default function Login() {
   const formHook = useForm({});
   const theme = useTheme();
+  const { useLoginMutation } = useAuthState();
+  const [login, { data: response }] = useLoginMutation();
+
+  const handleSubmitLogin = async (data: any) => {
+    await login(data);
+  };
+
   return (
     <AuthLayout side="right">
       <Box className="wrapper" width="70%">
@@ -42,7 +50,7 @@ export default function Login() {
               <Button
                 variant="contained"
                 color="primary"
-                onClick={() => alert(JSON.stringify(formHook.getValues()))}
+                onClick={formHook.handleSubmit(handleSubmitLogin)}
                 disabled={
                   formHook.formState.isSubmitting || !formHook.formState.isValid
                 }
