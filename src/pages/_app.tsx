@@ -1,6 +1,10 @@
 import type { AppProps } from "next/app";
 import { useMemo } from "react";
 
+// Redux
+import { Provider } from "react-redux";
+import { store } from "state";
+
 // Styles
 import { ThemeProvider } from "styled-components";
 import { makeTheme } from "styles/theme";
@@ -14,9 +18,11 @@ const App = ({ Component, pageProps }: AppProps) => {
   const theme = useMemo(() => makeTheme("light"), []);
   return (
     <>
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+      <Provider store={store}>
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </Provider>
       <GlobalStyle />
     </>
   );
