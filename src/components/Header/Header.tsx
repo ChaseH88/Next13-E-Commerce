@@ -1,6 +1,7 @@
 import { Box, Button, Icon, Typography, Input, DropdownMenu } from "components";
 import { useScrollPosition, useDropdownMenu, useOnScroll } from "hooks";
 import { useSearchState } from "hooks/redux/useSearchState";
+import { useRouter } from "next/router";
 import {
   useCallback,
   useMemo,
@@ -21,6 +22,7 @@ const Header = (props: HeaderProps) => {
   const accountDropdown = useDropdownMenu();
   const cartDropdown = useDropdownMenu();
   const theme = useTheme();
+  const router = useRouter();
   const scrollPosition = useScrollPosition();
   const scrollPast = useMemo(() => scrollPosition > 100, [scrollPosition]);
   const {
@@ -221,8 +223,11 @@ const Header = (props: HeaderProps) => {
           },
           {
             id: "4",
-            name: "Logout",
-            slug: "logout",
+            name: "Login",
+            slug: "login",
+            onClick: () => {
+              router.push("/auth/login");
+            },
           },
         ]}
       />
