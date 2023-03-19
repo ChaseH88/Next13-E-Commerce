@@ -5,7 +5,7 @@ interface SearchState {
 }
 
 const initialState: SearchState = {
-  query: "",
+  query: "Testing Redux Toolkit",
 };
 
 export const searchSlice = createSlice({

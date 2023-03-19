@@ -1,6 +1,14 @@
 import { Box, Button, Icon, Typography, Input, DropdownMenu } from "components";
 import { useScrollPosition, useDropdownMenu, useOnScroll } from "hooks";
-import { useCallback, useMemo, useRef, useState, forwardRef } from "react";
+import { useSearchState } from "hooks/redux/useSearchState";
+import {
+  useCallback,
+  useMemo,
+  useRef,
+  useState,
+  forwardRef,
+  useEffect,
+} from "react";
 import { useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
 import { CategoryInterface } from "types/interfaces";
@@ -15,17 +23,18 @@ const Header = (props: HeaderProps) => {
   const theme = useTheme();
   const scrollPosition = useScrollPosition();
   const scrollPast = useMemo(() => scrollPosition > 100, [scrollPosition]);
-  const formHook = useForm({
-    mode: "onChange",
-  });
+  const {
+    state: { query },
+    dispatch: { setQuery },
+  } = useSearchState();
 
   useOnScroll(() => {
     accountDropdown.handleClose();
     cartDropdown.handleClose();
   });
 
-  const handleSubmitSearch = useCallback((data: any) => {
-    alert(JSON.stringify(data));
+  const handleSubmitSearch = useCallback(() => {
+    console.log({ query });
   }, []);
 
   const handleSearchToggle = useCallback(() => {
@@ -100,8 +109,10 @@ const Header = (props: HeaderProps) => {
                 <Input
                   type="text"
                   placeholder="What are you looking for?"
-                  formInputName="search"
-                  formHook={formHook}
+                  formInputName="query"
+                  onChange={(e) => {
+                    setQuery(e.target.value);
+                  }}
                 />
                 <Box
                   className="close-search"
@@ -114,7 +125,7 @@ const Header = (props: HeaderProps) => {
                   display="flex"
                 >
                   <Button
-                    onClick={() => handleSubmitSearch(formHook.getValues())}
+                    onClick={handleSubmitSearch}
                     variant="no-outline-icon"
                   >
                     <Icon name="FaSearch" />
