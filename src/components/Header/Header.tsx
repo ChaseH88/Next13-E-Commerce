@@ -1,5 +1,5 @@
 import { Box, Button, Icon, Typography, Input, DropdownMenu } from "components";
-import { useScrollPosition } from "hooks";
+import { useScrollPosition, useDropdownMenu } from "hooks";
 import { useCallback, useMemo, useRef, useState, forwardRef } from "react";
 import { useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
@@ -10,8 +10,8 @@ interface HeaderProps {}
 
 const Header = (props: HeaderProps) => {
   const [searchToggle, setSearchToggle] = useState(false);
-  const [accountMenuOpen, setAccountMenuOpen] = useState(false);
-  const accountAnchorRef = useRef(null);
+  const accountDropdown = useDropdownMenu();
+  const cartDropdown = useDropdownMenu();
   const theme = useTheme();
   const scrollPosition = useScrollPosition();
   const scrollPast = useMemo(() => scrollPosition > 100, [scrollPosition]);
@@ -25,10 +25,6 @@ const Header = (props: HeaderProps) => {
 
   const handleSearchToggle = useCallback(() => {
     setSearchToggle((prevSearchToggle) => !prevSearchToggle);
-  }, []);
-
-  const handleAccountMenuToggle = useCallback(() => {
-    setAccountMenuOpen((prevAccountMenuOpen) => !prevAccountMenuOpen);
   }, []);
 
   const navMenu = useMemo(
@@ -160,14 +156,22 @@ const Header = (props: HeaderProps) => {
             )}
             <Button
               variant="no-outline-icon"
-              ref={accountAnchorRef}
-              onClick={handleAccountMenuToggle}
+              ref={accountDropdown.anchorRef}
+              onClick={() => {
+                accountDropdown.handleToggle();
+                cartDropdown.handleClose();
+              }}
               style={{ display: "inline-block", margin: "0 5px 0 0" }}
             >
               <Icon name="FaUser" />
             </Button>
             <Button
               variant="no-outline-icon"
+              ref={cartDropdown.anchorRef}
+              onClick={() => {
+                cartDropdown.handleToggle();
+                accountDropdown.handleClose();
+              }}
               style={{ display: "inline-block", margin: "0 5px 0 0" }}
             >
               <Icon name="FaShoppingCart" />
@@ -178,9 +182,9 @@ const Header = (props: HeaderProps) => {
       <DropdownMenu
         animation="in"
         position="right"
-        anchorElement={accountAnchorRef.current}
-        open={accountMenuOpen}
-        onClose={handleAccountMenuToggle}
+        anchorElement={accountDropdown.anchorRef.current}
+        open={accountDropdown.open}
+        onClose={() => console.log("close")}
         items={[
           {
             id: "1",
@@ -203,6 +207,19 @@ const Header = (props: HeaderProps) => {
             slug: "logout",
           },
         ]}
+      />
+      <DropdownMenu
+        animation="in"
+        position="right"
+        anchorElement={cartDropdown.anchorRef.current}
+        open={cartDropdown.open}
+        onClose={() => console.log("close")}
+        items={
+          <Box>
+            <Typography variant="h4">Cart</Typography>
+            <Typography variant="body1">Coming Soon</Typography>
+          </Box>
+        }
       />
     </>
   );

@@ -1,6 +1,7 @@
 import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
 import { BADGE } from "@geometricpanda/storybook-addon-badges";
 import { Button, DropdownMenu } from "components";
+import { useDropdownMenu } from "hooks";
 import { useRef, useState } from "react";
 
 <Meta
@@ -12,23 +13,21 @@ import { useRef, useState } from "react";
 />
 
 export const Template = (args) => {
-  const anchorRef = useRef(null);
-  const [open, setOpen] = useState(false);
-  const setToggle = () => setOpen(!open);
+  const { open, anchorRef, handleToggle } = useDropdownMenu();
   return (
     <div>
       <Button
         color="primary"
         variant="contained"
         ref={anchorRef}
-        onClick={setToggle}
+        onClick={handleToggle}
       >
         Open Menu
       </Button>
       <DropdownMenu
         anchorElement={anchorRef.current}
         open={open}
-        onClose={setToggle}
+        onClose={handleToggle}
         position="left"
         {...args}
       />
@@ -45,6 +44,21 @@ import { DropdownMenu } from 'components'
 ## Props
 
 <ArgsTable of={DropdownMenu} />
+
+## Use Dropdown Menu Hook
+
+```
+import { useDropdownMenu } from 'hooks'
+```
+
+```ts
+export interface UseDropDownMenuReturn {
+  open: boolean;
+  anchorRef: MutableRefObject<HTMLButtonElement | null>;
+  handleToggle: () => void;
+  handleClose: (event?: MouseEvent) => void;
+}
+```
 
 ### React Nodes
 
