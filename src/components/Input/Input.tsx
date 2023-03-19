@@ -12,6 +12,7 @@ interface InputProps {
   style?: MotionStyle;
   type: "text" | "email" | "password";
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  labelColor?: string;
 }
 
 export const Input = ({
@@ -19,12 +20,17 @@ export const Input = ({
   formInputName,
   label,
   placeholder,
+  labelColor = "black",
   ...props
 }: InputProps) => {
   const error = formHook?.formState.errors[formInputName];
   return (
     <InputContainer onChange={props.onChange}>
-      {label && <InputLabel htmlFor={props.id}>{label}</InputLabel>}
+      {label && (
+        <InputLabel color={labelColor} htmlFor={props.id}>
+          {label}
+        </InputLabel>
+      )}
       <InputStyled
         placeholder={placeholder}
         {...formHook?.register(formInputName)}

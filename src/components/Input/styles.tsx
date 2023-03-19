@@ -8,8 +8,9 @@ export const InputContainer = styled.div`
   width: 100%;
 `;
 
-export const InputLabel = styled.label`
+export const InputLabel = styled.label<{ color: string }>`
   ${textCss("subtitle2", "primary")};
+  ${({ color }) => color && `color: ${color}`};
   font-weight: 500;
   margin-bottom: 4px;
 `;
