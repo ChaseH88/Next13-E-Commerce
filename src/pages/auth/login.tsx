@@ -1,6 +1,8 @@
 import { Box, Button, Form, Input, Typography } from "components";
 import { useAuthState } from "hooks/redux/useAuthState";
 import { AuthLayout } from "modules";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
 
@@ -8,7 +10,14 @@ export default function Login() {
   const formHook = useForm({});
   const theme = useTheme();
   const { useLoginMutation } = useAuthState();
-  const [login, { data: response }] = useLoginMutation();
+  const [login, { data: response, isLoading, isSuccess }] = useLoginMutation();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isSuccess) {
+      router.push("/");
+    }
+  }, [response, isSuccess]);
 
   const handleSubmitLogin = async (data: any) => {
     await login(data);
@@ -23,7 +32,7 @@ export default function Login() {
           </Typography>
         </Box>
         <Box className="form">
-          <Form width={"100%"}>
+          <Form width={"100%"} isSubmitting={isLoading}>
             <Box padding={theme.spacing[2]}>
               <Input
                 type="text"
@@ -52,7 +61,9 @@ export default function Login() {
                 color="primary"
                 onClick={formHook.handleSubmit(handleSubmitLogin)}
                 disabled={
-                  formHook.formState.isSubmitting || !formHook.formState.isValid
+                  formHook.formState.isSubmitting ||
+                  !formHook.formState.isValid ||
+                  isLoading
                 }
               >
                 Login

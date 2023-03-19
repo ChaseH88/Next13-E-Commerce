@@ -5,6 +5,7 @@ import { Response } from "types/types";
 
 export interface AuthState {
   user: UserInterface | null;
+  loggedIn: boolean;
 }
 
 export const authApi = createApi({
@@ -25,10 +26,13 @@ export const authApi = createApi({
         body: params,
       }),
       invalidatesTags: [{ type: "User", id: "current" }],
+      transformResponse: (response: Response<UserInterface>) => {
+        return response;
+      },
     }),
     logout: builder.mutation<void, void>({
       query: () => ({
-        url: "/logout",
+        url: "/user/logout",
         method: "POST",
       }),
       invalidatesTags: [{ type: "User", id: "current" }],
@@ -51,7 +55,10 @@ export const authApi = createApi({
 
 export const authSlice = createSlice({
   name: "auth",
-  initialState: { user: null } as AuthState,
+  initialState: {
+    user: null,
+    loggedIn: false,
+  } as AuthState,
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -59,12 +66,14 @@ export const authSlice = createSlice({
         authApi.endpoints.login.matchFulfilled,
         (state, { payload }) => {
           state.user = payload.data!;
+          state.loggedIn = true;
         }
       )
       .addMatcher(
         authApi.endpoints.logout.matchFulfilled,
         (state, { payload }) => {
           state.user = null;
+          state.loggedIn = false;
         }
       )
       .addMatcher(

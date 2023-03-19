@@ -1,5 +1,6 @@
 import { Box, Button, Icon, Typography, Input, DropdownMenu } from "components";
 import { useScrollPosition, useDropdownMenu, useOnScroll } from "hooks";
+import { useAuthState } from "hooks/redux/useAuthState";
 import { useSearchState } from "hooks/redux/useSearchState";
 import { useRouter } from "next/router";
 import {
@@ -29,6 +30,11 @@ const Header = (props: HeaderProps) => {
     state: { query },
     dispatch: { setQuery },
   } = useSearchState();
+  const {
+    state: { loggedIn, user },
+    useLogoutMutation,
+  } = useAuthState();
+  const [logout] = useLogoutMutation();
 
   useOnScroll(() => {
     accountDropdown.handleClose();
@@ -204,32 +210,57 @@ const Header = (props: HeaderProps) => {
         open={accountDropdown.open}
         onClose={() => console.log("close")}
         textAlign="right"
-        width={"150px"}
-        items={[
-          {
-            id: "1",
-            name: "My Account",
-            slug: "my-account",
-          },
-          {
-            id: "2",
-            name: "My Orders",
-            slug: "my-orders",
-          },
-          {
-            id: "3",
-            name: "My Wishlist",
-            slug: "my-wishlist",
-          },
-          {
-            id: "4",
-            name: "Login",
-            slug: "login",
-            onClick: () => {
-              router.push("/auth/login");
-            },
-          },
-        ]}
+        width={"220px"}
+        items={
+          <Box
+            display="flex"
+            flexDirection="column"
+            gap={theme.spacing[5]}
+            padding={theme.spacing[3]}
+          >
+            {!loggedIn ? (
+              <>
+                <Box
+                  style={{
+                    borderBottom: `1px solid ${theme.colors.palette.black[300]}`,
+                    paddingBottom: theme.spacing[3],
+                  }}
+                >
+                  <Typography variant="h6">Not Signed In</Typography>
+                </Box>
+                <Box
+                  style={{ textAlign: "right" }}
+                  onClick={() => {
+                    router.push("/auth/login");
+                  }}
+                >
+                  <Typography variant="subtitle2">Login</Typography>
+                </Box>
+              </>
+            ) : (
+              <>
+                <Box>
+                  <Typography variant="subtitle1">{user?.email}</Typography>
+                </Box>
+                <Box style={{ textAlign: "right" }}>
+                  <Typography variant="subtitle2">My Account</Typography>
+                </Box>
+                <Box style={{ textAlign: "right" }}>
+                  <Typography variant="subtitle2">My Orders</Typography>
+                </Box>
+                <Box style={{ textAlign: "right" }}>
+                  <Typography variant="subtitle2">My Wishlist</Typography>
+                </Box>
+                <Box
+                  style={{ textAlign: "right" }}
+                  onClick={async () => await logout()}
+                >
+                  <Typography variant="subtitle2">Logout</Typography>
+                </Box>
+              </>
+            )}
+          </Box>
+        }
       />
       <DropdownMenu
         animation="in"
