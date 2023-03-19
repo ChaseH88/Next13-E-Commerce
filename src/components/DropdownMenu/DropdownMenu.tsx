@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { AnimatePresence } from "framer-motion";
 import { DropdownMenuStyledProps, DropdownMenuStyled } from "./styles";
-import { Box } from "components";
+import { Box, Typography } from "components";
 
 const menuAnimation = {
   in: {
@@ -34,7 +34,9 @@ interface DropdownMenuProps extends DropdownMenuStyledProps {
   items: DropdownMenuItem[] | React.ReactNode;
   animation?: MenuAnimation;
   position?: "left" | "middle" | "right";
+  textAlign?: "left" | "center" | "right";
   offset?: number;
+  width?: string;
 }
 
 const DropdownMenu = ({
@@ -43,9 +45,11 @@ const DropdownMenu = ({
   onClose,
   style,
   items,
+  textAlign,
   animation = "in",
   position = "left",
   offset = 0,
+  width,
 }: DropdownMenuProps) => {
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -91,7 +95,10 @@ const DropdownMenu = ({
           exit="exit"
           variants={menuAnimation[animation]}
           transition={{ duration: 0.2 }}
-          style={style}
+          style={{
+            ...style,
+            ...(width && { width }),
+          }}
         >
           {!Array.isArray(items) || items.length === 0 ? (
             <>{items}</>
@@ -101,15 +108,20 @@ const DropdownMenu = ({
                 key={item.id}
                 onClick={item.onClick}
                 className="item"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
                 padding="0.5em 1em"
                 style={{
                   cursor: "pointer",
+                  ...(textAlign && { textAlign }),
                 }}
               >
-                {item.name}
+                <Typography
+                  variant="subtitle2"
+                  style={{
+                    margin: 0,
+                  }}
+                >
+                  {item.name}
+                </Typography>
               </Box>
             ))
           )}

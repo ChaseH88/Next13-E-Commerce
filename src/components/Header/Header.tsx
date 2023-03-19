@@ -1,5 +1,5 @@
 import { Box, Button, Icon, Typography, Input, DropdownMenu } from "components";
-import { useScrollPosition, useDropdownMenu } from "hooks";
+import { useScrollPosition, useDropdownMenu, useOnScroll } from "hooks";
 import { useCallback, useMemo, useRef, useState, forwardRef } from "react";
 import { useForm } from "react-hook-form";
 import { useTheme } from "styled-components";
@@ -17,6 +17,11 @@ const Header = (props: HeaderProps) => {
   const scrollPast = useMemo(() => scrollPosition > 100, [scrollPosition]);
   const formHook = useForm({
     mode: "onChange",
+  });
+
+  useOnScroll(() => {
+    accountDropdown.handleClose();
+    cartDropdown.handleClose();
   });
 
   const handleSubmitSearch = useCallback((data: any) => {
@@ -185,6 +190,8 @@ const Header = (props: HeaderProps) => {
         anchorElement={accountDropdown.anchorRef.current}
         open={accountDropdown.open}
         onClose={() => console.log("close")}
+        textAlign="right"
+        width={"150px"}
         items={[
           {
             id: "1",
