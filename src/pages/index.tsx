@@ -17,17 +17,27 @@ export default function Home() {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const authPromise = store.dispatch(authApi.endpoints.me.initiate());
+    let authPromise;
+
+    if (context.req.cookies?.token) {
+      authPromise = store.dispatch(authApi.endpoints.me.initiate());
+    }
+
     const productPromise = store.dispatch(
       productApi.endpoints.getProductFeed.initiate()
     );
 
-    await Promise.allSettled([
-      authPromise,
+    const promises = [
       productPromise,
       authGetRunningQueriesThunk(),
       productGetRunningQueriesThunk(),
-    ]);
+    ];
+
+    if (authPromise) {
+      promises.unshift(authPromise);
+    }
+
+    await Promise.allSettled(promises);
 
     return {
       props: {},
