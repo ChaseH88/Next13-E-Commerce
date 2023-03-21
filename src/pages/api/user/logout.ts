@@ -6,7 +6,7 @@ import { deleteCookie } from "cookies-next";
 const handler = connectHandler(
   {
     method: "POST",
-    isProtected: true,
+    isProtected: false,
   },
   async (req: NextApiRequest, res: NextApiResponse<Response<null>>) => {
     deleteCookie("token", { req, res });

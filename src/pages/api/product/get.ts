@@ -7,7 +7,7 @@ import { connectHandler } from "utils";
 const handler = connectHandler(
   {
     method: "GET",
-    isProtected: true,
+    isProtected: false,
   },
   async (
     req: CustomRequest,

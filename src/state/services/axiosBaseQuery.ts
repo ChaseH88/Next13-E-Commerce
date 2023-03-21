@@ -3,6 +3,7 @@ import type { AxiosRequestConfig, AxiosRequestHeaders } from "axios";
 import axios from "./axios";
 import Axios from "axios";
 import { API } from "./api-types";
+import { Context } from "next-redux-wrapper";
 
 export interface AxiosBaseQueryArgs<Meta, Response = API.BaseResponse> {
   meta?: Meta;
@@ -17,7 +18,9 @@ export interface ServiceExtraOptions {
   authRequired?: boolean;
 }
 
-const getRequestConfig = (args: string | AxiosRequestConfig) => {
+const getRequestConfig = (
+  args: string | AxiosRequestConfig
+): AxiosRequestConfig => {
   if (typeof args === "string") {
     return { url: args };
   }
@@ -42,14 +45,19 @@ const axiosBaseQuery = <
   Meta
 > => {
   return async (args, api, extraOptions) => {
+    const token = (api as any)?.extra?.req?.cookies?.token;
+
     try {
       const requestConfig = getRequestConfig(args);
-      console.log("requestConfig", requestConfig);
+      const headers: any = {
+        ...requestConfig.headers,
+      };
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
       const result = await axios({
         ...requestConfig,
-        headers: prepareHeaders
-          ? prepareHeaders(requestConfig.headers || ({} as any), api)
-          : requestConfig.headers,
+        headers: prepareHeaders ? prepareHeaders(headers, api) : headers,
         signal: api.signal,
         ...extraOptions,
         withCredentials: true,

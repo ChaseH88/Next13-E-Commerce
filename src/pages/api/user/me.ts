@@ -11,7 +11,6 @@ const handler = connectHandler(
   },
   async (req: CustomRequest, res: NextApiResponse<Response<UserInterface>>) => {
     const user = await User.findById(req.userId).select("-password");
-
     return res
       .status(200)
       .json({ message: "User has been found.", data: user });

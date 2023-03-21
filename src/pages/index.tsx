@@ -1,8 +1,11 @@
-import { GetStaticProps } from "next";
 import { Banner } from "components";
 import { AppLayout } from "modules";
-import { authApi } from "state/slices/auth";
-import { RootState, wrapper } from "state";
+import { authApi, authGetRunningQueriesThunk } from "state/slices/auth";
+import { wrapper } from "state";
+import {
+  productApi,
+  productGetRunningQueriesThunk,
+} from "state/slices/product";
 
 export default function Home() {
   return (
@@ -12,16 +15,16 @@ export default function Home() {
   );
 }
 
-export const getStaticProps: GetStaticProps = wrapper.getStaticProps(
-  (store) => async () => {
-    const state = store.getState() as RootState;
-    console.clear();
-    console.log("getStaticProps", authApi.endpoints.me.initiate);
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
     store.dispatch(authApi.endpoints.me.initiate());
+    store.dispatch(productApi.endpoints.getProductFeed.initiate());
+
+    await Promise.all(store.dispatch(authGetRunningQueriesThunk()));
+    await Promise.all(store.dispatch(productGetRunningQueriesThunk()));
+
     return {
-      props: {
-        // pass data as props
-      },
+      props: {},
     };
   }
 );

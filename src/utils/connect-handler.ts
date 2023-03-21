@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { connect } from "./server";
-import { getCookie } from "cookies-next";
+import { getCookie, getCookies } from "cookies-next";
 import { decodeToken } from "./json-web-token";
 import { JwtPayload } from "jsonwebtoken";
 import { User } from "models/user";
@@ -20,9 +20,16 @@ export const connectHandler =
     func: (req: NextApiRequest, res: NextApiResponse) => Promise<void>
   ) =>
   async (req: CustomRequest, res: NextApiResponse) => {
+    let token = null;
+
+    if (req.headers.authorization) {
+      token = req.headers.authorization?.split(" ")[1];
+    }
+
     try {
       if (isProtected) {
-        const token = getCookie("token", { req, res });
+        token = token || getCookie("token", { req, res });
+
         if (!token) {
           throw new Error("You must be logged in to continue.");
         }

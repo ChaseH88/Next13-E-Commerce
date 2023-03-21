@@ -4,6 +4,14 @@ import { HYDRATE } from "next-redux-wrapper";
 import { UserInterface } from "types/interfaces";
 import { Response } from "types/types";
 import axiosBaseQuery from "state/services/axiosBaseQuery";
+import { getCookies } from "cookies-next";
+
+const windowAvailable = () =>
+  !!(
+    typeof window !== "undefined" &&
+    window.document &&
+    window.document.createElement
+  );
 
 export interface AuthState {
   user: UserInterface | null;
@@ -13,14 +21,7 @@ export interface AuthState {
 export const authApi = createApi({
   reducerPath: "authApi",
   tagTypes: ["User"],
-  baseQuery: axiosBaseQuery({
-    transformResponse: (response) => response,
-  }),
-  extractRehydrationInfo(action, { reducerPath }) {
-    if (action.type === HYDRATE) {
-      return action.payload[reducerPath];
-    }
-  },
+  baseQuery: axiosBaseQuery(),
   endpoints: (builder) => ({
     me: builder.query<UserInterface, void>({
       query: () => "/user/me",
@@ -72,6 +73,10 @@ export const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      .addMatcher(authApi.endpoints.me.matchFulfilled, (state, { payload }) => {
+        state.user = (payload as any).data!;
+        state.loggedIn = true;
+      })
       .addMatcher(
         authApi.endpoints.login.matchFulfilled,
         (state, { payload }) => {
@@ -91,7 +96,13 @@ export const authSlice = createSlice({
         (state, { payload }) => {
           state.user = payload;
         }
-      );
+      )
+      .addDefaultCase((state, action) => {
+        if (action.type === HYDRATE) {
+          const incoming = action.payload.auth;
+          if (incoming) return { ...state, ...incoming };
+        }
+      });
   },
 });
 
@@ -100,6 +111,7 @@ export const {
   useLogoutMutation,
   useGetCurrentUserQuery,
   useGetUserByIdQuery,
+  util: { getRunningQueriesThunk: authGetRunningQueriesThunk },
 } = authApi;
 
 export default authSlice.reducer;
