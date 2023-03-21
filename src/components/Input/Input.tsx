@@ -13,6 +13,7 @@ interface InputProps {
   type: "text" | "email" | "password";
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   labelColor?: string;
+  defaultValue?: string;
 }
 
 export const Input = ({
@@ -33,6 +34,7 @@ export const Input = ({
       )}
       <InputStyled
         placeholder={placeholder}
+        defaultValue={props.defaultValue}
         {...formHook?.register(formInputName)}
         {...props}
       />

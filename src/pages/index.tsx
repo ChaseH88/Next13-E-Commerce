@@ -17,15 +17,17 @@ export default function Home() {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    store.dispatch(authApi.endpoints.me.initiate());
-    store.dispatch(productApi.endpoints.getProductFeed.initiate());
-
     const authPromise = store.dispatch(authApi.endpoints.me.initiate());
     const productPromise = store.dispatch(
       productApi.endpoints.getProductFeed.initiate()
     );
 
-    await Promise.allSettled([authPromise, productPromise]);
+    await Promise.allSettled([
+      authPromise,
+      productPromise,
+      authGetRunningQueriesThunk(),
+      productGetRunningQueriesThunk(),
+    ]);
 
     return {
       props: {},

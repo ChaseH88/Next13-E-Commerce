@@ -1,4 +1,3 @@
-//eslint-disable-next-line  @typescript-eslint/no-namespace
 export declare namespace API {
   export type BaseResponse = {
     httpStatus: 200;

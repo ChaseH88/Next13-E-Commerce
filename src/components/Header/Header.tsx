@@ -3,15 +3,7 @@ import { useScrollPosition, useDropdownMenu, useOnScroll } from "hooks";
 import { useAuthState } from "hooks/redux/useAuthState";
 import { useSearchState } from "hooks/redux/useSearchState";
 import { useRouter } from "next/router";
-import {
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-  forwardRef,
-  useEffect,
-} from "react";
-import { useForm } from "react-hook-form";
+import { useCallback, useMemo, useState } from "react";
 import { useTheme } from "styled-components";
 import { CategoryInterface } from "types/interfaces";
 import { HeaderStyled } from "./styles";
@@ -43,7 +35,7 @@ const Header = (props: HeaderProps) => {
 
   const handleSubmitSearch = useCallback(() => {
     console.log({ query });
-  }, []);
+  }, [query]);
 
   const handleSearchToggle = useCallback(() => {
     setSearchToggle((prevSearchToggle) => !prevSearchToggle);
@@ -121,6 +113,7 @@ const Header = (props: HeaderProps) => {
                   onChange={(e) => {
                     setQuery(e.target.value);
                   }}
+                  defaultValue={query}
                 />
                 <Box
                   className="close-search"

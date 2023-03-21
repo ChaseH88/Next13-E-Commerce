@@ -4,7 +4,6 @@ import { HYDRATE } from "next-redux-wrapper";
 import { UserInterface } from "types/interfaces";
 import { Response } from "types/types";
 import axiosBaseQuery from "state/services/axiosBaseQuery";
-import { getCookies } from "cookies-next";
 
 const windowAvailable = () =>
   !!(

@@ -17,7 +17,7 @@ export default function Login() {
     if (isSuccess) {
       router.push("/");
     }
-  }, [response, isSuccess]);
+  }, [response, isSuccess, router]);
 
   const handleSubmitLogin = async (data: any) => {
     await login(data);

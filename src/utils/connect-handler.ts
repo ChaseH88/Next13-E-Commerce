@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { connect } from "./server";
-import { getCookie, getCookies } from "cookies-next";
+import { getCookie } from "cookies-next";
 import { decodeToken } from "./json-web-token";
 import { JwtPayload } from "jsonwebtoken";
 import { User } from "models/user";

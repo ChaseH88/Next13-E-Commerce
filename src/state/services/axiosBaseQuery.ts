@@ -3,7 +3,6 @@ import type { AxiosRequestConfig, AxiosRequestHeaders } from "axios";
 import axios from "./axios";
 import Axios from "axios";
 import { API } from "./api-types";
-import { Context } from "next-redux-wrapper";
 
 export interface AxiosBaseQueryArgs<Meta, Response = API.BaseResponse> {
   meta?: Meta;

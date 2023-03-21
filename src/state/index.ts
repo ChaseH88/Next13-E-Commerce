@@ -3,10 +3,8 @@ import { configureStore, Middleware } from "@reduxjs/toolkit";
 import rootReducer from "./slices";
 import { authApi } from "./slices/auth";
 import { productApi } from "./slices/product";
-import { getCookies } from "cookies-next";
 
 const makeStore: MakeStore<any> = (ctx: Context) => {
-  const token = getCookies({ req: (ctx as any)?.req }).token;
   const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) => {
@@ -25,5 +23,7 @@ const makeStore: MakeStore<any> = (ctx: Context) => {
 
   return store;
 };
+
+export type RootState = ReturnType<typeof makeStore>;
 
 export const wrapper = createWrapper(makeStore, { debug: false });
