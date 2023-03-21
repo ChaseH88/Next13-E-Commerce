@@ -20,8 +20,12 @@ export const getServerSideProps = wrapper.getServerSideProps(
     store.dispatch(authApi.endpoints.me.initiate());
     store.dispatch(productApi.endpoints.getProductFeed.initiate());
 
-    await Promise.all(store.dispatch(authGetRunningQueriesThunk()));
-    await Promise.all(store.dispatch(productGetRunningQueriesThunk()));
+    const authPromise = store.dispatch(authApi.endpoints.me.initiate());
+    const productPromise = store.dispatch(
+      productApi.endpoints.getProductFeed.initiate()
+    );
+
+    await Promise.allSettled([authPromise, productPromise]);
 
     return {
       props: {},

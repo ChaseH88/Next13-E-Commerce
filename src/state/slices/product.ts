@@ -51,6 +51,8 @@ export const productSlice = createSlice({
       .addDefaultCase((state, action) => {
         if (action.type === HYDRATE) {
           const incoming = action.payload.product;
+          console.log("incoming", action.payload.product);
+          console.log("incoming", action.payload.productApi);
           if (incoming) return { ...state, ...incoming };
         }
       });
