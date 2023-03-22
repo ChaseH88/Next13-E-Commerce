@@ -4,6 +4,7 @@ export * from "./Box";
 export * from "./Button";
 export * from "./DropdownMenu";
 export * from "./Form";
+export * from "./Grid";
 export * from "./Header";
 export * from "./Icon";
 export * from "./Input";

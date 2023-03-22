@@ -1,0 +1,39 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { BADGE } from "@geometricpanda/storybook-addon-badges";
+import { Grid, Box } from "components";
+
+<Meta
+  title="Components/Grid"
+  component={Grid}
+  parameters={{
+    badges: [BADGE.STABLE],
+  }}
+/>
+
+export const createChildren = (length = 50) =>
+  Array.from({ length }, (_, i) => i + 1).map((number) => (
+    <Box key={number}>{number}</Box>
+  ));
+
+export const Template = (args) => <Grid {...args} />;
+
+# Grid Component
+
+```
+import { Grid } from 'components'
+```
+
+## Props
+
+<ArgsTable of={Grid} />
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      children: createChildren(10),
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
