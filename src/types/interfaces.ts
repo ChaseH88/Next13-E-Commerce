@@ -32,14 +32,14 @@ export interface LocationInterface {
 export interface CartItemInterface {
   _id?: string;
   id?: string;
-  productId: string;
-  variantId: string;
+  productId: string | ProductInterface;
+  variantId: string | VariantInterface;
   quantity: number;
 }
 
 export interface ProductInterface {
   _id?: string;
-  id: string;
+  id?: string;
   name: string;
   description: string;
   slug: string;
@@ -57,7 +57,7 @@ export interface ProductInterface {
 
 export interface VariantInterface {
   _id?: string;
-  id: string;
+  id?: string;
   name: string;
   color: string;
   size: SizeType;
@@ -67,7 +67,7 @@ export interface VariantInterface {
 
 export interface ReviewInterface {
   _id?: string;
-  id: string;
+  id?: string;
   variantId: VariantInterface | string;
   userId: UserInterface | string;
   rating: number;
@@ -97,9 +97,9 @@ export interface CategoryInterface {
 
 export interface ImageInterface {
   _id?: string;
-  id: string;
-  createdById: string;
-  name: string;
+  id?: string; // temp optional
+  createdById?: string; // temp optional
+  name?: string; // temp optional
   path: string;
   alt: string;
   isActive: boolean;

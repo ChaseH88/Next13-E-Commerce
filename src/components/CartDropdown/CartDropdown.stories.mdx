@@ -1,0 +1,35 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { BADGE } from "@geometricpanda/storybook-addon-badges";
+import { CartDropdown } from "./CartDropdown";
+import { cartArr } from "./sample-data/cart-array";
+
+<Meta
+  title="Components/CartDropdown"
+  component={CartDropdown}
+  parameters={{
+    badges: [BADGE.STABLE],
+  }}
+/>
+
+export const Template = (args) => <CartDropdown {...args} />;
+
+# CartDropdown Component
+
+```
+import { CartDropdown } from 'components'
+```
+
+## Props
+
+<ArgsTable of={CartDropdown} />
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      items: cartArr,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
