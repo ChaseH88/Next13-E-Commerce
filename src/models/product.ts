@@ -147,6 +147,34 @@ const ProductSchema = new Schema<ProductInterface>(
         },
       },
     ],
+    images: [
+      {
+        _id: false,
+        createdById: {
+          type: Schema.Types.ObjectId,
+          ref: "User",
+          required: true,
+        },
+        path: {
+          type: String,
+          required: true,
+        },
+        alt: {
+          type: String,
+          required: true,
+        },
+        isActive: {
+          type: Boolean,
+          required: true,
+          default: true,
+        },
+        isArchived: {
+          type: Boolean,
+          required: true,
+          default: false,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

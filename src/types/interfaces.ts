@@ -50,7 +50,7 @@ export interface ProductInterface {
   isHighlighted: boolean;
   fit: FitType[];
   gender: GenderType[];
-  // images: string[];
+  images: ImageInterface[];
   variants: VariantInterface[];
   reviews?: ReviewInterface[];
 }
@@ -93,4 +93,15 @@ export interface CategoryInterface {
   description: string;
   slug: string;
   createdById: UserInterface | string;
+}
+
+export interface ImageInterface {
+  _id?: string;
+  id: string;
+  createdById: string;
+  name: string;
+  path: string;
+  alt: string;
+  isActive: boolean;
+  isArchived: boolean;
 }

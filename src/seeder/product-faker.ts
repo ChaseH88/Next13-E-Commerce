@@ -58,6 +58,7 @@ export const productFaker = async (
       value: faker.datatype.number({ min: 10, max: 1000 }),
       currency: "USD",
     },
+    images: [],
     gender: faker.helpers.shuffle(genderArr as any).slice(0, 1) as GenderType[],
     variants: Array.from({
       length: faker.datatype.number({ min: 1, max: 1 }),

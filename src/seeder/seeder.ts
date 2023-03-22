@@ -11,12 +11,14 @@ import { defaultUsersFaker, userFaker } from "./user-faker";
 import { categoryFaker } from "./category-faker";
 import { productFaker, reviewFaker } from "./product-faker";
 import { shoppingCartFaker } from "./shopping-cart-faker";
+import { imageFaker } from "./image-faker";
 
 const NUMBER_OF_USERS = 3;
 const NUMBER_OF_CATEGORIES = 4;
 const NUMBER_OF_PRODUCTS = 30;
 const NUMBER_OF_REVIEWS = 3;
 const NUMBER_OF_SHOPPING_CART_ITEMS = 2;
+const NUMBER_OF_IMAGES = 3;
 
 const seeder = async () => {
   try {
@@ -76,6 +78,16 @@ const seeder = async () => {
           product.reviews = [review];
         }
       }
+
+      // Generate images for the product
+      for (let i = 0; i < NUMBER_OF_IMAGES; i++) {
+        const image = await imageFaker(
+          adminUsers[Math.floor(Math.random() * adminUsers.length)].id,
+          "apparel"
+        );
+        product.images.push(image);
+      }
+
       products.push(product);
     }
 
