@@ -9,7 +9,7 @@ import {
 } from "state/slices/auth";
 
 export const useAuthState = () => ({
-  state: useSelector<RootState, AuthState>((state) => state.auth),
+  state: useSelector<RootState, AuthState>((state) => state.auth) as AuthState,
   useLoginMutation,
   useLogoutMutation,
   useGetCurrentUserQuery,

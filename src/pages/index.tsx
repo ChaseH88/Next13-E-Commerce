@@ -1,4 +1,4 @@
-import { Banner } from "components";
+import { Banner, Grid, Box, ProductCard } from "components";
 import { AppLayout } from "modules";
 import { authApi, authGetRunningQueriesThunk } from "state/slices/auth";
 import { wrapper } from "state";
@@ -6,11 +6,23 @@ import {
   productApi,
   productGetRunningQueriesThunk,
 } from "state/slices/product";
+import { useProductState } from "hooks/redux/useProductState";
 
 export default function Home() {
+  const {
+    state: { products },
+  } = useProductState();
+
   return (
     <AppLayout>
-      <Banner variant="hero" direction="to top" />
+      {/* <Banner variant="hero" direction="to top" /> */}
+      <Box maxWidth={"80%"} style={{ margin: "0 auto" }}>
+        <Grid>
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </Grid>
+      </Box>
     </AppLayout>
   );
 }
