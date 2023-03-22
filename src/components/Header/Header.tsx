@@ -1,4 +1,5 @@
 import { Box, Button, Icon, Typography, Input, DropdownMenu } from "components";
+import { CartDropdown } from "components/CartDropdown";
 import { useScrollPosition, useDropdownMenu, useOnScroll } from "hooks";
 import { useAuthState } from "hooks/redux/useAuthState";
 import { useSearchState } from "hooks/redux/useSearchState";
@@ -263,8 +264,7 @@ const Header = (props: HeaderProps) => {
         onClose={() => console.log("close")}
         items={
           <Box>
-            <Typography variant="h4">Cart</Typography>
-            <Typography variant="body1">Coming Soon</Typography>
+            <CartDropdown items={user?.cart} />
           </Box>
         }
       />
