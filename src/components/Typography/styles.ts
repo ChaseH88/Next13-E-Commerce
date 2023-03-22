@@ -17,6 +17,7 @@ export interface TypographyStyledProps {
   variant?: Variant;
   color?: string;
   align?: "left" | "right" | "center" | "justify";
+  fontSize?: string;
 }
 
 const typographyStyles = {
@@ -82,4 +83,5 @@ export const TypographyStyled = styled.p<TypographyStyledProps>`
   ${({ variant }) => typographyStyles[variant || "body1"]}
   color: ${({ color }) => color || "inherit"};
   text-align: ${({ align }) => align || "inherit"};
+  ${({ fontSize }) => fontSize && `font-size: ${fontSize} !important;`}
 `;

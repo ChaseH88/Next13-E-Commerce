@@ -20,6 +20,11 @@ const NUMBER_OF_REVIEWS = 3;
 const NUMBER_OF_SHOPPING_CART_ITEMS = 2;
 const NUMBER_OF_IMAGES = 3;
 
+const getRandomId = (array: any[], getEntireObj = false) =>
+  !getEntireObj
+    ? array[Math.floor(Math.random() * array.length)].id
+    : array[Math.floor(Math.random() * array.length)];
+
 const seeder = async () => {
   try {
     // Connect to the database
@@ -54,24 +59,19 @@ const seeder = async () => {
 
     // Create 4 categories
     for (let i = 0; i < NUMBER_OF_CATEGORIES; i++) {
-      const category = await categoryFaker(
-        adminUsers[Math.floor(Math.random() * adminUsers.length)].id
-      );
+      const category = await categoryFaker(getRandomId(adminUsers));
       categories.push(category);
     }
 
     // Create 30 products
     for (let i = 0; i < NUMBER_OF_PRODUCTS; i++) {
       const product = await productFaker(
-        adminUsers[Math.floor(Math.random() * adminUsers.length)].id,
-        categories[Math.floor(Math.random() * categories.length)].id
+        getRandomId(adminUsers),
+        getRandomId(categories)
       );
       // for each product, create 3 reviews, we will use random users for each review
       for (let i = 0; i < NUMBER_OF_REVIEWS; i++) {
-        const review = reviewFaker(
-          product.variants[0].id!,
-          users[Math.floor(Math.random() * users.length)].id
-        );
+        const review = reviewFaker(product.variants[0].id!, getRandomId(users));
         if (product.reviews) {
           product.reviews.push(review);
         } else {
@@ -81,10 +81,7 @@ const seeder = async () => {
 
       // Generate images for the product
       for (let i = 0; i < NUMBER_OF_IMAGES; i++) {
-        const image = await imageFaker(
-          adminUsers[Math.floor(Math.random() * adminUsers.length)].id,
-          "apparel"
-        );
+        const image = await imageFaker(getRandomId(adminUsers), "apparel");
         product.images.push(image);
       }
 
@@ -102,8 +99,7 @@ const seeder = async () => {
 
     for (const user of allUsers) {
       for (let i = 0; i < NUMBER_OF_SHOPPING_CART_ITEMS; i++) {
-        const randomProduct =
-          allProducts[Math.floor(Math.random() * allProducts.length)];
+        const randomProduct = getRandomId(allProducts, true);
         const cartItem = shoppingCartFaker(
           randomProduct?.id!,
           randomProduct?.variants[0].id!,

@@ -1,0 +1,133 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { BADGE } from "@geometricpanda/storybook-addon-badges";
+import { ProductCard, Box } from "components";
+
+<Meta
+  title="Product"
+  component={ProductCard}
+  parameters={{
+    badges: [BADGE.STABLE],
+  }}
+/>
+
+export const Template = (args) => (
+  <>
+    <Box
+      display="flex"
+      gap={"2em"}
+      maxWidth={"80%"}
+      style={{ margin: "0 auto" }}
+    >
+      <ProductCard {...args} />
+      <ProductCard {...args} />
+      <ProductCard {...args} />
+      <ProductCard {...args} />
+    </Box>
+  </>
+);
+
+# ProductCard Component
+
+```
+import { ProductCard } from 'components'
+```
+
+## Props
+
+<ArgsTable of={ProductCard} />
+
+<Canvas>
+  <Story
+    name="Single Card"
+    args={{
+      product: {
+        price: {
+          name: "default",
+          value: 13,
+          currency: "USD",
+        },
+        _id: "641a5e3a5b838afc4d6cb769",
+        name: "Oriental Wooden Computer",
+        description:
+          "Carbonite web goalkeeper gloves are ergonomically designed to give easy fit",
+        slug: "Oriental-Wooden-Computer",
+        categoryId: "bbf26feba62c210574dea89e",
+        createdById: "9edd6f031d81d0e44e303c13",
+        isAvailable: true,
+        isHighlighted: false,
+        fit: ["infant"],
+        gender: ["female"],
+        variants: [
+          {
+            name: "default",
+            color: "grey",
+            size: "3Y",
+            quantity: 7,
+            _id: "641a5e3a5b838afc4d6cb76a",
+          },
+        ],
+        reviews: [
+          {
+            variantId: "edbc4b2f0bef0027ad9debd4",
+            userId: "cde58e364f742ac89aee3eb0",
+            rating: 2,
+            title:
+              "Nam quasi nostrum nam cumque dolores iure blanditiis ullam.",
+            body: "Repudiandae cupiditate dolores eos. Impedit unde molestias ex. Vel voluptas reprehenderit laborum aperiam eveniet quibusdam cumque. Porro occaecati fuga repellendus cumque. Autem dolor perferendis consequuntur suscipit aut.",
+            isHelpful: 8,
+            isNotHelpful: 14,
+            archived: false,
+          },
+          {
+            variantId: "edbc4b2f0bef0027ad9debd4",
+            userId: "34b36ed6c8e67f481ac2bc6d",
+            rating: 3,
+            title: "Dolorum repudiandae at distinctio voluptatem voluptatum.",
+            body: "Facilis similique voluptates vitae eos debitis ab quas nisi deleniti. Alias aperiam ullam pariatur voluptatibus. Quasi libero assumenda aliquid cum distinctio ratione blanditiis vero sunt. Id expedita pariatur nobis.",
+            isHelpful: 19,
+            isNotHelpful: 88,
+            archived: false,
+          },
+          {
+            variantId: "edbc4b2f0bef0027ad9debd4",
+            userId: "b5dab0f1afdedcdfef0f6127",
+            rating: 2,
+            title: "Maxime non necessitatibus voluptate.",
+            body: "Impedit magnam eligendi magni itaque delectus ad earum nesciunt. Omnis laborum quia adipisci magnam praesentium inventore. Voluptas repellendus harum quasi veniam repudiandae facere. Quaerat suscipit voluptatem. Consectetur possimus eaque.",
+            isHelpful: 79,
+            isNotHelpful: 57,
+            archived: false,
+          },
+        ],
+        images: [
+          {
+            createdById: "9edd6f031d81d0e44e303c13",
+            path: "https://loremflickr.com/640/480/fashion",
+            alt: "fashion",
+            isActive: true,
+            isArchived: false,
+          },
+          {
+            createdById: "9edd6f031d81d0e44e303c13",
+            path: "https://loremflickr.com/640/480/fashion",
+            alt: "fashion",
+            isActive: true,
+            isArchived: false,
+          },
+          {
+            createdById: "9edd6f031d81d0e44e303c13",
+            path: "https://loremflickr.com/640/480/fashion",
+            alt: "fashion",
+            isActive: true,
+            isArchived: false,
+          },
+        ],
+        __v: 0,
+        createdAt: "2023-03-22T01:47:38.194Z",
+        updatedAt: "2023-03-22T01:47:38.194Z",
+      },
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

@@ -29,6 +29,8 @@ module.exports = {
       components: path.resolve(__dirname, "../src/components"),
       hooks: path.resolve(__dirname, "../src/hooks"),
       styles: path.resolve(__dirname, "../src/styles"),
+      state: path.resolve(__dirname, "../src/state"),
+      utils: path.resolve(__dirname, "../src/utils"),
     };
     return config;
   },
