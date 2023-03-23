@@ -1,6 +1,7 @@
 import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
 import { BADGE } from "@geometricpanda/storybook-addon-badges";
 import { Select } from "./Select";
+import { useState } from "react";
 
 <Meta
   title="Components/Select"
@@ -10,7 +11,15 @@ import { Select } from "./Select";
   }}
 />
 
-export const Template = (args) => <Select {...args} />;
+export const Template = (args) => {
+  const [value, setValue] = useState(args.options[0].value);
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
+  return (
+    <Select onChange={handleChange} value={value} options={args.options} />
+  );
+};
 
 # Select Component
 
@@ -31,7 +40,6 @@ import { Select } from 'components'
         { value: "2", label: "Option 2" },
         { value: "3", label: "Option 3" },
       ],
-      onChange: (value) => console.log(value),
     }}
   >
     {Template.bind({})}

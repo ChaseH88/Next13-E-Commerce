@@ -33,7 +33,7 @@ const Select = ({ options, value, onChange }: SelectProps) => {
       <InputStyled
         as="input"
         readOnly
-        value={selectedOption?.label || ""}
+        value={selectedOption?.label}
         onClick={() => setMenuOpen(!menuOpen)}
         ref={anchorRef}
       />
