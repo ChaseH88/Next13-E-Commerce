@@ -6,6 +6,7 @@ import { textCss } from "styles/helpers";
 export interface ChipProps {
   label: string;
   onDelete?: () => void;
+  fromContainer?: boolean;
 }
 
 const ChipContainer = styled(motion.div)`
@@ -28,9 +29,21 @@ const DeleteIcon = styled(motion.div)`
   user-select: none;
 `;
 
-const Chip = ({ label, onDelete }: ChipProps) => {
+const fromContainerProps = {
+  initial: {
+    opacity: 0,
+  },
+  animate: {
+    opacity: 1,
+  },
+  exit: {
+    opacity: 0,
+  },
+};
+
+const Chip = ({ label, onDelete, fromContainer }: ChipProps) => {
   return (
-    <ChipContainer layout>
+    <ChipContainer layout {...(fromContainer ? fromContainerProps : {})}>
       <ChipLabel>{label}</ChipLabel>
       {onDelete && (
         <DeleteIcon

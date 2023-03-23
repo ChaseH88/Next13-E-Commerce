@@ -5,7 +5,7 @@ import { Chip, ChipProps } from "./Chip";
 
 interface ChipContainerProps {
   chips: ChipProps[];
-  addButton: React.ReactNode;
+  addButton?: React.ReactNode;
 }
 
 const StyledChipContainer = styled(motion.div)`
@@ -21,9 +21,9 @@ const ChipContainer = ({ chips, addButton }: ChipContainerProps) => {
       <StyledChipContainer layout>
         <AnimatePresence>
           {chips.map((chip) => (
-            <Chip key={chip.label} {...chip} />
+            <Chip fromContainer key={chip.label} {...chip} />
           ))}
-          {AddButton}
+          {AddButton && <motion.div layout>{AddButton}</motion.div>}
         </AnimatePresence>
       </StyledChipContainer>
     </LayoutGroup>
