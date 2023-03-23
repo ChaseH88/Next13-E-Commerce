@@ -12,6 +12,7 @@ import {
   FaGlobeAmericas,
   FaHeadset,
   FaShoppingBag,
+  FaCaretRight,
 } from "react-icons/fa";
 
 const icons = {
@@ -27,6 +28,7 @@ const icons = {
   FaGlobeAmericas,
   FaHeadset,
   FaShoppingBag,
+  FaCaretRight,
 } as const;
 
 type IconName = keyof typeof icons;
