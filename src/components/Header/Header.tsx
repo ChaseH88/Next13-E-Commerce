@@ -21,7 +21,7 @@ const Header = (props: HeaderProps) => {
   const scrollPast = useMemo(() => scrollPosition > 100, [scrollPosition]);
   const {
     state: { query },
-    dispatch: { setQuery },
+    actions: { setQueryAction },
   } = useSearchState();
   const {
     state: { loggedIn, user },
@@ -112,7 +112,7 @@ const Header = (props: HeaderProps) => {
                   placeholder="What are you looking for?"
                   formInputName="query"
                   onChange={(e) => {
-                    setQuery(e.target.value);
+                    setQueryAction(e.target.value);
                   }}
                   defaultValue={query}
                 />
@@ -264,7 +264,7 @@ const Header = (props: HeaderProps) => {
         onClose={() => console.log("close")}
         items={
           <Box>
-            <CartDropdown items={user?.cart} />
+            <CartDropdown items={user?.cart as any} />
           </Box>
         }
       />

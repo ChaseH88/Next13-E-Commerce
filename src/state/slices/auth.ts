@@ -5,13 +5,6 @@ import { UserInterface } from "types/interfaces";
 import { Response } from "types/types";
 import axiosBaseQuery from "state/services/axiosBaseQuery";
 
-const windowAvailable = () =>
-  !!(
-    typeof window !== "undefined" &&
-    window.document &&
-    window.document.createElement
-  );
-
 export interface AuthState {
   user: UserInterface | null;
   loggedIn: boolean;
@@ -69,7 +62,11 @@ export const authSlice = createSlice({
     user: null,
     loggedIn: false,
   } as AuthState,
-  reducers: {},
+  reducers: {
+    updateCart: (state, action) => {
+      state.user!.cart = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addMatcher(authApi.endpoints.me.matchFulfilled, (state, { payload }) => {
@@ -112,5 +109,7 @@ export const {
   useGetUserByIdQuery,
   util: { getRunningQueriesThunk: authGetRunningQueriesThunk },
 } = authApi;
+
+export const { updateCart } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -8,6 +8,8 @@ import { formatCurrency } from "utils/format-currency";
 import { useTheme } from "styled-components";
 import { CartDropdownStyled } from "./styles";
 import { useMemo } from "react";
+import { useProductState } from "hooks/redux/useProductState";
+import { useAuthState } from "hooks/redux/useAuthState";
 
 interface CartInterface
   extends Omit<CartItemInterface, "productId" | "variantId"> {
@@ -21,22 +23,36 @@ interface CartDropdownProps {
 
 const CartDropdown = ({ items }: CartDropdownProps) => {
   const theme = useTheme();
+  const {
+    actions: { setUpdateCartAction },
+  } = useAuthState();
+  const { useAddToCartMutation } = useProductState();
+  const [addToCart, { isLoading, data }] = useAddToCartMutation();
 
   const total = useMemo(() => {
-    return items.reduce((acc, item) => {
+    return items?.reduce((acc, item) => {
       const price = item.productId.price.value * item.quantity;
       return acc + price;
     }, 0);
   }, [items]);
 
-  if (!items.length) return <Box>cart is empty</Box>;
+  const handleAddToCart = async (item: CartInterface) => {
+    const res = await addToCart({
+      productId: item.productId._id!,
+      variantId: item.variantId._id!,
+      quantity: 1,
+    });
+    setUpdateCartAction((res as any).data.data);
+  };
+
+  if (!items?.length) return <Box>cart is empty</Box>;
 
   return (
     <CartDropdownStyled className="cart-wrapper">
       {items.map((item) => (
         <Box
           className="item"
-          key={item.id}
+          key={`${item.productId._id}-${item.variantId._id}`}
           display="flex"
           alignItems="center"
           justifyContent="space-between"
@@ -65,7 +81,13 @@ const CartDropdown = ({ items }: CartDropdownProps) => {
             display="flex"
             justifyContent="flex-end"
           >
-            <Button variant="no-outline-icon">
+            <Button
+              variant="no-outline-icon"
+              disabled={isLoading}
+              onClick={async () => {
+                await handleAddToCart(item);
+              }}
+            >
               <Icon name="FaPlus" />
             </Button>
           </Box>

@@ -7,6 +7,7 @@ import {
   productGetRunningQueriesThunk,
 } from "state/slices/product";
 import { useProductState } from "hooks/redux/useProductState";
+import { Fragment } from "react";
 
 export default function Home() {
   const {
@@ -19,7 +20,9 @@ export default function Home() {
       <Box maxWidth={"80%"} style={{ margin: "0 auto" }}>
         <Grid>
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <Fragment key={product._id}>
+              <ProductCard product={product} />
+            </Fragment>
           ))}
         </Grid>
       </Box>
