@@ -33,7 +33,7 @@ const handler = connectHandler(
 
           const variant = product?.variants.find(
             (variant: VariantInterface) =>
-              variant.id.toString() === item.variantId.toString()
+              variant!.id!.toString() === item.variantId.toString()
           );
           return {
             ...item,

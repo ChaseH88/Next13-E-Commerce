@@ -13,10 +13,9 @@ const Select = ({ options, value, onChange }: SelectProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const anchorRef = useRef<HTMLInputElement>(null);
 
-  const handleMenuClose = () =>
-    useCallback(() => {
-      setMenuOpen(false);
-    }, []);
+  const handleMenuClose = () => {
+    setMenuOpen(false);
+  };
 
   const handleOptionClick = useCallback((value: string | number) => {
     onChange(value);

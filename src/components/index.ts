@@ -10,6 +10,7 @@ export * from "./Icon";
 export * from "./Input";
 export * from "./Modal";
 export * from "./ProductCard";
+export * from "./Select";
 export * from "./Slider";
 export * from "./TopBar";
 export * from "./Typography";
