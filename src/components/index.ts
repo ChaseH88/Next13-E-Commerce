@@ -2,6 +2,7 @@ export * from "../modules/AppLayout";
 export * from "./Banner";
 export * from "./Box";
 export * from "./Button";
+export * from "./Chip";
 export * from "./DropdownMenu";
 export * from "./Form";
 export * from "./Grid";

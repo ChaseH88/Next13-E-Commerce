@@ -1,0 +1,65 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { BADGE } from "@geometricpanda/storybook-addon-badges";
+import { ChipContainer, Box, Button, Icon } from "components";
+import { useState } from "react";
+
+<Meta
+  title="Components/Chip"
+  component={ChipContainer}
+  parameters={{
+    badges: [BADGE.STABLE],
+  }}
+/>
+
+export const Template = (args) => {
+  const [chips, setChips] = useState([
+    { label: "Chip 1", onDelete: () => {} },
+    { label: "Chip 2", onDelete: () => {} },
+    { label: "Chip 3", onDelete: () => {} },
+  ]);
+  const handleDelete = (chipLabel) => {
+    setChips(chips.filter((chip) => chip.label !== chipLabel));
+  };
+  const handleAdd = () => {
+    setChips([
+      ...chips,
+      { label: `Chip ${chips.length + 1}`, onDelete: () => {} },
+    ]);
+  };
+  return (
+    <Box>
+      <ChipContainer
+        chips={chips.map((chip) => ({
+          ...chip,
+          onDelete: () => handleDelete(chip.label),
+        }))}
+        addButton={
+          <Button onClick={handleAdd} variant="no-outline-icon">
+            <Icon name="FaPlus" />
+          </Button>
+        }
+      />
+    </Box>
+  );
+};
+
+# ChipContainer Component
+
+```
+import { ChipContainer } from 'components'
+```
+
+## Props
+
+{/_ <ArgsTable of={ChipContainer} /> _/}
+
+<Canvas>
+  <Story
+    name="Container"
+    args={{
+      label: "ChipContainer Label",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

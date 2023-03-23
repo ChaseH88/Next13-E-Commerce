@@ -1,0 +1,34 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { BADGE } from "@geometricpanda/storybook-addon-badges";
+import { Chip } from "./Chip";
+
+<Meta
+  title="Components/Chip"
+  component={Chip}
+  parameters={{
+    badges: [BADGE.STABLE],
+  }}
+/>
+
+export const Template = (args) => <Chip {...args} />;
+
+# Chip Component
+
+```
+import { Chip } from 'components'
+```
+
+## Props
+
+<ArgsTable of={Chip} />
+
+<Canvas>
+  <Story
+    name="Single Chip"
+    args={{
+      label: "Chip Label",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
