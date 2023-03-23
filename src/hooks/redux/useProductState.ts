@@ -4,6 +4,7 @@ import {
   ProductState,
   useGetProductFeedQuery,
   useAddToCartMutation,
+  useRemoveFromCartMutation,
 } from "state/slices/product";
 
 export const useProductState = () => ({
@@ -12,4 +13,5 @@ export const useProductState = () => ({
   ) as ProductState,
   useGetProductFeedQuery,
   useAddToCartMutation,
+  useRemoveFromCartMutation,
 });

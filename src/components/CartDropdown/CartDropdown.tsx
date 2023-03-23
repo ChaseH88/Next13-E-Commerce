@@ -10,6 +10,7 @@ import { CartDropdownStyled } from "./styles";
 import { useMemo } from "react";
 import { useProductState } from "hooks/redux/useProductState";
 import { useAuthState } from "hooks/redux/useAuthState";
+import { handleLoading } from "utils/handle-loading";
 
 interface CartInterface
   extends Omit<CartItemInterface, "productId" | "variantId"> {
@@ -26,8 +27,11 @@ const CartDropdown = ({ items }: CartDropdownProps) => {
   const {
     actions: { setUpdateCartAction },
   } = useAuthState();
-  const { useAddToCartMutation } = useProductState();
-  const [addToCart, { isLoading, data }] = useAddToCartMutation();
+  const { useAddToCartMutation, useRemoveFromCartMutation } = useProductState();
+  const [addToCart, { isLoading: addToCartLoading }] = useAddToCartMutation();
+  const [removeFromCart, { isLoading: removeFromCartLoading }] =
+    useRemoveFromCartMutation();
+  const isLoading = handleLoading(addToCartLoading, removeFromCartLoading);
 
   const total = useMemo(() => {
     return items?.reduce((acc, item) => {
@@ -39,6 +43,14 @@ const CartDropdown = ({ items }: CartDropdownProps) => {
   const handleAddToCart = async (item: CartInterface) => {
     const res = await addToCart({
       productId: item.productId._id!,
+      variantId: item.variantId._id!,
+      quantity: 1,
+    });
+    setUpdateCartAction((res as any).data.data);
+  };
+
+  const handleRemoveFromCart = async (item: CartInterface) => {
+    const res = await removeFromCart({
       variantId: item.variantId._id!,
       quantity: 1,
     });
@@ -81,6 +93,15 @@ const CartDropdown = ({ items }: CartDropdownProps) => {
             display="flex"
             justifyContent="flex-end"
           >
+            <Button
+              variant="no-outline-icon"
+              disabled={isLoading}
+              onClick={async () => {
+                await handleRemoveFromCart(item);
+              }}
+            >
+              <Icon name="FaMinus" />
+            </Button>
             <Button
               variant="no-outline-icon"
               disabled={isLoading}

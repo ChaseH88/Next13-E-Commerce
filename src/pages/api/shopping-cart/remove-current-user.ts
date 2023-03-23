@@ -1,6 +1,11 @@
 import { NextApiResponse } from "next";
 import { Response } from "types/types";
-import { CustomRequest, CartItemInterface } from "types/interfaces";
+import {
+  CustomRequest,
+  CartItemInterface,
+  UserInterface,
+  ProductInterface,
+} from "types/interfaces";
 import { connectHandler } from "utils";
 import { User } from "models/user";
 import { Product } from "models/product";
@@ -54,7 +59,7 @@ const handler = connectHandler(
       }
     }
 
-    await User.findByIdAndUpdate(
+    const updated = (await User.findByIdAndUpdate(
       req.userId,
       {
         $set: {
@@ -62,10 +67,36 @@ const handler = connectHandler(
         },
       },
       { new: true, upsert: true, strict: false }
-    );
+    )
+      .select("-password")
+      .populate({
+        path: "cart",
+        populate: [
+          {
+            path: "productId",
+            model: Product,
+          },
+        ],
+      })) as UserInterface;
+
+    const formattedCart = updated?.cart?.map(
+      ({ productId, variantId, quantity }) => {
+        const variantDoc = (
+          productId as unknown as ProductInterface
+        ).variants.find(
+          (variant) => variant._id?.toString() === variantId.toString()
+        );
+        return {
+          productId,
+          variantId: variantDoc,
+          quantity,
+        };
+      }
+    ) as unknown as CartItemInterface[];
 
     res.status(200).json({
       message: "Product has been removed from cart",
+      data: formattedCart,
     });
   }
 );

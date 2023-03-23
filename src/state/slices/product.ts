@@ -45,6 +45,20 @@ export const productApi = createApi({
         return response;
       },
     }),
+    removeFromCart: builder.mutation<
+      Response<CartItemInterface[]>,
+      { variantId: string; quantity: number }
+    >({
+      query: (params) => ({
+        url: "/shopping-cart/remove-current-user",
+        method: "PUT",
+        body: params,
+      }),
+      invalidatesTags: [{ type: "Products", id: "current" }],
+      transformResponse: (response: Response<CartItemInterface[]>) => {
+        return response;
+      },
+    }),
   }),
 });
 
@@ -66,6 +80,10 @@ export const productSlice = createSlice({
         productApi.endpoints.addToCart.matchFulfilled,
         (state, { payload }) => {}
       )
+      .addMatcher(
+        productApi.endpoints.removeFromCart.matchFulfilled,
+        (state, { payload }) => {}
+      )
       .addDefaultCase((state, action) => {
         if (action.type === HYDRATE) {
           const incoming = action.payload.product;
@@ -79,6 +97,7 @@ export const productSlice = createSlice({
 export const {
   useGetProductFeedQuery,
   useAddToCartMutation,
+  useRemoveFromCartMutation,
   util: { getRunningQueriesThunk: productGetRunningQueriesThunk },
 } = productApi;
 
