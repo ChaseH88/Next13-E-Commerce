@@ -4,10 +4,10 @@ import { HYDRATE } from "next-redux-wrapper";
 import { CartItemInterface, ProductInterface } from "types/interfaces";
 import { Response } from "types/types";
 import axiosBaseQuery from "state/services/axiosBaseQuery";
-import { authApi } from "./auth";
 
 export interface ProductState {
   products: ProductInterface[];
+  currentPageProduct: ProductInterface | null;
 }
 
 export const productApi = createApi({
@@ -28,6 +28,18 @@ export const productApi = createApi({
         method: "GET",
       }),
       transformResponse: (response: Response<ProductInterface[]>) => {
+        return response;
+      },
+    }),
+    getProductBySlug: builder.query<
+      Response<ProductInterface>,
+      { slug: string }
+    >({
+      query: (params) => ({
+        url: `/product/get-by-slug?slug=${params.slug}`,
+        method: "GET",
+      }),
+      transformResponse: (response: Response<ProductInterface>) => {
         return response;
       },
     }),
@@ -66,6 +78,7 @@ export const productSlice = createSlice({
   name: "product",
   initialState: {
     products: [],
+    currentPageProduct: null,
   } as ProductState,
   reducers: {},
   extraReducers: (builder) => {
@@ -74,6 +87,12 @@ export const productSlice = createSlice({
         productApi.endpoints.getProductFeed.matchFulfilled,
         (state, { payload }) => {
           state.products = payload.data || [];
+        }
+      )
+      .addMatcher(
+        productApi.endpoints.getProductBySlug.matchFulfilled,
+        (state, { payload }) => {
+          state.currentPageProduct = payload.data || null;
         }
       )
       .addMatcher(
@@ -96,6 +115,7 @@ export const productSlice = createSlice({
 
 export const {
   useGetProductFeedQuery,
+  useGetProductBySlugQuery,
   useAddToCartMutation,
   useRemoveFromCartMutation,
   util: { getRunningQueriesThunk: productGetRunningQueriesThunk },

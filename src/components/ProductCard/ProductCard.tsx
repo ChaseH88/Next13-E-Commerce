@@ -17,14 +17,21 @@ export const ProductCardStyled = styled(Box)`
 
 interface ProductCardProps {
   product: ProductInterface;
+  onClick?: () => void;
 }
 
 const ProductCard = ({
   product: { name, images, price },
+  onClick,
 }: ProductCardProps) => {
   const theme = useTheme();
   return (
-    <ProductCardStyled display="flex" flex="1 1 auto" flexDirection="column">
+    <ProductCardStyled
+      display="flex"
+      flex="1 1 auto"
+      flexDirection="column"
+      onClick={onClick}
+    >
       <Box className="photo">
         <Slider images={images.map((image) => image.path)} />
       </Box>

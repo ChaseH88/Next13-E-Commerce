@@ -3,6 +3,7 @@ import { CartDropdown } from "components/CartDropdown";
 import { useScrollPosition, useDropdownMenu, useOnScroll } from "hooks";
 import { useAuthState } from "hooks/redux/useAuthState";
 import { useSearchState } from "hooks/redux/useSearchState";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useCallback, useMemo, useState } from "react";
 import { useTheme } from "styled-components";
@@ -95,7 +96,9 @@ const Header = (props: HeaderProps) => {
                 fontSize: "1.5em",
               }}
             >
-              FitZip
+              <Link href={"/"} style={{ all: "unset", cursor: "pointer" }}>
+                FitZip
+              </Link>
             </Typography>
           </Box>
           <Box flex={"1 1 auto"} className="menu">
