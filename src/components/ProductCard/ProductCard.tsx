@@ -26,12 +26,7 @@ const ProductCard = ({
 }: ProductCardProps) => {
   const theme = useTheme();
   return (
-    <ProductCardStyled
-      display="flex"
-      flex="1 1 auto"
-      flexDirection="column"
-      onClick={onClick}
-    >
+    <ProductCardStyled display="flex" flex="1 1 auto" flexDirection="column">
       <Box className="photo">
         <Slider images={images.map((image) => image.path)} />
       </Box>
@@ -40,6 +35,7 @@ const ProductCard = ({
         style={{ textAlign: "center" }}
         background={theme.colors.palette.white[100]}
         padding={theme.spacing[2]}
+        onClick={onClick}
       >
         <Box className="title">
           <Typography variant="h5">{name}</Typography>

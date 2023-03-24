@@ -29,9 +29,24 @@ import { ImageInterface } from "types/interfaces";
     api_key: '899273552835847'
   }
  */
+const images = [
+  faker.image.abstract,
+  faker.image.animals,
+  faker.image.business,
+  faker.image.cats,
+  faker.image.city,
+  faker.image.food,
+  faker.image.nightlife,
+  faker.image.fashion,
+  faker.image.people,
+  faker.image.nature,
+  faker.image.sports,
+  faker.image.technics,
+  faker.image.transport,
+];
 
 const products = {
-  apparel: faker.image.fashion,
+  apparel: images[Math.floor(Math.random() * images.length)],
 };
 
 /**
@@ -42,7 +57,7 @@ export const imageFaker = async (
   createdById: string,
   imageType: keyof typeof products
 ): Promise<ImageInterface> => {
-  const image = products[imageType]();
+  const image = images[Math.floor(Math.random() * images.length)]();
   const name = image.split("/").pop()!;
   return {
     id: faker.database.mongodbObjectId(),

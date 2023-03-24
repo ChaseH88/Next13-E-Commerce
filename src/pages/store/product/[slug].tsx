@@ -1,4 +1,4 @@
-import { Box, Typography } from "components";
+import { Box, ProductDetails, Typography } from "components";
 import { AppLayout } from "modules";
 import { authApi, authGetRunningQueriesThunk } from "state/slices/auth";
 import { wrapper } from "state";
@@ -18,14 +18,7 @@ export default function Home() {
   return (
     <AppLayout>
       <Box maxWidth={"80%"} style={{ margin: "8em auto 0" }}>
-        <Box className="title">
-          <Typography variant="h1">{currentPageProduct?.name}</Typography>
-        </Box>
-        <Box className="description">
-          <Typography variant="subtitle1">
-            {currentPageProduct?.description}
-          </Typography>
-        </Box>
+        {currentPageProduct && <ProductDetails product={currentPageProduct} />}
       </Box>
     </AppLayout>
   );

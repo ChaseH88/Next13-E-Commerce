@@ -1,4 +1,8 @@
 import styled, { css } from "styled-components";
+import { makeTheme } from "styles/theme";
+
+type Theme = ReturnType<typeof makeTheme>;
+type FontWeights = Theme["fontWeights"];
 
 type Variant =
   | "h1"
@@ -18,6 +22,7 @@ export interface TypographyStyledProps {
   color?: string;
   align?: "left" | "right" | "center" | "justify";
   fontSize?: string;
+  weight?: keyof FontWeights;
 }
 
 const typographyStyles = {
@@ -84,4 +89,5 @@ export const TypographyStyled = styled.p<TypographyStyledProps>`
   color: ${({ color }) => color || "inherit"};
   text-align: ${({ align }) => align || "inherit"};
   ${({ fontSize }) => fontSize && `font-size: ${fontSize} !important;`}
+  ${({ weight }) => weight && `font-weight: ${weight} !important;`}
 `;

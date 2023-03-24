@@ -1,4 +1,10 @@
-import React, { useState, useRef, useCallback, useMemo } from "react";
+import React, {
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+  useLayoutEffect,
+} from "react";
 import { InputStyled } from "components/Input/styles";
 import { SelectStyled, SelectOptionStyled, ArrowStyled } from "./styles";
 import { DropdownMenu, Icon, Typography } from "components";
@@ -70,6 +76,7 @@ const Select = ({ options, value, onChange }: SelectProps) => {
             ))}
           </>
         }
+        style={{ top: "100% !important", left: "0 !important" }}
       />
     </SelectStyled>
   );

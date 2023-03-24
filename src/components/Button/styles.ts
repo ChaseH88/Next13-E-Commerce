@@ -186,6 +186,9 @@ export const ButtonStyled = styled.button<ButtonStyledProps>`
   text-transform: uppercase;
   transition: background-color 0.25s ease-in-out, color 0.25s ease-in-out,
     border-color 0.25s ease-in-out;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 
   &:hover {
     opacity: 0.8;

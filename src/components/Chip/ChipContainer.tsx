@@ -11,7 +11,15 @@ interface ChipContainerProps {
 const StyledChipContainer = styled(motion.div)`
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
+
+  .add-button {
+    button {
+      height: auto;
+      width: auto;
+    }
+  }
 `;
 
 const ChipContainer = ({ chips, addButton }: ChipContainerProps) => {
@@ -23,7 +31,11 @@ const ChipContainer = ({ chips, addButton }: ChipContainerProps) => {
           {chips.map((chip) => (
             <Chip fromContainer key={chip.label} {...chip} />
           ))}
-          {AddButton && <motion.div layout>{AddButton}</motion.div>}
+          {AddButton && (
+            <motion.div className="add-button" layout>
+              {AddButton}
+            </motion.div>
+          )}
         </AnimatePresence>
       </StyledChipContainer>
     </LayoutGroup>

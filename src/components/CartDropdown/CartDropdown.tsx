@@ -12,7 +12,7 @@ import { useProductState } from "hooks/redux/useProductState";
 import { useAuthState } from "hooks/redux/useAuthState";
 import { handleLoading } from "utils/handle-loading";
 
-interface CartInterface
+export interface CartInterface
   extends Omit<CartItemInterface, "productId" | "variantId"> {
   productId: ProductInterface;
   variantId: VariantInterface;

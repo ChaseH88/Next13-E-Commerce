@@ -1,0 +1,46 @@
+import { Canvas, Meta, Story, ArgsTable } from "@storybook/addon-docs";
+import { BADGE } from "@geometricpanda/storybook-addon-badges";
+import { ProductDetails, Box } from "components";
+import { product } from "./sample-data/product";
+
+<Meta
+  title="Product"
+  component={ProductDetails}
+  parameters={{
+    badges: [BADGE.STABLE],
+  }}
+/>
+
+export const Template = (args) => (
+  <>
+    <Box
+      display="flex"
+      gap={"2em"}
+      maxWidth={"80%"}
+      style={{ margin: "0 auto" }}
+    >
+      <ProductDetails {...args} />
+    </Box>
+  </>
+);
+
+# ProductDetails Component
+
+```
+import { ProductDetails } from 'components'
+```
+
+## Props
+
+<ArgsTable of={ProductDetails} />
+
+<Canvas>
+  <Story
+    name="Details Page"
+    args={{
+      product,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
