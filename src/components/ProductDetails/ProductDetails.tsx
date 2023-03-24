@@ -116,7 +116,12 @@ export const ProductDetails = ({
   };
 
   return (
-    <ProductDetailsStyled display="flex" gap="1em" flexWrap="wrap">
+    <ProductDetailsStyled
+      display="flex"
+      gap="1em"
+      flexWrap="wrap"
+      alignItems="center"
+    >
       <Box className="images" flex="0 0 100px" position="relative">
         <ScrollButton onClick={() => scrollImages("up")}>&#x25B2;</ScrollButton>
         <motion.div
@@ -138,16 +143,16 @@ export const ProductDetails = ({
           &#x25BC;
         </ScrollButton>
       </Box>
-      <Box className="highlight-photo" flex="0 0 30%">
+      <Box className="highlight-photo" flex="1 1 20%" height="100%">
         {highlightedImage && (
           <img
             src={highlightedImage.path}
             alt={highlightedImage.alt}
-            style={{ objectFit: "cover", width: "100%" }}
+            style={{ objectFit: "cover", width: "100%", maxHeight: "25em" }}
           />
         )}
       </Box>
-      <Box className="details" flex="1 1 auto">
+      <Box className="details" flex="1 1 70%">
         <Box className="title">
           <Typography variant="h1">{name}</Typography>
           <Typography variant="subtitle1" color="textSecondary">
