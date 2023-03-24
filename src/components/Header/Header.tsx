@@ -193,9 +193,26 @@ const Header = (props: HeaderProps) => {
                 cartDropdown.handleToggle();
                 accountDropdown.handleClose();
               }}
-              style={{ display: "inline-block", margin: "0 5px 0 0" }}
+              style={{
+                display: "inline-block",
+                margin: "0 5px 0 0",
+                position: "relative",
+              }}
             >
               <Icon name="FaShoppingCart" />
+              {!!user?.cart?.length && (
+                <Typography
+                  variant="h4"
+                  style={{
+                    fontSize: "1em",
+                    position: "absolute",
+                    top: "-10px",
+                    right: "2px",
+                  }}
+                >
+                  {user?.cart?.length}
+                </Typography>
+              )}
             </Button>
           </Box>
         </Box>

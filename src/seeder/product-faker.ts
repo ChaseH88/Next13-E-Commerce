@@ -28,7 +28,33 @@ export const reviewFaker = (
  */
 const variantFaker = (): ProductInterface["variants"][0] => ({
   id: faker.database.mongodbObjectId(),
-  name: "default",
+  name: faker.helpers.arrayElement([
+    "default",
+    "Blue Small T-Shirt",
+    "Blue Medium T-Shirt",
+    "Blue Large T-Shirt",
+    "Blue XL T-Shirt",
+    "Blue XXL T-Shirt",
+    "Red Small T-Shirt",
+    "Red Medium T-Shirt",
+    "Red Large T-Shirt",
+    "Red XL T-Shirt",
+    "Green Small T-Shirt",
+    "Green Medium T-Shirt",
+    "Green Large T-Shirt",
+    "Green XL T-Shirt",
+    "Green XXL T-Shirt",
+    "Black Small T-Shirt",
+    "Black Medium T-Shirt",
+    "Black Large T-Shirt",
+    "Black XL T-Shirt",
+    "Black XXL T-Shirt",
+    "White Small T-Shirt",
+    "White Medium T-Shirt",
+    "White Large T-Shirt",
+    "White XL T-Shirt",
+    "White XXL T-Shirt",
+  ]),
   color: faker.color.human(),
   size: faker.helpers.arrayElement(sizeArr),
   quantity: faker.datatype.number({ min: 1, max: 10 }),
@@ -61,7 +87,7 @@ export const productFaker = async (
     images: [],
     gender: faker.helpers.shuffle(genderArr as any).slice(0, 1) as GenderType[],
     variants: Array.from({
-      length: faker.datatype.number({ min: 1, max: 1 }),
+      length: faker.datatype.number({ min: 3, max: 10 }),
     }).map(variantFaker),
   };
 };
